@@ -1,10 +1,10 @@
 import express from "express";
 
 // Controllers imported
-import { sendRJ1Email } from "../controllers/emailController.js";
+import { sendRJ1FormEmails } from "../controllers/emailsController.js";
 
 const router = express.Router();
 
-router.route("/").post(sendRJ1Email);
+router.route("/").post(sendRJ1FormEmails);
 
 export default router;

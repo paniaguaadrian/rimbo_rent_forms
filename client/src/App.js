@@ -13,8 +13,8 @@ const App = () => {
   return (
     <>
       <Route exact path="/register/rj1" component={RegisterTenancy} />
-      <Route path="/register/rj2/:randomID" component={RegisterTenant} />
-      <Route path="/register/rj3/:randomID" component={StripeHandler} />
+      <Route exact path="/register/rj2/:tenancyID" component={RegisterTenant} />
+      <Route exact path="/register/rj3/:randomID" component={StripeHandler} />
     </>
   );
 };

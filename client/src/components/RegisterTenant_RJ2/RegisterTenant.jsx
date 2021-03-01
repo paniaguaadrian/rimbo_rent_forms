@@ -1,5 +1,5 @@
 // React Components
-import React, { useState, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { TenantReducer, DefaultTenant } from "./tenant-reducer";
@@ -22,11 +22,43 @@ import Button from "../Button";
 import Loader from "react-loader-spinner";
 
 const RegisterTenant = () => {
+  const { tenancyID } = useParams();
+
   const [tenant, setTenant] = useReducer(TenantReducer, DefaultTenant);
   const [errors, setErrors] = useState({});
   const [isProcessing, setProcessingTo] = useState(false);
 
-  const { randomID } = useParams();
+  const [responseData, setResponseData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState(null);
+
+  // GET from DB => Tenancy information
+  useEffect(
+    () => {
+      const getData = () => {
+        fetch(`http://localhost:8080/api/tenancy/${tenancyID}`)
+          .then((res) => {
+            if (res.status >= 400) {
+              throw new Error("Server responds with error!" + res.status);
+            }
+            return res.json();
+          })
+          .then(
+            (responseData) => {
+              setResponseData(responseData);
+              setLoading(true);
+            },
+            (err) => {
+              setErr(err);
+              setLoading(true);
+            }
+          );
+      };
+      getData();
+    },
+    [tenancyID],
+    [responseData, loading, err]
+  );
 
   // Handle on change
   const handleNewTenant = ({ target }) => {
@@ -47,6 +79,7 @@ const RegisterTenant = () => {
     if (Object.keys(errors).length > 0) return;
     setProcessingTo(true);
 
+    // POST to RIMBO_API => DB
     await axios.post("http://localhost:8080/api/tenants/:id", {
       // tenant
       monthlyNetIncome: tenant.monthlyNetIncome,
@@ -59,9 +92,37 @@ const RegisterTenant = () => {
       documentImageBack: tenant.documentImageBack,
       documentConfirmAddress: tenant.documentConfirmAddress,
       isAcceptedPrivacy: tenant.isAcceptedPrivacy,
-      randomID: randomID,
+      randomID: tenancyID,
     });
-    console.log(tenant);
+
+    // POST to email service
+    await axios.post("http://localhost:8081/submit-email/rj2", {
+      // Agent/Agency
+      agencyName: responseData.agent.agencyName,
+      agencyContactPerson: responseData.agent.agencyContactPerson,
+      agencyPhonePerson: responseData.agent.agencyPhonePerson,
+      agencyEmailPerson: responseData.agent.agencyEmailPerson,
+      // Tenant
+      tenantsName: responseData.tenant.tenantsName,
+      tenantsPhone: responseData.tenant.tenantsPhone,
+      tenantsEmail: responseData.tenant.tenantsEmail,
+      monthlyNetIncome: tenant.monthlyNetIncome,
+      jobType: tenant.jobType,
+      // ! Falta documento de DNI
+      tenantsAddress: tenant.tenantsAddress,
+      tenantsZipCode: tenant.tenantsZipCode,
+      // Proprety
+      monthlyRent: responseData.property.monthlyRent,
+      rimboService: responseData.property.rimboService,
+      rentalDuration: responseData.property.rentalDuration,
+      rentalAddress: responseData.property.rentalAddress,
+      rentalCity: responseData.property.rentalCity,
+      rentalPostalCode: responseData.property.rentalPostalCode,
+      // Landlord
+      landlordName: responseData.landlord.landlordName,
+      landlordPhone: responseData.landlord.landlordPhone,
+      landlordEmail: responseData.landlord.landlordEmail,
+    });
   };
 
   const documentType = ["DNI", "NIE", "Passport", "Other"];

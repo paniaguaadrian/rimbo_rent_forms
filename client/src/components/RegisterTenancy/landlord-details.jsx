@@ -75,6 +75,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
       product: tenancy.propertyDetails.rimboService,
       rentDuration: tenancy.propertyDetails.rentalDuration,
       rentAmount: tenancy.propertyDetails.monthlyRent,
+      tenancyID: randomID,
       // property manager
       PMName: tenancy.agencyName,
     });
@@ -82,15 +83,24 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
     await axios.post("http://localhost:8081/submit-email/rj1", {
       tenantsName: tenancy.tenantDetails.tenantName,
       tenantsEmail: tenancy.tenantDetails.tenantEmail,
+      tenantsPhone: tenancy.tenantDetails.tenantPhone,
       agencyName: tenancy.agencyName,
+      agencyContactPerson: tenancy.agencyContactPerson,
+      agencyPhonePerson: tenancy.agencyPhonePerson,
+      agencyEmailPerson: tenancy.agencyEmailPerson,
+      rentalDuration: tenancy.propertyDetails.rentalDuration,
+      rimboService: tenancy.propertyDetails.rimboService,
+      monthlyRent: tenancy.propertyDetails.monthlyRent,
       rentalAddress: tenancy.propertyDetails.rentalAddress,
       rentalPostalCode: tenancy.propertyDetails.rentalPostalCode,
       rentalCity: tenancy.propertyDetails.rentalCity,
+      landlordName: tenancy.landlordDetails.landlordName,
+      landlordEmail: tenancy.landlordDetails.landlordEmail,
+      landlordPhone: tenancy.landlordDetails.landlordPhone,
       randomID,
     });
 
     setStep(step + 1);
-    console.log(tenancy);
   };
 
   return (

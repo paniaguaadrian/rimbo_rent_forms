@@ -51,10 +51,11 @@ const RegisterTenantCard = () => {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
 
+  // Fetch data from DataBase
   useEffect(
     () => {
       const getData = () => {
-        fetch(`http://localhost:8080/api/tenants`)
+        fetch(`http://localhost:8080/api/tenant/${randomID}`)
           .then((res) => {
             if (res.status >= 400) {
               throw new Error("Server responds with error!" + res.status);
@@ -74,7 +75,7 @@ const RegisterTenantCard = () => {
       };
       getData();
     },
-    [],
+    [randomID],
     [responseData, loading, err]
   );
 
@@ -95,12 +96,11 @@ const RegisterTenantCard = () => {
     const tenantsEmail = document.getElementById("email").innerHTML;
     const tenantsName = document.getElementById("name").innerHTML;
     const tenantsPhone = document.getElementById("phone").innerHTML;
-    console.log(tenantsEmail);
 
-    const timestamps = new Date()
-      .toISOString()
-      .replace(/T/, " ")
-      .replace(/\..+/, "");
+    // const timestamps = new Date()
+    //   .toISOString()
+    //   .replace(/T/, " ")
+    //   .replace(/\..+/, "");
 
     const cardElement = elements.getElement("card");
 
@@ -152,12 +152,12 @@ const RegisterTenantCard = () => {
         });
 
         // ! Post a el backend de emails en formularios
-        await axios.post("http://localhost:8081/submit-email/rj1", {
-          tenantsName,
-          tenantsEmail,
-          tenantsPhone,
-          timestamps,
-        });
+        // await axios.post("http://localhost:8081/submit-email/rj1", {
+        //   tenantsName,
+        //   tenantsEmail,
+        //   tenantsPhone,
+        //   timestamps,
+        // });
       }
     } catch (err) {
       setCheckoutError(err.message);
@@ -177,18 +177,14 @@ const RegisterTenantCard = () => {
                 You just need to review our Terms and Conditions and provide the
                 charge authorization
               </h2>
-              {responseData.map((tenant) => (
-                <div key={tenant.id}>
-                  {tenant.randomID === randomID ? (
-                    <p>
-                      * The card will NOT be blocked. The card will NOT be
-                      charged now. Only in case of legal claims presented by the
-                      landlord the card will be charged, import limited to{" "}
-                      <span>{tenant.tenantRimboService} months of rent.</span>
-                    </p>
-                  ) : null}
-                </div>
-              ))}
+              <div>
+                <p>
+                  * The card will NOT be blocked. The card will NOT be charged
+                  now. Only in case of legal claims presented by the landlord
+                  the card will be charged, import limited to{" "}
+                  <span>{responseData.tenantRimboService} of rent.</span>
+                </p>
+              </div>
             </div>
           </div>
           <div className={styles.CardContainer}>
@@ -196,18 +192,11 @@ const RegisterTenantCard = () => {
               <div className={styles.CardInput}>
                 <label>
                   <h3>Debit card details</h3>
-
-                  {responseData.map((tenant) => (
-                    <div key={tenant.id}>
-                      {tenant.randomID === randomID ? (
-                        <>
-                          <p id="name">{tenant.tenantsName}</p>
-                          <p id="email">{tenant.tenantsEmail}</p>
-                          <p id="phone">{tenant.tenantsPhone} </p>
-                        </>
-                      ) : null}
-                    </div>
-                  ))}
+                  <div>
+                    <p id="name">{responseData.tenantsName}</p>
+                    <p id="email">{responseData.tenantsEmail}</p>
+                    <p id="phone">{responseData.tenantsPhone}</p>
+                  </div>
 
                   <CardElement
                     options={CARD_ELEMENT_OPTIONS}

@@ -11,8 +11,8 @@ import cors from "cors";
 import Stripe from "stripe";
 
 // Routes imported
-import emailRoutes from "./routes/emailRoutes.js";
-// import stripeRoutes from "./routes/stripeRoutes.js";
+import emailRJ1Routes from "./routes/emailRJ1Routes.js";
+import emailRJ2Routes from "./routes/emailRJ2Routes.js";
 
 // Use dotenv to store variables
 dotenv.config();
@@ -48,13 +48,13 @@ app.get("/", (req, res) => {
 });
 
 // Declare routes and URL
-app.use("/submit-email/rj1", emailRoutes);
-// app.use("/stripe/card-wallet", stripeRoutes);
+app.use("/submit-email/rj1", emailRJ1Routes);
+app.use("/submit-email/rj2", emailRJ2Routes);
 
+// * Stripe action
 app.get("/stripe/card-wallet", (req, res) => {
   res.send("Api is working...!");
 });
-
 app.post("/stripe/card-wallet", async (req, res) => {
   try {
     const { tenantsName, tenantsEmail } = req.body;

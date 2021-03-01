@@ -10,6 +10,7 @@ export const DefaultTenancy = {
   agencyEmailPerson: "",
   agencyContactPerson: "",
   agencyPhonePerson: "",
+  tenancyID: "",
 
   tenantDetails: {
     tenantName: "",
