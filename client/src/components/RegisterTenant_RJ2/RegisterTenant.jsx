@@ -36,7 +36,7 @@ const RegisterTenant = () => {
   useEffect(
     () => {
       const getData = () => {
-        fetch(`http://localhost:8080/api/tenancy/${tenancyID}`)
+        fetch(`http://localhost:8080/api/tenancies/tenancy/${tenancyID}`)
           .then((res) => {
             if (res.status >= 400) {
               throw new Error("Server responds with error!" + res.status);
@@ -72,7 +72,7 @@ const RegisterTenant = () => {
     e.preventDefault();
     // const api_rimbo_tenants = process.env.REACT_APP_API_RIMBO_TENANTS;
     // Production axios: `${api_rimbo_tenants}`;
-    // Development axios : "http://localhost:8080/api/tenants"
+    // Development axios : "http://localhost:8080/api/tenants/tenant/:randomID"
 
     const errors = newTenant(tenant);
     setErrors(errors);
@@ -80,7 +80,7 @@ const RegisterTenant = () => {
     setProcessingTo(true);
 
     // POST to RIMBO_API => DB
-    await axios.post("http://localhost:8080/api/tenants/:id", {
+    await axios.post("http://localhost:8080/api/tenants/tenant/:randomID", {
       // tenant
       monthlyNetIncome: tenant.monthlyNetIncome,
       jobType: tenant.jobType,
@@ -157,7 +157,11 @@ const RegisterTenant = () => {
         </div>
       </div>
       <div className={styles.FormContent}>
-        <form onSubmit={handleSubmit} className="styles.RegisterForm">
+        <form
+          onSubmit={handleSubmit}
+          className="styles.RegisterForm"
+          encType="multipart/form-data"
+        >
           <div className={styles.FormIntern}>
             <div className={styles.FormLeft}>
               <Input

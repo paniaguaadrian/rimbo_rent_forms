@@ -55,7 +55,7 @@ const RegisterTenantCard = () => {
   useEffect(
     () => {
       const getData = () => {
-        fetch(`http://localhost:8080/api/tenant/${randomID}`)
+        fetch(`http://localhost:8080/api/tenants/tenant/${randomID}`)
           .then((res) => {
             if (res.status >= 400) {
               throw new Error("Server responds with error!" + res.status);
@@ -146,7 +146,7 @@ const RegisterTenantCard = () => {
         setIsSuccessfullySubmitted(true);
 
         // ! post a nuestra BDD
-        await axios.post("http://localhost:8080/api/tenants/stripe/:id", {
+        await axios.post("http://localhost:8080/api/tenants/stripe/:randomID", {
           isAccepted: tenant.isAccepted,
           randomID: randomID,
         });
