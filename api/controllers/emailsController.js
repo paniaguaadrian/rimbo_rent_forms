@@ -198,6 +198,7 @@ const sendRJ2FormEmails = async (req, res) => {
     landlordName,
     landlordPhone,
     landlordEmail,
+    tenancyID,
   } = req.body;
 
   const transporter = nodemailer.createTransport(
@@ -246,6 +247,10 @@ const sendRJ2FormEmails = async (req, res) => {
       <p>Landlord Full name: ${landlordName}</p>
       <p>Landlord Telephone Number: ${landlordPhone}</p>
       <p>LandlordEmail: ${landlordEmail}</p>
+    
+      <button type="button"><a href="http://localhost:3000/register/rj2/${tenancyID}/approved">Approve</a></button>
+
+      <button type="button"><a href="http://localhost:3000/register/rj2/${tenancyID}/rejected">Reject</a></button>
 
       <h3>DOCS SENT IN A SEPARATE EMAIL, PLEASE CHECK</h3>
       </div>`,

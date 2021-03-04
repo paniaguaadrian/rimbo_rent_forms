@@ -55,7 +55,7 @@ const RegisterTenantCard = () => {
   useEffect(
     () => {
       const getData = () => {
-        fetch(`http://localhost:8080/api/tenants/tenant/${randomID}`)
+        fetch(`http://localhost:8081/api/tenants/tenant/${randomID}`)
           .then((res) => {
             if (res.status >= 400) {
               throw new Error("Server responds with error!" + res.status);
@@ -120,7 +120,7 @@ const RegisterTenantCard = () => {
     try {
       // ! Post a el basckend de stripe en formularios
       const { data: client_secret } = await axios.post(
-        "http://localhost:8081/stripe/card-wallet",
+        "http://localhost:8080/stripe/card-wallet",
         {
           tenantsName,
           tenantsEmail,
@@ -146,13 +146,13 @@ const RegisterTenantCard = () => {
         setIsSuccessfullySubmitted(true);
 
         // ! post a nuestra BDD
-        await axios.post("http://localhost:8080/api/tenants/stripe/:randomID", {
+        await axios.post("http://localhost:8081/api/tenants/stripe/:randomID", {
           isAccepted: tenant.isAccepted,
           randomID: randomID,
         });
 
         // ! Post a el backend de emails en formularios
-        // await axios.post("http://localhost:8081/submit-email/rj1", {
+        // await axios.post("http://localhost:8080/submit-email/rj1", {
         //   tenantsName,
         //   tenantsEmail,
         //   tenantsPhone,

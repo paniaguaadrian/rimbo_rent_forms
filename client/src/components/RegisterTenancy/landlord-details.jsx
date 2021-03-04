@@ -36,7 +36,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
     e.preventDefault();
     // const api_rimbo_tenancies = process.env.REACT_APP_API_RIMBO;
     // Production axios: `${api_rimbo_tenancies}`;
-    // Development axios : "http://localhost:8080/api/tenancies"
+    // Development axios : "http://localhost:8081/api/tenancies"
 
     const errors = isLandlord(tenancy.landlordDetails);
     setErrors(errors);
@@ -46,7 +46,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
 
     const randomID = nanoid();
 
-    await axios.post("http://localhost:8080/api/tenancies", {
+    await axios.post("http://localhost:8081/api/tenancies", {
       // tenant
       tenantsName: tenancy.tenantDetails.tenantName,
       tenantsEmail: tenancy.tenantDetails.tenantEmail,
@@ -80,7 +80,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
       PMName: tenancy.agencyName,
     });
 
-    await axios.post("http://localhost:8081/submit-email/rj1", {
+    await axios.post("http://localhost:8080/submit-email/rj1", {
       tenantsName: tenancy.tenantDetails.tenantName,
       tenantsEmail: tenancy.tenantDetails.tenantEmail,
       tenantsPhone: tenancy.tenantDetails.tenantPhone,

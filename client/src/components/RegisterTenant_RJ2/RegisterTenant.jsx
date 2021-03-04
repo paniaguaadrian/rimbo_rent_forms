@@ -24,6 +24,8 @@ import Loader from "react-loader-spinner";
 const RegisterTenant = () => {
   const { tenancyID } = useParams();
 
+  console.log(tenancyID);
+
   const [tenant, setTenant] = useReducer(TenantReducer, DefaultTenant);
   const [errors, setErrors] = useState({});
   const [isProcessing, setProcessingTo] = useState(false);
@@ -32,11 +34,11 @@ const RegisterTenant = () => {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
 
-  // GET from DB => Tenancy information
+  // GET from DB => Tenancy information => Have all information about the tenancy => Send email with it.
   useEffect(
     () => {
       const getData = () => {
-        fetch(`http://localhost:8080/api/tenancies/tenancy/${tenancyID}`)
+        fetch(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`)
           .then((res) => {
             if (res.status >= 400) {
               throw new Error("Server responds with error!" + res.status);
@@ -71,16 +73,20 @@ const RegisterTenant = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const api_rimbo_tenants = process.env.REACT_APP_API_RIMBO_TENANTS;
+    // ! POST to RIMBO_API => DB
     // Production axios: `${api_rimbo_tenants}`;
-    // Development axios : "http://localhost:8080/api/tenants/tenant/:randomID"
+    // Development axios : "http://localhost:8081/api/tenants/tenant/:randomID"
+    // ! POST to email service
+    // Production axios: `${XXXXXXXXXXXXX}`;
+    // Development axios : "http://localhost:8080/submit-email/rj2"
 
     const errors = newTenant(tenant);
     setErrors(errors);
     if (Object.keys(errors).length > 0) return;
     setProcessingTo(true);
 
-    // POST to RIMBO_API => DB
-    await axios.post("http://localhost:8080/api/tenants/tenant/:randomID", {
+    // ! POST to RIMBO_API => DB
+    await axios.post("http://localhost:8081/api/tenants/tenant/:randomID", {
       // tenant
       monthlyNetIncome: tenant.monthlyNetIncome,
       jobType: tenant.jobType,
@@ -95,13 +101,14 @@ const RegisterTenant = () => {
       randomID: tenancyID,
     });
 
-    // POST to email service
-    await axios.post("http://localhost:8081/submit-email/rj2", {
+    // ! POST to email service
+    await axios.post("http://localhost:8080/submit-email/rj2", {
       // Agent/Agency
       agencyName: responseData.agent.agencyName,
-      agencyContactPerson: responseData.agent.agencyContactPerson,
+      agencyContactPerson: responseData.agent,
       agencyPhonePerson: responseData.agent.agencyPhonePerson,
       agencyEmailPerson: responseData.agent.agencyEmailPerson,
+      tenancyID,
       // Tenant
       tenantsName: responseData.tenant.tenantsName,
       tenantsPhone: responseData.tenant.tenantsPhone,
