@@ -104,7 +104,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="styles.RegisterForm">
+    <form onSubmit={handleSubmit} className={styles.RegisterForm}>
       <div className={styles.FormIntern}>
         <div className={styles.FormLeft}>
           <Input

@@ -2,17 +2,16 @@
 import React, { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { TenantReducer, DefaultTenant } from "./approved_tenant_rimbo-reducer";
+import { TenantReducer, DefaultTenant } from "./approved_tenant_pm-reducer";
 
 // Styles
+import styles from "../approvedTenantRimbo/approved-user.module.scss";
 
-import styles from "./approved-user.module.scss";
-
-const ApprovedTenantRimbo = () => {
+const ApprovedTenantPM = () => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
-  const [tenant] = useReducer(TenantReducer, DefaultTenant);
 
+  const [tenant] = useReducer(TenantReducer, DefaultTenant);
   const [state, setState] = useState(null); // eslint-disable-line
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const ApprovedTenantRimbo = () => {
     // Add body to post decision. So we can send data.
     const postDecision = (body) =>
       axios.post(
-        `http://localhost:8081/api/tenants/tenant/${randomID}/approved`,
+        `http://localhost:8081/api/tenants/tenant/${randomID}/pm/approved`,
         body
       );
 
@@ -34,7 +33,7 @@ const ApprovedTenantRimbo = () => {
 
       const postBody = {
         // use some logic based on tenancyData here to make the postBody
-        isRimboAccepted: tenant.isRimboAccepted,
+        isPMAccepted: tenant.isPMAccepted,
         randomID: tenancyData.tenant.randomID,
       };
 
@@ -42,22 +41,69 @@ const ApprovedTenantRimbo = () => {
       const { data: decisionResult } = await postDecision(postBody);
       // console.log(postBody);
 
-      const { tenantsName, randomID } = tenancyData.tenant;
-      const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
+      const {
+        tenantsName,
+        tenantsEmail,
+        tenantsPhone,
+        monthlyNetIncome,
+        jobType,
+        documentNumber,
+        randomID,
+      } = tenancyData.tenant;
+
+      const {
+        agencyContactPerson,
+        agencyEmailPerson,
+        agencyName,
+        agencyPhonePerson,
+      } = tenancyData.agent;
+
+      const {
+        rimboService,
+        rentalDuration,
+        rentalAddress,
+        rentalCity,
+        rentalPostalCode,
+        monthlyRent,
+      } = tenancyData.property;
+
+      const {
+        landlordName,
+        landlordEmail,
+        landlordPhone,
+      } = tenancyData.landlord;
+
       const tenancyID = tenancyData.tenancyID;
 
-      // console.log(tenancyData);
+      console.log(tenancyData);
       // console.log(tenantsName, randomID);
       // console.log(agencyContactPerson, agencyEmailPerson);
       // console.log("this is tenancyID:" + tenancyID);
 
-      if (tenancyData.tenant.isRimboAccepted === false) {
-        axios.post("http://localhost:8080/submit-email/rj11", {
-          tenantsName,
-          agencyContactPerson,
-          agencyEmailPerson,
+      // Don't send an email if the tenant is already accepted
+      if (tenancyData.tenant.isPMAccepted === false) {
+        axios.post("http://localhost:8080/submit-email/rjpm", {
           tenancyID,
           randomID,
+          tenantsName,
+          tenantsEmail,
+          tenantsPhone,
+          monthlyNetIncome,
+          jobType,
+          documentNumber,
+          agencyContactPerson,
+          agencyEmailPerson,
+          agencyName,
+          agencyPhonePerson,
+          rimboService,
+          rentalDuration,
+          rentalAddress,
+          rentalCity,
+          rentalPostalCode,
+          monthlyRent,
+          landlordName,
+          landlordEmail,
+          landlordPhone,
         });
       }
 
@@ -65,7 +111,7 @@ const ApprovedTenantRimbo = () => {
     };
 
     processDecision();
-  }, [randomID, tenant.isRimboAccepted, tenancyID]);
+  }, [randomID, tenant.isPMAccepted, tenancyID]);
 
   const [responseData, setResponseData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -115,4 +161,4 @@ const ApprovedTenantRimbo = () => {
   );
 };
 
-export default ApprovedTenantRimbo;
+export default ApprovedTenantPM;

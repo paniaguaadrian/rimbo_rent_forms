@@ -6,7 +6,8 @@ import RegisterTenancy from "./components/RegisterTenancy";
 import RegisterTenant from "./components/RegisterTenant_RJ2/RegisterTenant";
 import StripeHandler from "./components/RegisterTenantCard_RJ3/StripeHandlerComponent";
 import ApprovedTenantRimbo from "./screens/approvedTenantRimbo/ApprovedTenantRimbo";
-import RejectedTenantRimbo from "./screens/RejectedTenantRimbo";
+import RejectedTenantRimbo from "./screens/approvedTenantRimbo/RejectedTenantRimbo";
+import ApprovedTenantPM from "./screens/approvedTenantPM/ApprovedTenantPM";
 
 // Normalize & Generic styles
 import "./styles/generic.scss";
@@ -25,6 +26,11 @@ const App = () => {
         exact
         path="/register/rj2/:tenancyID/rejected"
         component={RejectedTenantRimbo}
+      />
+      <Route
+        exact
+        path="/register/rj2/:tenancyID/pm/approved"
+        component={ApprovedTenantPM}
       />
       <Route exact path="/register/rj3/:randomID" component={StripeHandler} />
     </>

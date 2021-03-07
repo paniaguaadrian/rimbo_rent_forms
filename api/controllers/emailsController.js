@@ -1,16 +1,13 @@
 import nodemailer from "nodemailer";
 import sgTransport from "nodemailer-sendgrid-transport";
-// ! Integration with hbs
-// import hbs from "nodemailer-express-handlebars";
+import hbs from "nodemailer-express-handlebars";
 
 // * Rimbo rent emails
-// Production
-const rimboEmail = "info@rimbo.rent";
+// Production / Development
+// const rimboEmail = "info@rimbo.rent";
 const testEmail = "paniaguasanchezadrian@gmail.com";
-// Development
-// const rimboEmail = "";
 
-// * RJ1 Form => RJ3, RJ4, RJD Emails
+// ! RJ1 Form => RJ3, RJ4, RJD Emails
 const sendRJ1FormEmails = async (req, res) => {
   const {
     tenantsName,
@@ -36,7 +33,7 @@ const sendRJ1FormEmails = async (req, res) => {
     randomID,
   } = req.body;
 
-  const transporter = nodemailer.createTransport(
+  const transporterRJ3 = nodemailer.createTransport(
     sgTransport({
       auth: {
         api_key: process.env.SENDGRID_API,
@@ -44,46 +41,81 @@ const sendRJ1FormEmails = async (req, res) => {
     })
   );
 
-  // ! Integration with hbs
-  //   let options = {
-  //     viewEngine: {
-  //       extname: ".handlebars",
-  //       layoutsDir: "views/",
-  //       defaultLayout: "index",
-  //     },
-  //     viewPath: "views/",
-  //   };
-  //   transporter.use("compile", hbs(options));
+  const transporterRJ4 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
 
-  // RJ4 Email  @Tenant
-  const tenantEmail = {
-    from: "Rimbo info@rimbo.rent",
-    to: tenantsEmail, // tenant's email
-    subject: "Welcome to Rimbo!",
-    text: "",
-    html: `<div>
-      <h3 style='color:#6aa3a1'>Hello ${tenantsName}</h3>
-      <br/>
-      <p>You have contacted <b>${agencyName}</b> regarding the following apartment:</p>
-      <p><b>Address:</b> ${rentalAddress}</p>
-      <p><b>Postal code:</b> ${rentalPostalCode}</p>
-      <p><b>City:</b> ${rentalCity}</p>
-      <br/>
-      <p>Rimbo joined forces with ${agencyName} to move you into your next apartment at ${rentalAddress} quick and easy!</p>
-      <br/>
-      <p>With Rimbo, you ‘check in’ without paying additional cash deposit, and pay for any damages or unpaid rent only when you check out.</p>
-      <br/>
-      <p>It sounds great, doesn't it?</p>
-      <br/>
-      <p>Click on the link below to register.</p>
-      <br/>
-      <p><b>What’s next?</b></p>
-      <p>Rimbo takes care of running a few checks - to prove that you are a great tenant. It’s online, fast, secure and completely confidential.</p>
-      <br/>
-      <button type="button"><a href="http://localhost:3000/register/rj2/${randomID}">Join now!</a></button>
-      </div>`,
+  const transporterRJD = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  let optionsRJ3 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rj3Email",
+    },
+    viewPath: "views/",
   };
-  transporter.sendMail(tenantEmail, (err, data) => {
+
+  let optionsRJ4 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rj4Email",
+    },
+    viewPath: "views/",
+  };
+
+  let optionsRJD = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rjdEmail",
+    },
+    viewPath: "views/",
+  };
+
+  transporterRJ3.use("compile", hbs(optionsRJ3));
+  transporterRJ4.use("compile", hbs(optionsRJ4));
+  transporterRJD.use("compile", hbs(optionsRJD));
+
+  // RJ3 Email  @PM/Agency
+  const PMEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // PM/Agency email
+    subject: "Rimbo Tenant Listing Successful",
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj3Email",
+    context: {
+      agencyContactPerson,
+      tenantsName,
+      tenantsPhone,
+      tenantsEmail,
+      monthlyRent,
+      rimboService,
+      rentalDuration,
+      rentalAddress,
+      rentalPostalCode,
+      rentalCity,
+    },
+  };
+  transporterRJ3.sendMail(PMEmail, (err, data) => {
     if (err) {
       console.log("There is an error here...!" + err);
     } else {
@@ -91,36 +123,32 @@ const sendRJ1FormEmails = async (req, res) => {
     }
   });
 
-  // RJ3 Email  @PM/Agency
-  const PMEmail = {
+  // RJ4 Email  @Tenant
+  const tenantEmail = {
     from: "Rimbo info@rimbo.rent",
-    to: agencyEmailPerson, // PM/Agency email
-    subject: "Rimbo Tenant Listing Successful",
+    to: testEmail, // tenant's email
+    subject: "Welcome to Rimbo!",
     text: "",
-    html: `<div>
-      <h3 style='color:#6aa3a1'>Hi ${agencyContactPerson}</h3>
-      <p>Thank you for listing your tenant on Rimbo.rent. We have received all data correctly.</p>
-      <br/>
-      <b>Please, keep an eye on your email in the upcoming hours in order to proceed with the next steps.</b>
-      <br/>
-      <p>Tenant's full name: ${tenantsName}</p>
-      <p>Tenant's phone number: ${tenantsPhone}</p>
-      <p>Tenant's email: ${tenantsEmail}</p>
-      <p>Monthly rent: ${monthlyRent}€</p>
-      <p>Selected Product: ${rimboService}</p>
-      <p>Contract duration: ${rentalDuration} years</p>
-      <p>Address of property: ${rentalAddress}</p>
-      <p>Postal code: ${rentalPostalCode}</p>
-      <p>City: ${rentalCity}</p>
-      <br/>
-      <p>We will contact the Tenant to complete the registration and we’ll keep you posted!</p>
-      <br/>
-      <p>As soon as the screening is done we will contact you via email  to complete the rental process of this property.</p>
-      <br/>
-      <p>Warm greetings from our team!</p>
-      </div>`,
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj4Email",
+    context: {
+      tenantsName,
+      agencyName,
+      rentalAddress,
+      rentalPostalCode,
+      rentalCity,
+      agencyName,
+      rentalAddress,
+      randomID,
+    },
   };
-  transporter.sendMail(PMEmail, (err, data) => {
+  transporterRJ4.sendMail(tenantEmail, (err, data) => {
     if (err) {
       console.log("There is an error here...!" + err);
     } else {
@@ -131,40 +159,37 @@ const sendRJ1FormEmails = async (req, res) => {
   // RJD Email  @Rimbo
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
-    to: rimboEmail, // PM/Agency email
+    to: testEmail, // Rimbo email
     subject: `New Tenant Listing by ${agencyName}`,
     text: "",
-    html: `<div>
-      
-      <p>The agency ${agencyName} has filled the Tenant Registration Form (RJ1n)</p>
-      <br/>
-      <b>Agency:</b>
-      <p>Agency's Name: ${agencyName}</p>
-      <p>Agency Contact: ${agencyContactPerson}</p>
-      <p>Agency's Email: ${agencyEmailPerson}</p>
-      <p>Agency's Phone: ${agencyPhonePerson}</p>
-      <br/>
-      <b>Tenant:</b>
-      <p>Tenant's Name: ${tenantsName}</p>
-      <p>Tenant's Email: ${tenantsEmail}</p>
-      <p>Tenant's Phone: ${tenantsPhone}</p>
-      <br/>
-      <b>Property info:</b>
-      <p>Monthly rent: ${monthlyRent}€</p>
-      <p>Selected Service: ${rimboService}</p>
-      <p>Contract duration: ${rentalDuration} years</p>
-      <p>Address of the property: ${rentalAddress}</p>
-      <p>City: ${rentalCity}</p>
-      <p>Postal Code: ${rentalPostalCode}</p>
-      <br/>
-      <b>Landlord:</b>
-      <p>Landlord's Full Name: ${landlordName}</p>
-      <p>Landlord's Phone: ${landlordPhone}</p>
-      <p>Landlord's Email: ${landlordEmail}</p>
-      
-      </div>`,
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rjdEmail",
+    context: {
+      agencyName,
+      agencyContactPerson,
+      agencyEmailPerson,
+      agencyPhonePerson,
+      tenantsName,
+      tenantsEmail,
+      tenantsPhone,
+      monthlyRent,
+      rimboService,
+      rentalDuration,
+      rentalAddress,
+      rentalCity,
+      rentalPostalCode,
+      landlordName,
+      landlordPhone,
+      landlordEmail,
+    },
   };
-  transporter.sendMail(RimboEmail, (err, data) => {
+  transporterRJD.sendMail(RimboEmail, (err, data) => {
     if (err) {
       console.log("There is an error here...!" + err);
     } else {
@@ -175,7 +200,7 @@ const sendRJ1FormEmails = async (req, res) => {
   res.status(200).json();
 };
 
-// * RJ2 Form => RJ9, RJXX3 emails
+// ! RJ2 Form => RJXX3, RJ9 Emails
 const sendRJ2FormEmails = async (req, res) => {
   const {
     agencyName,
@@ -185,6 +210,7 @@ const sendRJ2FormEmails = async (req, res) => {
     tenantsName,
     tenantsPhone,
     tenantsEmail,
+    documentNumber,
     monthlyNetIncome,
     jobType,
     tenantsAddress,
@@ -201,7 +227,7 @@ const sendRJ2FormEmails = async (req, res) => {
     tenancyID,
   } = req.body;
 
-  const transporter = nodemailer.createTransport(
+  const transporterRJXX3 = nodemailer.createTransport(
     sgTransport({
       auth: {
         api_key: process.env.SENDGRID_API,
@@ -209,53 +235,75 @@ const sendRJ2FormEmails = async (req, res) => {
     })
   );
 
+  const transporterRJ9 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  let optionsRJXX3 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rjxx3Email",
+    },
+    viewPath: "views/",
+  };
+
+  let optionsRJ9 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rj9Email",
+    },
+    viewPath: "views/",
+  };
+
+  transporterRJXX3.use("compile", hbs(optionsRJXX3));
+  transporterRJ9.use("compile", hbs(optionsRJ9));
+
   // RJXX3 email @Rimbo
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
-    to: rimboEmail, // PM/Agency email
+    to: testEmail, // Rimbo email
     subject: `${tenantsName} ready for Screening`,
     text: "",
-    html: `<div>
-      <h3>Hello Rimbo team,</h3>
-      <p>The tenant ${tenantsName} wants to join Rimbo through the agency ${agencyName}.</p>
-      <br/>
-      <b>Agency:</b>
-      <p>Agencyname: ${agencyName}</p>
-      <p>Contact person: ${agencyContactPerson}</p>
-      <p>Phone number: ${agencyPhonePerson}</p>
-      <p>Email: ${agencyEmailPerson}</p>
-      <br/>
-      <b>Tenant:</b>
-      <p>Tenant Full name: ${tenantsName}</p>
-      <p>Tenant Telephone number: ${tenantsPhone}</p>
-      <p>Tenant Email: ${tenantsEmail}</p>
-      <p>Net monthly income: ${monthlyNetIncome}€</p>
-      <p>Job Type: ${jobType}</p>
-      <p>DNI/NIE: 'Adjuntado al email, FALTA ESTE PUNTO.'</p>
-      <p>Current Address: ${tenantsAddress}</p>
-      <p>Current Postal Code: ${tenantsZipCode}</p>
-      <br/>
-      <b>Property:</b>
-      <p>Monthly rent: ${monthlyRent}</p>
-      <p>Selected Product: ${rimboService}</p>
-      <p>Contract duration: ${rentalDuration} years</p>
-      <p>Address of Property: ${rentalAddress}</p>
-      <p>City: ${rentalCity}</p>
-      <p>Postal Code: ${rentalPostalCode}</p>
-      <br/>
-      <b>Landlord: </b>
-      <p>Landlord Full name: ${landlordName}</p>
-      <p>Landlord Telephone Number: ${landlordPhone}</p>
-      <p>LandlordEmail: ${landlordEmail}</p>
-    
-      <button type="button"><a href="http://localhost:3000/register/rj2/${tenancyID}/approved">Approve</a></button>
-
-      <button type="button"><a href="http://localhost:3000/register/rj2/${tenancyID}/rejected">Reject</a></button>
-
-      <h3>DOCS SENT IN A SEPARATE EMAIL, PLEASE CHECK</h3>
-      </div>`,
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rjxx3Email",
+    context: {
+      tenantsName,
+      agencyName,
+      agencyContactPerson,
+      agencyPhonePerson,
+      agencyEmailPerson,
+      tenantsPhone,
+      tenantsEmail,
+      monthlyNetIncome,
+      jobType,
+      tenantsAddress,
+      tenantsZipCode,
+      monthlyRent,
+      rimboService,
+      rentalDuration,
+      rentalAddress,
+      rentalCity,
+      rentalPostalCode,
+      landlordName,
+      landlordPhone,
+      landlordEmail,
+      tenancyID,
+      documentNumber,
+    },
   };
-  transporter.sendMail(RimboEmail, (err, data) => {
+  transporterRJXX3.sendMail(RimboEmail, (err, data) => {
     if (err) {
       console.log("There is an error here...!" + err);
     } else {
@@ -263,27 +311,26 @@ const sendRJ2FormEmails = async (req, res) => {
     }
   });
 
-  // Tenant email @Tenant
+  // RJ9 email @Tenant
   const tenantEmail = {
     from: "Rimbo info@rimbo.rent",
     to: tenantsEmail, // Tenant email
     subject: `Info Received! Your Rimbo Journey Has Begun!`,
     text: "",
-    html: `<div>
-      <h3>Thank you, ${tenantsName}</h3>
-      <p>You have registered successfully.</p>
-      <br/>
-      <ul>What's next?</ul>
-      <li>We will complete our checks and registration within 2 business days</li>
-      <li>Your agent / landlord will be in touch with you then, to confirm the next steps of the rental process</li>
-      <br/>
-      <p>In just a few hours you will be part of Rimbo's family!</p>
-      <br/>
-      <p>Exciting, right?</p>
-      </div>`,
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj9Email",
+    context: {
+      tenantsName,
+    },
   };
 
-  transporter.sendMail(tenantEmail, (err, data) => {
+  transporterRJ9.sendMail(tenantEmail, (err, data) => {
     if (err) {
       console.log("There is an error here...!" + err);
     } else {
@@ -294,4 +341,208 @@ const sendRJ2FormEmails = async (req, res) => {
   res.status(200).json();
 };
 
-export { sendRJ1FormEmails, sendRJ2FormEmails };
+// ! RJXX3 Email => RJ11 Email
+const sendRJ11Emails = async (req, res) => {
+  const {
+    tenantsName,
+    agencyContactPerson,
+    agencyEmailPerson,
+    tenancyID,
+    randomID,
+  } = req.body;
+
+  const transporterRJ11 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  // ! Integration with hbs
+  let optionsRJ11 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rj11Email",
+    },
+    viewPath: "views/",
+  };
+
+  transporterRJ11.use("compile", hbs(optionsRJ11));
+
+  // RJ11 Email  @PM/Agency
+  const pmEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // pm's email
+    subject: `Prospect Tenant ${tenantsName} Approved!`,
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj11Email",
+    context: {
+      agencyContactPerson,
+      tenantsName,
+      tenantsName,
+      tenancyID,
+    },
+  };
+  transporterRJ11.sendMail(pmEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+  res.status(200).json();
+};
+
+// ! RJ11 Email => RJXX4, RJ14 Emails
+const sendPMEmails = async (req, res) => {
+  const {
+    tenancyID,
+    randomID,
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    monthlyNetIncome,
+    jobType,
+    documentNumber,
+    agencyContactPerson,
+    agencyEmailPerson,
+    agencyName,
+    agencyPhonePerson,
+    rimboService,
+    rentalDuration,
+    rentalAddress,
+    rentalCity,
+    rentalPostalCode,
+    monthlyRent,
+    landlordName,
+    landlordEmail,
+    landlordPhone,
+  } = req.body;
+
+  const transporterRJXX4 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  const transporterRJ14 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  let optionsRJXX4 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rjxx4Email",
+    },
+    viewPath: "views/",
+  };
+
+  let optionsRJ14 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rj14Email",
+    },
+    viewPath: "views/",
+  };
+
+  transporterRJXX4.use("compile", hbs(optionsRJXX4));
+  transporterRJ14.use("compile", hbs(optionsRJ14));
+
+  // RJXX4 Email @Rimbo
+  const RimboEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // Rimbo email
+    subject: "Tenant Approved",
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rjxx4Email",
+    context: {
+      tenancyID,
+      randomID,
+      tenantsName,
+      tenantsEmail,
+      tenantsPhone,
+      monthlyNetIncome,
+      jobType,
+      documentNumber,
+      agencyContactPerson,
+      agencyEmailPerson,
+      agencyName,
+      agencyPhonePerson,
+      rimboService,
+      rentalDuration,
+      rentalAddress,
+      rentalCity,
+      rentalPostalCode,
+      monthlyRent,
+      landlordName,
+      landlordEmail,
+      landlordPhone,
+    },
+  };
+
+  // RJ14 Email @Tenant
+  const TenantEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // tenant Email
+    subject: "Ready to move in? Rimbo it!",
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj14Email",
+    context: {
+      agencyContactPerson,
+      agencyName,
+      rentalAddress,
+      tenantsName,
+      tenancyID,
+      randomID,
+    },
+  };
+
+  transporterRJXX4.sendMail(RimboEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+
+  transporterRJ14.sendMail(TenantEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+};
+
+export { sendRJ1FormEmails, sendRJ2FormEmails, sendRJ11Emails, sendPMEmails };

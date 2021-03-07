@@ -11,8 +11,7 @@ import cors from "cors";
 import Stripe from "stripe";
 
 // Routes imported
-import emailRJ1Routes from "./routes/emailRJ1Routes.js";
-import emailRJ2Routes from "./routes/emailRJ2Routes.js";
+import emailRoutes from "./routes/emailRoutes.js";
 
 // Use dotenv to store variables
 dotenv.config();
@@ -36,7 +35,7 @@ const stripe = new Stripe(process.env.SECRET_KEY);
 
 app.use(express.static("."));
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "development") {
@@ -48,8 +47,7 @@ app.get("/", (req, res) => {
 });
 
 // Declare routes and URL
-app.use("/submit-email/rj1", emailRJ1Routes);
-app.use("/submit-email/rj2", emailRJ2Routes);
+app.use("/submit-email", emailRoutes);
 
 // * Stripe action
 app.get("/stripe/card-wallet", (req, res) => {
