@@ -302,7 +302,7 @@ a{
   font-size: 0.8rem;
 }
 
-a{
+.btn-rimbo a {
 	text-decoration: none;
 	color: white!important;
 }
@@ -357,7 +357,6 @@ a{
     <div style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; 	font-family: 'Poppins', sans-serif">
       &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
     </div>
-
     <div style="max-width: 600px; margin: 0 auto;" class="email-container">
     	<!-- BEGIN BODY -->
       <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
@@ -378,8 +377,7 @@ a{
             	<tr>
             		<td>
             			<div class="text" style="padding: 0 3em; text-align: center;">
-							<h3>Hello {{tenantsName}}</h3>			
-            				
+							<h3>Hello <b>{{tenantsName}}</b></h3>
             			</div>
             		</td>
             	</tr>
@@ -396,7 +394,7 @@ a{
 
 		            	</div>
 		          </tr><!-- end: tr -->
-					<td valign="middle" class="hero hero-2 bg_white" style="padding: 1em 0;">
+					<td class="hero hero-2 bg_white" style="padding: 1em 0;">
 				<table>
 					<tr>
 						<td>
@@ -417,9 +415,7 @@ a{
 					<tr>
 						<td>
 							<div class="text" style="padding: 1em 3em; text-align: left;">
-								
-								<h3>Rimbo joined forces with {{agencyName}} to move you into your next apartment at {{rentalAddress}} quick and easy!</h3>
-								
+								<h3>Rimbo joined forces with {{agencyName}} to move you into your next apartment at <b>{{rentalAddress}}</b> quick and easy!</h3>
 							</div>
 						</td>
 					</tr>
@@ -444,7 +440,7 @@ a{
 		            <td class="bg_white email-section">
 		            	<div class="heading-section" style="text-align: center; padding: 0 30px; color: #6aa3a1;">
 		              	<h2>It sounds great, doesn't it?</h2>
-						  <h4>Click on the link below to register.</h4>
+						  <h3>Click on the link below to register.</h3>
 		              	
 		            	</div>
 		          </tr><!-- end: tr -->

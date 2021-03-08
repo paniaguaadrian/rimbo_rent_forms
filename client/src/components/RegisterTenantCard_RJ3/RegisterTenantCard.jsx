@@ -35,7 +35,8 @@ const CARD_ELEMENT_OPTIONS = {
 };
 
 const RegisterTenantCard = () => {
-  const { randomID } = useParams();
+  let { randomID } = useParams();
+  const tenancyID = randomID;
 
   const [tenant, setTenant] = useReducer(TenantStripeReducer, DefaultTenant);
 
@@ -48,10 +49,11 @@ const RegisterTenantCard = () => {
   const elements = useElements();
 
   const [responseData, setResponseData] = useState([]);
+  const [tenancyData, setTenancyData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
 
-  // Fetch data from DataBase
+  // Fetch tenant data from DataBase
   useEffect(
     () => {
       const getData = () => {
@@ -79,6 +81,34 @@ const RegisterTenantCard = () => {
     [responseData, loading, err]
   );
 
+  // Fetch tenant data from DataBase
+  useEffect(
+    () => {
+      const getData = async () => {
+        fetch(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`)
+          .then((res) => {
+            if (res.status >= 400) {
+              throw new Error("Server responds with error!" + res.status);
+            }
+            return res.json();
+          })
+          .then(
+            (tenancyData) => {
+              setTenancyData(tenancyData);
+              setLoading(true);
+            },
+            (err) => {
+              setErr(err);
+              setLoading(true);
+            }
+          );
+      };
+      getData();
+    },
+    [tenancyID],
+    [tenancyData, loading, err]
+  );
+
   // Handle on change
   const handleNewTenant = ({ target }) => {
     setTenant({
@@ -96,11 +126,10 @@ const RegisterTenantCard = () => {
     const tenantsEmail = document.getElementById("email").innerHTML;
     const tenantsName = document.getElementById("name").innerHTML;
     const tenantsPhone = document.getElementById("phone").innerHTML;
-
-    // const timestamps = new Date()
-    //   .toISOString()
-    //   .replace(/T/, " ")
-    //   .replace(/\..+/, "");
+    const timestamps = new Date()
+      .toISOString()
+      .replace(/T/, " ")
+      .replace(/\..+/, "");
 
     const cardElement = elements.getElement("card");
 
@@ -152,12 +181,18 @@ const RegisterTenantCard = () => {
         });
 
         // ! Post a el backend de emails en formularios
-        // await axios.post("http://localhost:8080/submit-email/rj1", {
-        //   tenantsName,
-        //   tenantsEmail,
-        //   tenantsPhone,
-        //   timestamps,
-        // });
+        await axios.post("http://localhost:8080/submit-email/rj3", {
+          tenantsName,
+          tenantsEmail,
+          tenantsPhone,
+          timestamps,
+          agencyEmailPerson: tenancyData.agent.agencyEmailPerson,
+          agencyContactPerson: tenancyData.agent.agencyContactPerson,
+          agencyName: tenancyData.agent.agencyName,
+          rentalAddress: tenancyData.property.rentalAddress,
+          randomID,
+          tenancyID,
+        });
       }
     } catch (err) {
       setCheckoutError(err.message);
@@ -245,11 +280,15 @@ const RegisterTenantCard = () => {
           </div>
         </div>
       ) : (
-        <div>
-          <h1>Success page</h1>
-          <div className="rimbo-sign-success">
-            <h4>Powered by</h4>
-            {/* <img src={RimboLogo} alt="Rimbo Rent Logo" /> */}
+        // ! Seguir con la success PAGE y ver si el email envia la informacion
+        <div className={styles.SuccessPageContainer}>
+          <div className={styles.SuccessPageText}>
+            <h1>Your payment has been successfully completed</h1>
+            <h4>You will shortly receive an email with more details.</h4>
+            {/* <p>
+              Thanks for your time <b>{responseData.tenant.tenantsName}</b>, We
+              will contact you shortly to give you more details of the process.
+            </p> */}
           </div>
         </div>
       )}

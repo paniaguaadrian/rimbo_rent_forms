@@ -479,7 +479,6 @@
   flex-direction: column;
   text-align: center;
   margin: 0 auto;
-  border: 1px solid $tertiary-color;
   height: 100vh;
   @include xl {
     display: flex;
@@ -488,7 +487,6 @@
     flex-direction: column;
     text-align: center;
     margin: 0 auto;
-    border: 1px solid $tertiary-color;
     background-color: white;
     height: 100vh;
   }

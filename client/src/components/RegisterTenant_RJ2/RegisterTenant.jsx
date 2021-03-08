@@ -5,7 +5,6 @@ import axios from "axios";
 import { TenantReducer, DefaultTenant } from "./tenant-reducer";
 
 // Styles
-// ? Create a new file for that? Maybe
 import styles from "../RegisterTenancy/register-user.module.scss";
 
 // Validation

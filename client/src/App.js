@@ -8,6 +8,8 @@ import StripeHandler from "./components/RegisterTenantCard_RJ3/StripeHandlerComp
 import ApprovedTenantRimbo from "./screens/approvedTenantRimbo/ApprovedTenantRimbo";
 import RejectedTenantRimbo from "./screens/approvedTenantRimbo/RejectedTenantRimbo";
 import ApprovedTenantPM from "./screens/approvedTenantPM/ApprovedTenantPM";
+import ApprovedTenantCardRimbo from "./screens/approvedTenantCardRimbo/ApprovedTenantCardRimbo";
+import RegisterTenantPM from "./components/RegisterTenantPM_RJS/RegisterTenantPM";
 
 // Normalize & Generic styles
 import "./styles/generic.scss";
@@ -32,7 +34,17 @@ const App = () => {
         path="/register/rj2/:tenancyID/pm/approved"
         component={ApprovedTenantPM}
       />
+      <Route
+        exact
+        path="/register/rj3/:tenancyID/card/approved"
+        component={ApprovedTenantCardRimbo}
+      />
       <Route exact path="/register/rj3/:randomID" component={StripeHandler} />
+      <Route
+        exact
+        path="/register/rjs/:tenancyID"
+        component={RegisterTenantPM}
+      />
     </>
   );
 };

@@ -302,8 +302,9 @@ a{
   font-size: 0.8rem;
 }
 
-.btn-rimbo a{
-text-decoration: none;
+.btn-rimbo a {
+    background-color: #41c1bd;
+  cotext-decoration: none;
 	color: white!important;
 }
 
@@ -380,7 +381,8 @@ text-decoration: none;
             	<tr>
             		<td>
             			<div class="text" style="padding: 0 3em; text-align: center;">
-							<h3>Thank you, {{tenantsName}}</h3>		
+							<h3>Hello Rimbo Super Team!</h3>		
+            				
             			</div>
             		</td>
             	</tr>
@@ -393,45 +395,17 @@ text-decoration: none;
 		          <tr>
 		            <td class="bg_white email-section">
 		            	<div class="heading-section" style="text-align: center; padding: 0 30px;">
-		              	<h3>You have registered successfully.</h3>
-
+		              	<h3>The tenant <b>{{tenantsName}}</b> who wants to rent the apartment on {{rentalAddress}} with the realtor {{agencyName}} has <b>successfully registered the payment card.</b></h3>
 		            	</div>
 		          </tr><!-- end: tr -->
-					<td valign="middle" class="hero hero-2 bg_white" style="padding: 1em 0;">
+					<td valign="middle" class="hero hero-2 bg_white" style="padding: 2em 0;">
 				
-				</table>
 
-                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-		          <tr>
-		            <td class="bg_white email-section">
-		            	<div class="heading-section" style="text-align: center;">
-		              	<h2>What’s next?</h2>
-						  
-		          </tr><!-- end: tr -->
-					
-			</table>
-
-				<table>
+                 <table>
 					<tr>
 						<td>
 							<div class="text" style="padding: 1em 3em; text-align: left;">
-								
-								<h3>We will complete our checks and registration within 2 business days</h3>
-								
-							</div>
-						</td>
-					</tr>
-				</table>
-
-				
-					
-			<table>
-					<tr>
-						<td>
-							<div class="text" style="padding: 1em 3em; text-align: left;">
-								
-								<h3>Your agent / landlord will be in touch with you then, to confirm the next steps of the rental process.</h3>
-								
+								<h3>The tenant has successfully <b>signed the TC with date stamp: {{timestamps}}</b></h3>
 							</div>
 						</td>
 					</tr>
@@ -441,9 +415,7 @@ text-decoration: none;
 					<tr>
 						<td>
 							<div class="text" style="padding: 1em 3em; text-align: left;">
-								
-								<h3>In just a few hours you will be part of Rimbo's family!</h3>
-								
+								<h4>Click on the following link to accept this tenant.</h4>
 							</div>
 						</td>
 					</tr>
@@ -452,33 +424,14 @@ text-decoration: none;
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
 		          <tr>
 		            <td class="bg_white email-section">
-		            	<div class="heading-section" style="text-align: center; padding: 0 30px; color: #6aa3a1;">
-		              	<h2>Exciting, right?</h2>
-		            	</div>
+		            	<div class="heading-section" style="text-align: center; padding: 0px 30px; color: #6aa3a1;">
+		              	<button class='btn-rimbo' type="button"><a href="http://localhost:3000/register/rj3/{{tenancyID}}/card/approved">Accept</a></button>
+						  
 		          </tr><!-- end: tr -->
 					
 			</table>
-            
-			<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-		          <tr>
-		            <td class="bg_white email-section">
-		            	<div class="heading-section" style="text-align: left; padding: 0px 30px; color: #6aa3a1;">
-		              	
-						<h3>Support Team,</h3>
-		              	<h4>Phone - WhatsApp: +34 623 063 769<br/>
-      					E-Mail: info@rimbo.com<br/>
-      					Web site: <a href="http://www.rimbo.rent">rimbo.rent</a>
-      					</h4>
-		            	</div>
-		          </tr><!-- end: tr -->
-					
-			</table>
-			
-          
+
 		    </tr><!-- end:tr -->
-			
-
-
 
       <!-- 1 Column Text + Button : END -->
       </table>
