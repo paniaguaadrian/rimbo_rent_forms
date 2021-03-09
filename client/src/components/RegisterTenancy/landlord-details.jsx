@@ -51,9 +51,8 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
       tenantsName: tenancy.tenantDetails.tenantName,
       tenantsEmail: tenancy.tenantDetails.tenantEmail,
       tenantsPhone: tenancy.tenantDetails.tenantPhone,
-      propertyManagerName: tenancy.agencyName,
       randomID: randomID,
-      tenantRimboService: tenancy.propertyDetails.rimboService,
+
       // agency, agent
       agencyName: tenancy.agencyName,
       agencyEmailPerson: tenancy.agencyEmailPerson,
@@ -61,24 +60,22 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
       agencyPhonePerson: tenancy.agencyPhonePerson,
       isAgentAccepted: tenancy.landlordDetails.isAgentAccepted,
       // property
-      rimboService: tenancy.propertyDetails.rimboService,
-      rentalDuration: tenancy.propertyDetails.rentalDuration,
       rentalCity: tenancy.propertyDetails.rentalCity,
       rentalPostalCode: tenancy.propertyDetails.rentalPostalCode,
-      monthlyRent: tenancy.propertyDetails.monthlyRent,
       rentalAddress: tenancy.propertyDetails.rentalAddress,
       // landlord
       landlordName: tenancy.landlordDetails.landlordName,
       landlordEmail: tenancy.landlordDetails.landlordEmail,
       landlordPhone: tenancy.landlordDetails.landlordPhone,
       // tenancy
-      product: tenancy.propertyDetails.rimboService,
-      rentDuration: tenancy.propertyDetails.rentalDuration,
-      rentAmount: tenancy.propertyDetails.monthlyRent,
+      product: tenancy.propertyDetails.product,
+      rentDuration: tenancy.propertyDetails.rentDuration,
+      rentAmount: tenancy.propertyDetails.rentAmount,
       tenancyID: randomID,
       // property manager
       PMName: tenancy.agencyName,
     });
+    console.log(tenancy);
 
     await axios.post("http://localhost:8080/submit-email/rj1", {
       tenantsName: tenancy.tenantDetails.tenantName,
@@ -88,9 +85,9 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
       agencyContactPerson: tenancy.agencyContactPerson,
       agencyPhonePerson: tenancy.agencyPhonePerson,
       agencyEmailPerson: tenancy.agencyEmailPerson,
-      rentalDuration: tenancy.propertyDetails.rentalDuration,
-      rimboService: tenancy.propertyDetails.rimboService,
-      monthlyRent: tenancy.propertyDetails.monthlyRent,
+      rentDuration: tenancy.propertyDetails.rentDuration,
+      product: tenancy.propertyDetails.product,
+      rentAmount: tenancy.propertyDetails.rentAmount,
       rentalAddress: tenancy.propertyDetails.rentalAddress,
       rentalPostalCode: tenancy.propertyDetails.rentalPostalCode,
       rentalCity: tenancy.propertyDetails.rentalCity,

@@ -41,11 +41,11 @@ export const isTenant = (values) => {
 
 export const isProperty = (values) => {
   let errors = {};
-  if (values.rimboService === "-1") {
-    errors.rimboService = "You must choose one service.";
+  if (values.product === "-1") {
+    errors.product = "You must choose one service.";
   }
-  if (!values.rentalDuration) {
-    errors.rentalDuration = "Enter a rental duration (in years).";
+  if (!values.rentDuration) {
+    errors.rentDuration = "Enter a rental duration (in years).";
   }
   if (!values.rentalCity) {
     errors.rentalCity = "City Name is required.";
@@ -56,8 +56,8 @@ export const isProperty = (values) => {
   if (values.rentalPostalCode && values.rentalPostalCode.length < 5) {
     errors.rentalPostalCode = "Enter valid Postal Code.";
   }
-  if (!values.monthlyRent) {
-    errors.monthlyRent = "Monthly Rent is required.";
+  if (!values.rentAmount) {
+    errors.rentAmount = "Monthly Rent is required.";
   }
   if (!values.rentalAddress) {
     errors.rentalAddress = "Rental Address is required.";

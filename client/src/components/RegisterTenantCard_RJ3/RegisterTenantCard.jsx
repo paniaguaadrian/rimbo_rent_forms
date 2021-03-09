@@ -48,66 +48,32 @@ const RegisterTenantCard = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [responseData, setResponseData] = useState([]);
   const [tenancyData, setTenancyData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(null); //eslint-disable-line
 
-  // Fetch tenant data from DataBase
-  useEffect(
-    () => {
-      const getData = () => {
-        fetch(`http://localhost:8081/api/tenants/tenant/${randomID}`)
-          .then((res) => {
-            if (res.status >= 400) {
-              throw new Error("Server responds with error!" + res.status);
-            }
-            return res.json();
-          })
-          .then(
-            (responseData) => {
-              setResponseData(responseData);
-              setLoading(true);
-            },
-            (err) => {
-              setErr(err);
-              setLoading(true);
-            }
-          );
-      };
-      getData();
-    },
-    [randomID],
-    [responseData, loading, err]
-  );
-
-  // Fetch tenant data from DataBase
-  useEffect(
-    () => {
-      const getData = async () => {
-        fetch(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`)
-          .then((res) => {
-            if (res.status >= 400) {
-              throw new Error("Server responds with error!" + res.status);
-            }
-            return res.json();
-          })
-          .then(
-            (tenancyData) => {
-              setTenancyData(tenancyData);
-              setLoading(true);
-            },
-            (err) => {
-              setErr(err);
-              setLoading(true);
-            }
-          );
-      };
-      getData();
-    },
-    [tenancyID],
-    [tenancyData, loading, err]
-  );
+  useEffect(() => {
+    const getData = () => {
+      fetch(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`)
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!" + res.status);
+          }
+          return res.json();
+        })
+        .then(
+          (tenancyData) => {
+            setTenancyData(tenancyData);
+            setLoading(false);
+          },
+          (err) => {
+            setErr(err);
+            setLoading(false);
+          }
+        );
+    };
+    getData();
+  }, [tenancyID]);
 
   // Handle on change
   const handleNewTenant = ({ target }) => {
@@ -203,92 +169,109 @@ const RegisterTenantCard = () => {
     <>
       {!isSuccessfullySubmitted ? (
         <div className={styles.RegisterContainer}>
-          <div className={styles.Register}>
-            <h1>
-              Great! You are just one step away from renting without a deposit!
-            </h1>
-            <div className={styles.ExtraInfoContainer}>
-              <h2>
-                You just need to review our Terms and Conditions and provide the
-                charge authorization
-              </h2>
-              <div>
-                <p>
-                  * The card will NOT be blocked. The card will NOT be charged
-                  now. Only in case of legal claims presented by the landlord
-                  the card will be charged, import limited to{" "}
-                  <span>{responseData.tenantRimboService} of rent.</span>
-                </p>
-              </div>
+          {loading ? (
+            <div className={styles.Register}>
+              <Loader
+                type="Puff"
+                color="#01d2cc"
+                height={200}
+                width={200}
+                timeout={3000} //3 secs
+              />
             </div>
-          </div>
-          <div className={styles.CardContainer}>
-            <form onSubmit={handleFormSubmit}>
-              <div className={styles.CardInput}>
-                <label>
-                  <h3>Debit card details</h3>
+          ) : (
+            <>
+              <div className={styles.Register}>
+                <h1>
+                  Great! You are just one step away from renting without a
+                  deposit!
+                </h1>
+                <div className={styles.ExtraInfoContainer}>
+                  <h2>
+                    You just need to review our Terms and Conditions and provide
+                    the charge authorization
+                  </h2>
                   <div>
-                    <p id="name">{responseData.tenantsName}</p>
-                    <p id="email">{responseData.tenantsEmail}</p>
-                    <p id="phone">{responseData.tenantsPhone}</p>
+                    <p>
+                      * The card will NOT be blocked. The card will NOT be
+                      charged now. Only in case of legal claims presented by the
+                      landlord the card will be charged, import limited to{" "}
+                      <span>{tenancyData.product} of rent.</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.CardContainer}>
+                <form onSubmit={handleFormSubmit}>
+                  <div className={styles.CardInput}>
+                    <label>
+                      <h3>Debit card details</h3>
+                      <div>
+                        <p id="name">{tenancyData.tenant.tenantsName}</p>
+                        <p id="email">{tenancyData.tenant.tenantsEmail}</p>
+                        <p id="phone">{tenancyData.tenant.tenantsPhone}</p>
+                      </div>
+
+                      <CardElement
+                        options={CARD_ELEMENT_OPTIONS}
+                        onChange={handleCardDetailsChange}
+                      />
+                    </label>
+                    <div className={styles.ErrorInput}>
+                      <p className="error-message">{checkoutError}</p>
+                    </div>
                   </div>
 
-                  <CardElement
-                    options={CARD_ELEMENT_OPTIONS}
-                    onChange={handleCardDetailsChange}
-                  />
-                </label>
-              </div>
-              <div className={styles.ErrorInput}>
-                <p className="error-message">{checkoutError}</p>
-              </div>
-              <div className={styles.TermsContainerStripe}>
-                <input
-                  type="checkbox"
-                  required
-                  name="isAccepted"
-                  id="terms"
-                  value={tenant.isAccepted}
-                  onChange={(e) => handleNewTenant(e)}
-                />
-                <p>
-                  By hiring Rimbo's Services, you accept the{" "}
-                  <a
-                    href="https://rimbo.rent/politica-privacidad/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-tag"
-                  >
-                    {" "}
-                    Rimbo general conditions
-                  </a>
-                </p>
-              </div>
+                  <div className={styles.TermsContainerStripe}>
+                    <input
+                      type="checkbox"
+                      required
+                      name="isAccepted"
+                      id="terms"
+                      value={tenant.isAccepted}
+                      onChange={(e) => handleNewTenant(e)}
+                    />
+                    <p>
+                      By hiring Rimbo's Services, you accept the{" "}
+                      <a
+                        href="https://rimbo.rent/politica-privacidad/"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="link-tag"
+                      >
+                        {" "}
+                        Rimbo general conditions
+                      </a>
+                    </p>
+                  </div>
 
-              {isProcessing ? (
-                <Loader
-                  type="Puff"
-                  color="#01d2cc"
-                  height={50}
-                  width={50}
-                  timeout={3000} //3 secs
-                />
-              ) : (
-                <button disabled={isProcessing || !stripe}>Authorize</button>
-              )}
-            </form>
-          </div>
+                  {isProcessing ? (
+                    <Loader
+                      type="Puff"
+                      color="#01d2cc"
+                      height={50}
+                      width={50}
+                      timeout={3000} //3 secs
+                    />
+                  ) : (
+                    <button disabled={isProcessing || !stripe}>
+                      Authorize
+                    </button>
+                  )}
+                </form>
+              </div>
+            </>
+          )}
         </div>
       ) : (
-        // ! Seguir con la success PAGE y ver si el email envia la informacion
         <div className={styles.SuccessPageContainer}>
           <div className={styles.SuccessPageText}>
             <h1>Your payment has been successfully completed</h1>
             <h4>You will shortly receive an email with more details.</h4>
-            {/* <p>
-              Thanks for your time <b>{responseData.tenant.tenantsName}</b>, We
+            <p>
+              Thanks for your time <b>{tenancyData.tenant.tenantsName}</b>, We
               will contact you shortly to give you more details of the process.
-            </p> */}
+            </p>
           </div>
         </div>
       )}

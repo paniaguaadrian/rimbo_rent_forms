@@ -18,11 +18,8 @@ export const DefaultTenancy = {
     tenantEmail: "",
   },
   propertyDetails: {
-    rimboService: "",
-    rentalDuration: "",
     rentalCity: "",
     rentalPostalCode: "",
-    monthlyRent: "",
     rentalAddress: "",
     rentAmount: "",
     rentDuration: "",

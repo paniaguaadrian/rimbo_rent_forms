@@ -5,8 +5,8 @@ export const newTenant = (values) => {
     errors.rentStartDate = "You must specify a start date for the rental";
   }
 
-  if (!values.PMAnex) {
-    errors.PMAnex = "You must upload your Rental Agreement - Rimbo Annex";
+  if (!values.pmAnex) {
+    errors.pmAnex = "You must upload your Rental Agreement - Rimbo Annex";
   }
 
   return errors;

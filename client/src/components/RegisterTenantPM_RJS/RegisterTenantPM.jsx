@@ -89,20 +89,11 @@ const RegisterTenantPM = () => {
     await axios.post(
       `http://localhost:8081/api/tenancies/tenancy/${tenancyID}`,
       {
-        // Agent/Agency
-        startTenancyDateA: tenant.rentStartDate,
-        tenancyID,
-        // Tenant
-        startTenancyDateT: tenant.rentStartDate,
-        // PM
-        PMAnex: tenant.PMAnex,
-        // Tenancy
+        pmAnex: tenant.pmAnex,
         rentStartDate: tenant.rentStartDate,
-        // ID's
-        randomID: tenancyID,
+        tenancyID: tenancyID,
       }
     );
-
     // ! POST to email service
     await axios.post("http://localhost:8080/submit-email/rjs", {
       agencyName: responseData.agent.agencyName,
@@ -145,12 +136,12 @@ const RegisterTenantPM = () => {
               />
               <InputFile
                 type="file"
-                name="PMAnex"
-                value={tenant.PMAnex}
+                name="pmAnex"
+                value={tenant.pmAnex}
                 label="Rental Agreement - Rimbo Annex"
                 placeholder="XXXXX"
                 onChange={(e) => handleNewTenant(e)}
-                error={errors.PMAnex}
+                error={errors.pmAnex}
               />
 
               <div className={styles.ButtonContainer}>

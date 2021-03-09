@@ -121,9 +121,9 @@ const RegisterTenant = () => {
       tenantsAddress: tenant.tenantsAddress,
       tenantsZipCode: tenant.tenantsZipCode,
       // Proprety
-      monthlyRent: responseData.property.monthlyRent,
-      rimboService: responseData.property.rimboService,
-      rentalDuration: responseData.property.rentalDuration,
+      rentAmount: responseData.rentAmount,
+      product: responseData.product,
+      rentDuration: responseData.rentDuration,
       rentalAddress: responseData.property.rentalAddress,
       rentalCity: responseData.property.rentalCity,
       rentalPostalCode: responseData.property.rentalPostalCode,

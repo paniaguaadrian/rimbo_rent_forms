@@ -34,16 +34,16 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
       <div className={styles.FormIntern}>
         <div className={styles.FormLeft}>
           <div className={styles.selectContainer}>
-            <label className={styles.selectLabel} htmlFor="rimboService">
+            <label className={styles.selectLabel} htmlFor="product">
               Choose service
             </label>
             <select
               required
-              name="rimboService"
+              name="product"
               className={styles.selectInput}
-              value={tenancy.propertyDetails.rimboService}
+              value={tenancy.propertyDetails.product}
               onChange={(e) => handleAgency(e)}
-              error={errors.rimboService}
+              error={errors.product}
             >
               <option value="">Select Rimbo Service</option>
               {services.map((c) => (
@@ -54,21 +54,21 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
 
           <Input
             type="text"
-            name="rentalDuration"
-            value={tenancy.propertyDetails.rentalDuration}
+            name="rentDuration"
+            value={tenancy.propertyDetails.rentDuration}
             label="Duration rental agreement (years)"
             placeholder="Enter duration"
             onChange={(e) => handleAgency(e)}
-            error={errors.rentalDuration}
+            error={errors.rentDuration}
           />
           <Input
             type="text"
-            name="monthlyRent"
-            value={tenancy.propertyDetails.monthlyRent}
+            name="rentAmount"
+            value={tenancy.propertyDetails.rentAmount}
             label="Monthly rent (in €)"
             placeholder="Enter rent"
             onChange={(e) => handleAgency(e)}
-            error={errors.monthlyRent}
+            error={errors.rentAmount}
           />
         </div>
         <div className={styles.FormRight}>
