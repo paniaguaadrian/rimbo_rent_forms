@@ -1,8 +1,9 @@
 import { UPDATE_NEWTENANT_INFO } from "./tenant-constants";
 
 export const DefaultTenant = {
-  rentStartDate: "",
-  pmAnex: "",
+  // rentStartDate: "",
+  // pmAnex: "",
+  // body: "",
 };
 
 export const TenantReducer = (newTenant, { type, payload }) => {
