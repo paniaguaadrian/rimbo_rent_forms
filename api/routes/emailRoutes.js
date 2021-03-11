@@ -10,6 +10,7 @@ import {
   sendRJ15Emails,
   sendRJSFormEmail,
   sendRJ3FilesEmail,
+  sendRJ18Email,
 } from "../controllers/emailsController.js";
 
 const router = express.Router();
@@ -22,5 +23,6 @@ router.route("/rjpm").post(sendPMEmails);
 router.route("/rj3").post(sendRJ3FormEmail);
 router.route("/rj15").post(sendRJ15Emails);
 router.route("/rjs").post(sendRJSFormEmail);
+router.route("/rj18").post(sendRJ18Email);
 
 export default router;

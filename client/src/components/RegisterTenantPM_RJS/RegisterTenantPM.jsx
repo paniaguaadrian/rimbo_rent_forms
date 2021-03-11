@@ -20,8 +20,13 @@ const RegisterTenantPM = () => {
   const [responseData, setResponseData] = useState([]);
   const [loading, setLoading] = useState(false); //eslint-disable-line
   const [err, setErr] = useState(null); //eslint-disable-line
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
   const [date, setDate] = useState("");
+  const [files, setFiles] = useState({
+    pmAnex: null,
+  });
+  const [sent, isSent] = useState(false);
+  const [responseDataAfter, setResponseDataAfter] = useState([]);
 
   useEffect(() => {
     const getData = () => {
@@ -47,7 +52,12 @@ const RegisterTenantPM = () => {
   }, [tenancyID]);
 
   const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
+    const name = event.target.name;
+    setFiles((files) => {
+      const newFiles = { ...files };
+      newFiles[name] = event.target.files[0];
+      return newFiles;
+    });
   };
 
   const changeHandlerr = (event) => {
@@ -56,6 +66,7 @@ const RegisterTenantPM = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    isSent(false);
     // const api_rimbo_tenants = process.env.REACT_APP_API_RIMBO_TENANTS;
     // ! POST to RIMBO_API => DB
     // Production axios: `${api_rimbo_tenants}`;
@@ -66,12 +77,11 @@ const RegisterTenantPM = () => {
     setProcessingTo(true);
 
     const formData = new FormData();
-    formData.append("File", selectedFile);
+    for (const key in files) {
+      formData.append(key, files[key]);
+    }
     formData.append("date", date);
     formData.append("tenancyID", tenancyID);
-
-    // const formEmailData = new FormData();
-    // formEmailData.append("files", selectedFile);
 
     // ! POST to RIMBO_API => DB
     await axios.post(
@@ -79,17 +89,47 @@ const RegisterTenantPM = () => {
       formData
     );
 
-    // ! POST to email service
-    await axios.post("http://localhost:8080/submit-email/rjs", formData, {
-      agencyName: responseData.agent.agencyName,
-      rentalAddress: responseData.property.rentalAddress,
-      tenantsName: responseData.tenant.tenantsName,
-      pmAnex: responseData.pmAnex,
-      selectedFile,
-    });
-
+    isSent(true);
     setIsSuccessfullySubmitted(true);
   };
+
+  useEffect(() => {
+    const getData = () => {
+      fetch(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`)
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!" + res.status);
+          }
+          return res.json();
+        })
+        .then(
+          (responseDataAfter) => {
+            setResponseDataAfter(responseDataAfter);
+            setLoading(true);
+          },
+          (err) => {
+            setErr(err);
+            setLoading(true);
+          }
+        );
+    };
+    getData();
+  }, [sent, tenancyID]);
+
+  useEffect(() => {
+    const sendAttachments = async () => {
+      if (sent) {
+        await axios.post("http://localhost:8080/submit-email/rjs", {
+          agencyName: responseDataAfter.agent.agencyName,
+          rentalAddress: responseDataAfter.property.rentalAddress,
+          tenantsName: responseDataAfter.tenant.tenantsName,
+          pmAnex: responseDataAfter.pmAnex,
+          tenancyID: tenancyID,
+        });
+      }
+    };
+    sendAttachments();
+  }, [responseDataAfter]); //eslint-disable-line
 
   return (
     <>

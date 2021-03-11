@@ -10,6 +10,7 @@ import RejectedTenantRimbo from "./screens/approvedTenantRimbo/RejectedTenantRim
 import ApprovedTenantPM from "./screens/approvedTenantPM/ApprovedTenantPM";
 import ApprovedTenantCardRimbo from "./screens/approvedTenantCardRimbo/ApprovedTenantCardRimbo";
 import RegisterTenantPM from "./components/RegisterTenantPM_RJS/RegisterTenantPM";
+import ApprovedTenancyRimbo from "./screens/approvedTenancyRimbo/ApprovedTenancyRimbo";
 
 // Normalize & Generic styles
 import "./styles/generic.scss";
@@ -44,6 +45,11 @@ const App = () => {
         exact
         path="/register/rjs/:tenancyID"
         component={RegisterTenantPM}
+      />
+      <Route
+        exact
+        path="/register/rjs/:tenancyID/service-start"
+        component={ApprovedTenancyRimbo}
       />
     </>
   );
