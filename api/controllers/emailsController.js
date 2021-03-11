@@ -13,7 +13,6 @@ const sendRJ1FormEmails = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
-
     agencyName,
     agencyContactPerson,
     agencyEmailPerson,
@@ -21,16 +20,12 @@ const sendRJ1FormEmails = async (req, res) => {
     rentalAddress,
     rentalPostalCode,
     rentalCity,
-
-    // ! Cambiar
     rentAmount,
     product,
     rentDuration,
-
     landlordName,
     landlordEmail,
     landlordPhone,
-
     randomID,
   } = req.body;
 
@@ -780,6 +775,7 @@ const sendRJSFormEmail = async (req, res) => {
       agencyName,
       rentalAddress,
       tenantsName,
+      // pmAnex,
     },
   };
 

@@ -141,10 +141,13 @@ const RegisterTenantCard = () => {
         setIsSuccessfullySubmitted(true);
 
         // ! post a nuestra BDD
-        await axios.post("http://localhost:8081/api/tenants/stripe/:randomID", {
-          isAccepted: tenant.isAccepted,
-          randomID: randomID,
-        });
+        await axios.post(
+          `http://localhost:8081/api/tenants/stripe/${randomID}`,
+          {
+            isAccepted: tenant.isAccepted,
+            randomID: randomID,
+          }
+        );
 
         // ! Post a el backend de emails en formularios
         await axios.post("http://localhost:8080/submit-email/rj3", {

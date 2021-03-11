@@ -21,20 +21,22 @@ import Button from "../Button";
 import Loader from "react-loader-spinner";
 
 const RegisterTenant = () => {
-  const { tenancyID } = useParams();
-
-  console.log(tenancyID);
+  let { tenancyID } = useParams();
+  const randomID = tenancyID;
 
   const [tenant, setTenant] = useReducer(TenantReducer, DefaultTenant);
   const [errors, setErrors] = useState({});
   const [isProcessing, setProcessingTo] = useState(false);
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
-
   const [responseData, setResponseData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
+  const [files, setFiles] = useState({
+    DF: null,
+    DB: null,
+    DCA: null,
+  });
 
-  // GET from DB => Tenancy information => Have all information about the tenancy => Send email with it.
   useEffect(
     () => {
       const getData = () => {
@@ -62,11 +64,19 @@ const RegisterTenant = () => {
     [responseData, loading, err]
   );
 
-  // Handle on change
   const handleNewTenant = ({ target }) => {
     setTenant({
       type: UPDATE_NEWTENANT_INFO,
       payload: { [target.name]: target.value },
+    });
+  };
+
+  const changeHandler = (event) => {
+    const name = event.target.name;
+    setFiles((files) => {
+      const newFiles = { ...files };
+      newFiles[name] = event.target.files[0];
+      return newFiles;
     });
   };
 
@@ -80,14 +90,29 @@ const RegisterTenant = () => {
     // Production axios: `${XXXXXXXXXXXXX}`;
     // Development axios : "http://localhost:8080/submit-email/rj2"
 
+    const formData = new FormData();
+    for (const key in files) {
+      formData.append(key, files[key]);
+    }
+    formData.append("randomID", randomID);
+
+    console.log(formData);
+
     const errors = newTenant(tenant);
     setErrors(errors);
     if (Object.keys(errors).length > 0) return;
     setProcessingTo(true);
     setIsSuccessfullySubmitted(true);
 
-    // ! POST to RIMBO_API => DB
-    await axios.post("http://localhost:8081/api/tenants/tenant/:randomID", {
+    // ! Post to Rimbo API (files/images)
+    await axios.post(
+      `http://localhost:8081/api/tenants/tenant/${randomID}/upload`,
+      formData,
+      { randomID }
+    );
+
+    // ! Post to Rimbo API Data
+    await axios.post(`http://localhost:8081/api/tenants/tenant/${randomID}`, {
       // tenant
       monthlyNetIncome: tenant.monthlyNetIncome,
       jobType: tenant.jobType,
@@ -95,9 +120,6 @@ const RegisterTenant = () => {
       documentNumber: tenant.documentNumber,
       tenantsAddress: tenant.tenantsAddress,
       tenantsZipCode: tenant.tenantsZipCode,
-      documentImageFront: tenant.documentImageFront,
-      documentImageBack: tenant.documentImageBack,
-      documentConfirmAddress: tenant.documentConfirmAddress,
       isAcceptedPrivacy: tenant.isAcceptedPrivacy,
       randomID: tenancyID,
     });
@@ -261,31 +283,34 @@ const RegisterTenant = () => {
                 <div className={styles.FormLeft}>
                   <InputFile
                     type="file"
-                    name="documentImageFront"
-                    value={tenant.documentImageFront}
+                    name="DF"
+                    // value={tenant.documentImageFront}
                     label="DNI/NIE (Front)"
                     placeholder="XXXXX"
-                    onChange={(e) => handleNewTenant(e)}
-                    error={errors.documentImageFront}
+                    onChange={changeHandler}
+                    required
+                    // error={errors.documentImageFront}
                   />
                   <InputFile
                     type="file"
-                    name="documentImageBack"
-                    value={tenant.documentImageBack}
+                    name="DB"
+                    // value={tenant.documentImageBack}
                     label="DNI/NIE (Back)"
                     placeholder="XXXXX"
-                    onChange={(e) => handleNewTenant(e)}
-                    error={errors.documentImageBack}
+                    onChange={changeHandler}
+                    required
+                    // error={errors.documentImageBack}
                   />
                 </div>
                 <div className={styles.FormRight}>
                   <InputFile
                     type="file"
-                    name="documentConfirmAddress"
-                    value={tenant.documentConfirmAddress}
+                    name="DCA"
+                    // value={tenant.documentConfirmAddress}
                     label="Document confirming your current address (eg receipt of supplies)"
-                    onChange={(e) => handleNewTenant(e)}
-                    error={errors.documentConfirmAddress}
+                    onChange={changeHandler}
+                    required
+                    // error={errors.documentConfirmAddress}
                   />
                 </div>
               </div>

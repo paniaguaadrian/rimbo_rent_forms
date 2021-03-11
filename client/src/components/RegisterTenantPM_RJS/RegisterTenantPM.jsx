@@ -17,40 +17,34 @@ const RegisterTenantPM = () => {
 
   const [isProcessing, setProcessingTo] = useState(false);
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
-
   const [responseData, setResponseData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState(null);
-
-  useEffect(
-    () => {
-      const getData = () => {
-        fetch(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`)
-          .then((res) => {
-            if (res.status >= 400) {
-              throw new Error("Server responds with error!" + res.status);
-            }
-            return res.json();
-          })
-          .then(
-            (responseData) => {
-              setResponseData(responseData);
-              setLoading(true);
-            },
-            (err) => {
-              setErr(err);
-              setLoading(true);
-            }
-          );
-      };
-      getData();
-    },
-    [tenancyID],
-    [responseData, loading, err]
-  );
-
+  const [loading, setLoading] = useState(false); //eslint-disable-line
+  const [err, setErr] = useState(null); //eslint-disable-line
   const [selectedFile, setSelectedFile] = useState(null);
   const [date, setDate] = useState("");
+
+  useEffect(() => {
+    const getData = () => {
+      fetch(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`)
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!" + res.status);
+          }
+          return res.json();
+        })
+        .then(
+          (responseData) => {
+            setResponseData(responseData);
+            setLoading(true);
+          },
+          (err) => {
+            setErr(err);
+            setLoading(true);
+          }
+        );
+    };
+    getData();
+  }, [tenancyID]);
 
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -76,6 +70,9 @@ const RegisterTenantPM = () => {
     formData.append("date", date);
     formData.append("tenancyID", tenancyID);
 
+    // const formEmailData = new FormData();
+    // formEmailData.append("files", selectedFile);
+
     // ! POST to RIMBO_API => DB
     await axios.post(
       `http://localhost:8081/api/tenancies/tenancy/${tenancyID}`,
@@ -83,14 +80,18 @@ const RegisterTenantPM = () => {
     );
 
     // ! POST to email service
-    await axios.post("http://localhost:8080/submit-email/rjs", {
+    await axios.post("http://localhost:8080/submit-email/rjs", formData, {
       agencyName: responseData.agent.agencyName,
       rentalAddress: responseData.property.rentalAddress,
       tenantsName: responseData.tenant.tenantsName,
+      pmAnex: responseData.pmAnex,
+      selectedFile,
     });
 
     setIsSuccessfullySubmitted(true);
   };
+
+  console.log(responseData.pmAnex);
 
   return (
     <>
@@ -126,11 +127,14 @@ const RegisterTenantPM = () => {
               />
               <InputFile
                 type="file"
-                name="file"
+                name="File"
                 label="Rental Agreement - Rimbo Annex"
                 onChange={changeHandler}
                 required
               />
+
+              {/* <a src={responseData.pmAnex} alt="" /> */}
+              <a href={responseData.pmAnex}>imagen</a>
 
               <div className={styles.ButtonContainer}>
                 {isProcessing ? (

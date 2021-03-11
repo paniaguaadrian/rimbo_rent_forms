@@ -33,9 +33,11 @@ app.use(function (req, res, next) {
 
 const stripe = new Stripe(process.env.SECRET_KEY);
 
+const __dirname = path.resolve();
 app.use(express.static("."));
+app.use(express.static(path.join(__dirname, "")));
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === "development") {
@@ -46,18 +48,18 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-// Declare routes and URL
+// * Declare routes and URL
 app.use("/submit-email", emailRoutes);
 
-// * Stripe action
+// * Stripe action =====> START
 app.get("/stripe/card-wallet", (req, res) => {
   res.send("Api is working...!");
 });
+
 app.post("/stripe/card-wallet", async (req, res) => {
   try {
     const { tenantsName, tenantsEmail } = req.body;
 
-    // Stripe
     const customer = await stripe.customers.create({
       name: tenantsName,
       email: tenantsEmail,
@@ -75,11 +77,11 @@ app.post("/stripe/card-wallet", async (req, res) => {
     res.status(500).json({ statusCode: 500, message: error.message });
   }
 });
+// * Stripe action =====> END
 
 app.use(notFound);
 app.use(errorHandler);
 
-// Setup our server
 const PORT = process.env.PORT || 8080;
 
 app.listen(

@@ -3,7 +3,6 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 // Styles
-
 import styles from "../approvedTenantRimbo/approved-user.module.scss";
 
 const ApprovedTenantCardRimbo = () => {
