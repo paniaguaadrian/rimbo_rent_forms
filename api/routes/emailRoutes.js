@@ -9,12 +9,14 @@ import {
   sendRJ3FormEmail,
   sendRJ15Emails,
   sendRJSFormEmail,
+  sendRJ3FilesEmail,
 } from "../controllers/emailsController.js";
 
 const router = express.Router();
 
 router.route("/rj1").post(sendRJ1FormEmails);
 router.route("/rj2").post(sendRJ2FormEmails);
+router.route("/rj2/files").post(sendRJ3FilesEmail);
 router.route("/rj11").post(sendRJ11Emails);
 router.route("/rjpm").post(sendPMEmails);
 router.route("/rj3").post(sendRJ3FormEmail);

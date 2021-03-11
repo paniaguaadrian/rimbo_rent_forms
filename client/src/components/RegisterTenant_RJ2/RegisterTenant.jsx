@@ -36,6 +36,7 @@ const RegisterTenant = () => {
     DB: null,
     DCA: null,
   });
+  const [sent, isSent] = useState(false);
 
   useEffect(
     () => {
@@ -82,6 +83,7 @@ const RegisterTenant = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    isSent(false);
     // const api_rimbo_tenants = process.env.REACT_APP_API_RIMBO_TENANTS;
     // ! POST to RIMBO_API => DB
     // Production axios: `${api_rimbo_tenants}`;
@@ -95,8 +97,6 @@ const RegisterTenant = () => {
       formData.append(key, files[key]);
     }
     formData.append("randomID", randomID);
-
-    console.log(formData);
 
     const errors = newTenant(tenant);
     setErrors(errors);
@@ -154,7 +154,31 @@ const RegisterTenant = () => {
       landlordPhone: responseData.landlord.landlordPhone,
       landlordEmail: responseData.landlord.landlordEmail,
     });
+    isSent(true);
   };
+
+  useEffect(() => {
+    const sendAttachments = () => {
+      if (sent === true) {
+        axios.post("http://localhost:8080/submit-email/rj2/files", {
+          tenancyID,
+          tenantsName: responseData.tenant.tenantsName,
+          tenantsPhone: responseData.tenant.tenantsPhone,
+          tenantsEmail: responseData.tenant.tenantsEmail,
+          agencyName: responseData.agent.agencyName,
+          agencyContactPerson: responseData.agent.agencyContactPerson,
+          agencyPhonePerson: responseData.agent.agencyPhonePerson,
+          agencyEmailPerson: responseData.agent.agencyEmailPerson,
+          documentImageFront: responseData.tenant.documentImageFront,
+          documentImageBack: responseData.tenant.documentImageBack,
+          documentConfirmAddress: responseData.tenant.documentConfirmAddress,
+        });
+      }
+    };
+    sendAttachments();
+  });
+
+  // isSent(false);
 
   const documentType = ["DNI", "NIE", "Passport", "Other"];
   const jobType = [

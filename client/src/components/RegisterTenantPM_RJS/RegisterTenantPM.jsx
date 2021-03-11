@@ -91,8 +91,6 @@ const RegisterTenantPM = () => {
     setIsSuccessfullySubmitted(true);
   };
 
-  console.log(responseData.pmAnex);
-
   return (
     <>
       {!isSuccessfullySubmitted ? (

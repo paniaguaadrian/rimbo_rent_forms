@@ -337,6 +337,83 @@ const sendRJ2FormEmails = async (req, res) => {
   res.status(200).json();
 };
 
+// ! RJ2 Form => RJXX32 Email with tenant's files attached
+const sendRJ3FilesEmail = async (req, res) => {
+  const {
+    agencyName,
+    agencyContactPerson,
+    agencyPhonePerson,
+    agencyEmailPerson,
+    tenantsName,
+    tenantsPhone,
+    tenantsEmail,
+    tenancyID,
+    documentImageFront,
+    documentImageBack,
+    documentConfirmAddress,
+  } = req.body;
+  console.log(documentImageFront);
+  console.log(documentImageBack);
+  console.log(documentConfirmAddress);
+
+  const transporterRJXX3Files = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  let optionsRJXX3 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rjxx3FilesEmail",
+    },
+    viewPath: "views/",
+  };
+
+  transporterRJXX3Files.use("compile", hbs(optionsRJXX3));
+
+  // RJXX3 email @Rimbo
+  const RimboEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // Rimbo email
+    subject: `${tenantsName} files`,
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rjxx3FilesEmail",
+    context: {
+      agencyName,
+      agencyContactPerson,
+      agencyPhonePerson,
+      agencyEmailPerson,
+      tenantsName,
+      tenantsPhone,
+      tenantsEmail,
+      tenancyID,
+      documentImageFront,
+      documentImageBack,
+      documentConfirmAddress,
+    },
+  };
+  transporterRJXX3Files.sendMail(RimboEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+
+  res.status(200).json();
+};
+
 // ! RJXX3 Email => RJ11 Email
 const sendRJ11Emails = async (req, res) => {
   const {
@@ -798,4 +875,5 @@ export {
   sendRJ3FormEmail,
   sendRJ15Emails,
   sendRJSFormEmail,
+  sendRJ3FilesEmail,
 };
