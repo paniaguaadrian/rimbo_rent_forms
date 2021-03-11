@@ -223,13 +223,13 @@ const sendRJ2FormEmails = async (req, res) => {
     tenancyID,
   } = req.body;
 
-  const transporterRJXX3 = nodemailer.createTransport(
-    sgTransport({
-      auth: {
-        api_key: process.env.SENDGRID_API,
-      },
-    })
-  );
+  // const transporterRJXX3 = nodemailer.createTransport(
+  //   sgTransport({
+  //     auth: {
+  //       api_key: process.env.SENDGRID_API,
+  //     },
+  //   })
+  // );
 
   const transporterRJ9 = nodemailer.createTransport(
     sgTransport({
@@ -239,14 +239,14 @@ const sendRJ2FormEmails = async (req, res) => {
     })
   );
 
-  let optionsRJXX3 = {
-    viewEngine: {
-      extname: ".handlebars",
-      layoutsDir: "views/",
-      defaultLayout: "rjxx3Email",
-    },
-    viewPath: "views/",
-  };
+  // let optionsRJXX3 = {
+  //   viewEngine: {
+  //     extname: ".handlebars",
+  //     layoutsDir: "views/",
+  //     defaultLayout: "rjxx3Email",
+  //   },
+  //   viewPath: "views/",
+  // };
 
   let optionsRJ9 = {
     viewEngine: {
@@ -257,55 +257,55 @@ const sendRJ2FormEmails = async (req, res) => {
     viewPath: "views/",
   };
 
-  transporterRJXX3.use("compile", hbs(optionsRJXX3));
+  // transporterRJXX3.use("compile", hbs(optionsRJXX3));
   transporterRJ9.use("compile", hbs(optionsRJ9));
 
   // RJXX3 email @Rimbo
-  const RimboEmail = {
-    from: "Rimbo info@rimbo.rent",
-    to: testEmail, // Rimbo email
-    subject: `${tenantsName} ready for Screening`,
-    text: "",
-    attachments: [
-      {
-        filename: "rimbo-logo.png",
-        path: "./views/images/rimbo-logo.png",
-        cid: "rimbologo",
-      },
-    ],
-    template: "rjxx3Email",
-    context: {
-      tenantsName,
-      agencyName,
-      agencyContactPerson,
-      agencyPhonePerson,
-      agencyEmailPerson,
-      tenantsPhone,
-      tenantsEmail,
-      monthlyNetIncome,
-      jobType,
-      tenantsAddress,
-      tenantsZipCode,
-      rentAmount,
-      product,
-      rentDuration,
-      rentalAddress,
-      rentalCity,
-      rentalPostalCode,
-      landlordName,
-      landlordPhone,
-      landlordEmail,
-      tenancyID,
-      documentNumber,
-    },
-  };
-  transporterRJXX3.sendMail(RimboEmail, (err, data) => {
-    if (err) {
-      console.log("There is an error here...!" + err);
-    } else {
-      console.log("Email sent!");
-    }
-  });
+  // const RimboEmail = {
+  //   from: "Rimbo info@rimbo.rent",
+  //   to: testEmail, // Rimbo email
+  //   subject: `${tenantsName} ready for Screening`,
+  //   text: "",
+  //   attachments: [
+  //     {
+  //       filename: "rimbo-logo.png",
+  //       path: "./views/images/rimbo-logo.png",
+  //       cid: "rimbologo",
+  //     },
+  //   ],
+  //   template: "rjxx3Email",
+  //   context: {
+  //     tenantsName,
+  //     agencyName,
+  //     agencyContactPerson,
+  //     agencyPhonePerson,
+  //     agencyEmailPerson,
+  //     tenantsPhone,
+  //     tenantsEmail,
+  //     monthlyNetIncome,
+  //     jobType,
+  //     tenantsAddress,
+  //     tenantsZipCode,
+  //     rentAmount,
+  //     product,
+  //     rentDuration,
+  //     rentalAddress,
+  //     rentalCity,
+  //     rentalPostalCode,
+  //     landlordName,
+  //     landlordPhone,
+  //     landlordEmail,
+  //     tenancyID,
+  //     documentNumber,
+  //   },
+  // };
+  // transporterRJXX3.sendMail(RimboEmail, (err, data) => {
+  //   if (err) {
+  //     console.log("There is an error here...!" + err);
+  //   } else {
+  //     console.log("Email sent!");
+  //   }
+  // });
 
   // RJ9 email @Tenant
   const tenantEmail = {
@@ -351,10 +351,21 @@ const sendRJ3FilesEmail = async (req, res) => {
     documentImageFront,
     documentImageBack,
     documentConfirmAddress,
+    documentNumber,
+    monthlyNetIncome,
+    jobType,
+    tenantsAddress,
+    tenantsZipCode,
+    rentAmount,
+    product,
+    rentDuration,
+    rentalAddress,
+    rentalCity,
+    rentalPostalCode,
+    landlordName,
+    landlordPhone,
+    landlordEmail,
   } = req.body;
-  console.log(documentImageFront);
-  console.log(documentImageBack);
-  console.log(documentConfirmAddress);
 
   const transporterRJXX3Files = nodemailer.createTransport(
     sgTransport({
@@ -401,8 +412,23 @@ const sendRJ3FilesEmail = async (req, res) => {
       documentImageFront,
       documentImageBack,
       documentConfirmAddress,
+      documentNumber,
+      monthlyNetIncome,
+      jobType,
+      tenantsAddress,
+      tenantsZipCode,
+      rentAmount,
+      product,
+      rentDuration,
+      rentalAddress,
+      rentalCity,
+      rentalPostalCode,
+      landlordName,
+      landlordPhone,
+      landlordEmail,
     },
   };
+
   transporterRJXX3Files.sendMail(RimboEmail, (err, data) => {
     if (err) {
       console.log("There is an error here...!" + err);

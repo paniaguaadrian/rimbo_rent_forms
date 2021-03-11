@@ -37,6 +37,7 @@ const RegisterTenant = () => {
     DCA: null,
   });
   const [sent, isSent] = useState(false);
+  const [responseDataAfter, setResponseDataAfter] = useState([]);
 
   useEffect(
     () => {
@@ -102,7 +103,7 @@ const RegisterTenant = () => {
     setErrors(errors);
     if (Object.keys(errors).length > 0) return;
     setProcessingTo(true);
-    setIsSuccessfullySubmitted(true);
+    // setIsSuccessfullySubmitted(true);
 
     // ! Post to Rimbo API (files/images)
     await axios.post(
@@ -125,7 +126,7 @@ const RegisterTenant = () => {
     });
 
     // ! POST to email service
-    await axios.post("http://localhost:8080/submit-email/rj2", {
+    await axios.post("http://localhost:8080/submit-email/rj2/tt", {
       // Agent/Agency
       agencyName: responseData.agent.agencyName,
       agencyContactPerson: responseData.agent.agencyContactPerson,
@@ -155,30 +156,70 @@ const RegisterTenant = () => {
       landlordEmail: responseData.landlord.landlordEmail,
     });
     isSent(true);
+    setIsSuccessfullySubmitted(true);
   };
 
   useEffect(() => {
-    const sendAttachments = () => {
-      if (sent === true) {
-        axios.post("http://localhost:8080/submit-email/rj2/files", {
+    const getData = () => {
+      fetch(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`)
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!" + res.status);
+          }
+          return res.json();
+        })
+        .then(
+          (responseDataAfter) => {
+            setResponseDataAfter(responseDataAfter);
+            setLoading(true);
+          },
+          (err) => {
+            setErr(err);
+            setLoading(true);
+          }
+        );
+    };
+    getData();
+  }, [sent, tenancyID]);
+
+  useEffect(() => {
+    const sendAttachments = async () => {
+      if (sent) {
+        await axios.post("http://localhost:8080/submit-email/rj2/rimbo", {
           tenancyID,
-          tenantsName: responseData.tenant.tenantsName,
-          tenantsPhone: responseData.tenant.tenantsPhone,
-          tenantsEmail: responseData.tenant.tenantsEmail,
-          agencyName: responseData.agent.agencyName,
-          agencyContactPerson: responseData.agent.agencyContactPerson,
-          agencyPhonePerson: responseData.agent.agencyPhonePerson,
-          agencyEmailPerson: responseData.agent.agencyEmailPerson,
-          documentImageFront: responseData.tenant.documentImageFront,
-          documentImageBack: responseData.tenant.documentImageBack,
-          documentConfirmAddress: responseData.tenant.documentConfirmAddress,
+          tenantsName: responseDataAfter.tenant.tenantsName,
+          tenantsPhone: responseDataAfter.tenant.tenantsPhone,
+          tenantsEmail: responseDataAfter.tenant.tenantsEmail,
+          agencyName: responseDataAfter.agent.agencyName,
+          agencyContactPerson: responseDataAfter.agent.agencyContactPerson,
+          agencyPhonePerson: responseDataAfter.agent.agencyPhonePerson,
+          agencyEmailPerson: responseDataAfter.agent.agencyEmailPerson,
+          documentImageFront: responseDataAfter.tenant.documentImageFront,
+          documentImageBack: responseDataAfter.tenant.documentImageBack,
+          documentConfirmAddress:
+            responseDataAfter.tenant.documentConfirmAddress,
+          // Agent/Agency
+          monthlyNetIncome: tenant.monthlyNetIncome,
+          jobType: tenant.jobType,
+          documentNumber: tenant.documentNumber,
+          tenantsAddress: tenant.tenantsAddress,
+          tenantsZipCode: tenant.tenantsZipCode,
+          // Proprety
+          rentAmount: responseDataAfter.rentAmount,
+          product: responseDataAfter.product,
+          rentDuration: responseDataAfter.rentDuration,
+          rentalAddress: responseDataAfter.property.rentalAddress,
+          rentalCity: responseDataAfter.property.rentalCity,
+          rentalPostalCode: responseDataAfter.property.rentalPostalCode,
+          // Landlord
+          landlordName: responseDataAfter.landlord.landlordName,
+          landlordPhone: responseDataAfter.landlord.landlordPhone,
+          landlordEmail: responseDataAfter.landlord.landlordEmail,
         });
       }
     };
     sendAttachments();
-  });
-
-  // isSent(false);
+  }, [responseDataAfter]); //eslint-disable-line
 
   const documentType = ["DNI", "NIE", "Passport", "Other"];
   const jobType = [
@@ -308,33 +349,27 @@ const RegisterTenant = () => {
                   <InputFile
                     type="file"
                     name="DF"
-                    // value={tenant.documentImageFront}
                     label="DNI/NIE (Front)"
                     placeholder="XXXXX"
                     onChange={changeHandler}
                     required
-                    // error={errors.documentImageFront}
                   />
                   <InputFile
                     type="file"
                     name="DB"
-                    // value={tenant.documentImageBack}
                     label="DNI/NIE (Back)"
                     placeholder="XXXXX"
                     onChange={changeHandler}
                     required
-                    // error={errors.documentImageBack}
                   />
                 </div>
                 <div className={styles.FormRight}>
                   <InputFile
                     type="file"
                     name="DCA"
-                    // value={tenant.documentConfirmAddress}
                     label="Document confirming your current address (eg receipt of supplies)"
                     onChange={changeHandler}
                     required
-                    // error={errors.documentConfirmAddress}
                   />
                 </div>
               </div>

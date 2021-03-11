@@ -131,9 +131,6 @@ const RegisterTenantPM = () => {
                 required
               />
 
-              {/* <a src={responseData.pmAnex} alt="" /> */}
-              <a href={responseData.pmAnex}>imagen</a>
-
               <div className={styles.ButtonContainer}>
                 {isProcessing ? (
                   <Loader
