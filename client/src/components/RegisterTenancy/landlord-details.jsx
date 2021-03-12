@@ -75,7 +75,6 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
       // property manager
       PMName: tenancy.agencyName,
     });
-    console.log(tenancy);
 
     await axios.post("http://localhost:8080/submit-email/rj1", {
       tenantsName: tenancy.tenantDetails.tenantName,

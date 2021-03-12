@@ -10,9 +10,11 @@ import styles from "../approvedTenantRimbo/approved-user.module.scss";
 const ApprovedTenancyRimbo = () => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
-
   const [tenant] = useReducer(TenantReducer, DefaultTenant);
   const [state, setState] = useState(null); // eslint-disable-line
+  const [responseData, setResponseData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
     // Simplify fetchUserData.
@@ -42,17 +44,13 @@ const ApprovedTenancyRimbo = () => {
       // console.log(postBody);
 
       const { tenantsName, tenantsEmail, randomID } = tenancyData.tenant;
-
       const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
-
+      const { rentalAddress } = tenancyData.property;
       const tenancyID = tenancyData.tenancyID;
 
-      console.log(tenancyData);
-      // console.log(tenantsName, randomID);
-      // console.log(agencyContactPerson, agencyEmailPerson);
-      // console.log("this is tenancyID:" + tenancyID);
+      // console.log(tenancyData);
 
-      // Don't send an email if the tenant is already accepted
+      // Don't send an email if the tenancy is already accepted
       if (tenancyData.rentStart === false) {
         axios.post("http://localhost:8080/submit-email/rj18", {
           tenancyID,
@@ -61,6 +59,7 @@ const ApprovedTenancyRimbo = () => {
           tenantsEmail,
           agencyContactPerson,
           agencyEmailPerson,
+          rentalAddress,
         });
       }
 
@@ -69,10 +68,6 @@ const ApprovedTenancyRimbo = () => {
 
     processDecision();
   }, [randomID, tenant.rentStart, tenancyID]);
-
-  const [responseData, setResponseData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState(null);
 
   useEffect(
     () => {

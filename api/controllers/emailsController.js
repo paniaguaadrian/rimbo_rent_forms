@@ -249,7 +249,7 @@ const sendRJ2FormEmails = async (req, res) => {
   res.status(200).json();
 };
 
-// ! RJ2 Form => RJXX32 Email with tenant's files attached
+// ! RJ2 Form => RJXX3 Email with tenant's files attached
 const sendRJ3FilesEmail = async (req, res) => {
   const {
     agencyName,
@@ -302,7 +302,7 @@ const sendRJ3FilesEmail = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo email
-    subject: `${tenantsName} files`,
+    subject: `${tenantsName} ready for Screening`,
     text: "",
     attachments: [
       {
@@ -815,14 +815,16 @@ const sendRJSFormEmail = async (req, res) => {
 // ! RJ18 Email => RJ17, RJ20 Emails
 const sendRJ18Email = async (req, res) => {
   const {
-    agencyName,
-    rentalAddress,
-    tenantsName,
-    pmAnex,
     tenancyID,
+    randomID,
+    tenantsName,
+    tenantsEmail,
+    agencyContactPerson,
+    agencyEmailPerson,
+    rentalAddress,
   } = req.body;
 
-  const transporterRJS = nodemailer.createTransport(
+  const transporterRJ17 = nodemailer.createTransport(
     sgTransport({
       auth: {
         api_key: process.env.SENDGRID_API,
@@ -830,21 +832,39 @@ const sendRJ18Email = async (req, res) => {
     })
   );
 
-  let optionsRJS = {
+  const transporterRJ20 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  let optionsRJ17 = {
     viewEngine: {
       extname: ".handlebars",
       layoutsDir: "views/",
-      defaultLayout: "rjsEmail",
+      defaultLayout: "rj17Email",
     },
     viewPath: "views/",
   };
 
-  transporterRJS.use("compile", hbs(optionsRJS));
+  let optionsRJ20 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rj20Email",
+    },
+    viewPath: "views/",
+  };
 
-  // RJ18 email @Rimbo
-  const RimboEmail = {
+  transporterRJ17.use("compile", hbs(optionsRJ17));
+  transporterRJ20.use("compile", hbs(optionsRJ20));
+
+  // RJ17 email @Tenant
+  const TenantEmail = {
     from: "Rimbo info@rimbo.rent",
-    to: testEmail, // Rimbo email
+    to: testEmail, // Tenant email
     subject: `Rental Starting Prepare Aval`,
     text: "",
     attachments: [
@@ -854,17 +874,47 @@ const sendRJ18Email = async (req, res) => {
         cid: "rimbologo",
       },
     ],
-    template: "rjsEmail",
+    template: "rj17Email",
     context: {
-      agencyName,
-      rentalAddress,
-      tenantsName,
-      pmAnex,
       tenancyID,
+      randomID,
+      tenantsName,
+      tenantsEmail,
     },
   };
 
-  transporterRJS.sendMail(RimboEmail, (err, data) => {
+  // RJ20 email @PM
+  const PMEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // PM email
+    subject: `Rental Starting Prepare Aval`,
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj20Email",
+    context: {
+      tenancyID,
+      randomID,
+      agencyContactPerson,
+      agencyEmailPerson,
+      rentalAddress,
+    },
+  };
+
+  transporterRJ17.sendMail(TenantEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+
+  transporterRJ20.sendMail(PMEmail, (err, data) => {
     if (err) {
       console.log("There is an error here...!" + err);
     } else {

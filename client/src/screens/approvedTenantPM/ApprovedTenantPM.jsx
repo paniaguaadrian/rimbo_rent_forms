@@ -59,12 +59,9 @@ const ApprovedTenantPM = () => {
       } = tenancyData.agent;
 
       const {
-        rimboService,
-        rentalDuration,
         rentalAddress,
         rentalCity,
         rentalPostalCode,
-        monthlyRent,
       } = tenancyData.property;
 
       const {
@@ -72,6 +69,8 @@ const ApprovedTenantPM = () => {
         landlordEmail,
         landlordPhone,
       } = tenancyData.landlord;
+
+      const { rentAmount, product, rentDuration } = tenancyData;
 
       const tenancyID = tenancyData.tenancyID;
 
@@ -95,12 +94,12 @@ const ApprovedTenantPM = () => {
           agencyEmailPerson,
           agencyName,
           agencyPhonePerson,
-          rimboService,
-          rentalDuration,
+          rentAmount,
+          product,
+          rentDuration,
           rentalAddress,
           rentalCity,
           rentalPostalCode,
-          monthlyRent,
           landlordName,
           landlordEmail,
           landlordPhone,
