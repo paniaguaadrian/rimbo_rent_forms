@@ -1,9 +1,14 @@
 // React Components
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
+
+// Multilingual
+import { withNamespaces } from "react-i18next";
 
 // Custom Components
 
 // ! Screens
+// General
+import Page404 from "./screens/404/404";
 // Forms
 import RegisterTenancy from "./screens/RegisterTenancy";
 import RegisterTenant from "./screens/RegisterTenant_RJ2/RegisterTenant";
@@ -61,8 +66,11 @@ const App = () => {
         path="/register/rjs/:tenancyID/service-start"
         component={ApprovedTenancyRimbo}
       />
+
+      <Route path="/404" component={Page404} />
+      <Redirect to="/404" />
     </>
   );
 };
 
-export default App;
+export default withNamespaces()(App);
