@@ -3,6 +3,11 @@
   "prevStepButton": "Atrás",
   "submitButton": "Enviar",
   "authorize": "Enviar datos",
+  "NavBar": {
+    "linkOne": "Inquilinos",
+    "linkTwo": "Propietarios",
+    "linkThree": "Agencias"
+  },
   "Home": {
     "header": "Starcity & Rimbo - The new way of renting",
     "title": "Bienvenid@ a la unión entre Starcity y Rimbo",
