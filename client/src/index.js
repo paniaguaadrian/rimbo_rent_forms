@@ -9,12 +9,11 @@ import "./index.scss";
 
 // Custom components
 import App from "./App";
+import "./i18n";
 
 ReactDOM.render(
   <Router>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </Router>,
   document.getElementById("root")
 );

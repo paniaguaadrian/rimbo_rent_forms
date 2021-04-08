@@ -2,15 +2,20 @@
 import { Route } from "react-router-dom";
 
 // Custom Components
+
+// ! Screens
+// Forms
 import RegisterTenancy from "./screens/RegisterTenancy";
 import RegisterTenant from "./screens/RegisterTenant_RJ2/RegisterTenant";
-import StripeHandler from "./screens/RegisterTenantCard_RJ3/StripeHandlerComponent";
+import RegisterTenantCard from "./screens/RegisterTenantCard_RJ3/StripeHandlerComponent";
+import RegisterTenantPM from "./screens/RegisterTenantPM_RJS/RegisterTenantPM";
+// Approved
 import ApprovedTenantRimbo from "./screens/approvedTenantRimbo/ApprovedTenantRimbo";
-import RejectedTenantRimbo from "./screens/approvedTenantRimbo/RejectedTenantRimbo";
 import ApprovedTenantPM from "./screens/approvedTenantPM/ApprovedTenantPM";
 import ApprovedTenantCardRimbo from "./screens/approvedTenantCardRimbo/ApprovedTenantCardRimbo";
-import RegisterTenantPM from "./screens/RegisterTenantPM_RJS/RegisterTenantPM";
 import ApprovedTenancyRimbo from "./screens/approvedTenancyRimbo/ApprovedTenancyRimbo";
+// Rejected
+import RejectedTenantRimbo from "./screens/approvedTenantRimbo/RejectedTenantRimbo";
 
 // Normalize & Generic styles
 import "./styles/generic.scss";
@@ -20,6 +25,16 @@ const App = () => {
     <>
       <Route exact path="/register/rj1" component={RegisterTenancy} />
       <Route exact path="/register/rj2/:tenancyID" component={RegisterTenant} />
+      <Route
+        exact
+        path="/register/rj3/:randomID"
+        component={RegisterTenantCard}
+      />
+      <Route
+        exact
+        path="/register/rjs/:tenancyID"
+        component={RegisterTenantPM}
+      />
       <Route
         exact
         path="/register/rj2/:tenancyID/approved"
@@ -40,12 +55,7 @@ const App = () => {
         path="/register/rj3/:tenancyID/card/approved"
         component={ApprovedTenantCardRimbo}
       />
-      <Route exact path="/register/rj3/:randomID" component={StripeHandler} />
-      <Route
-        exact
-        path="/register/rjs/:tenancyID"
-        component={RegisterTenantPM}
-      />
+
       <Route
         exact
         path="/register/rjs/:tenancyID/service-start"
