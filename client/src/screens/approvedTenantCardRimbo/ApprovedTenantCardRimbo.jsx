@@ -5,6 +5,13 @@ import { useParams } from "react-router-dom";
 // Styles
 import styles from "../approvedTenantRimbo/approved-user.module.scss";
 
+// End-Points env
+const {
+  REACT_APP_BASE_URL,
+  REACT_APP_API_RIMBO_TENANCY,
+  REACT_APP_BASE_URL_EMAIL,
+} = process.env;
+
 const ApprovedTenantCardRimbo = () => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
@@ -12,7 +19,9 @@ const ApprovedTenantCardRimbo = () => {
   useEffect(() => {
     // Simplify fetchUserData.
     const fetchUserData = () =>
-      axios.get(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`);
+      axios.get(
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`
+      );
 
     const processDecision = async () => {
       const { data: tenancyData } = await fetchUserData();
@@ -26,8 +35,7 @@ const ApprovedTenantCardRimbo = () => {
         agencyEmailPerson,
         agencyName,
       } = tenancyData.agent;
-
-      await axios.post("http://localhost:8080/submit-email/rj15", {
+      await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj15`, {
         tenantsName,
         tenantsEmail,
         agencyContactPerson,

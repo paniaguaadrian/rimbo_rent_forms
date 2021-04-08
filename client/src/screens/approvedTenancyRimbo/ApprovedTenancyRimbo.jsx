@@ -2,10 +2,20 @@
 import React, { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+
+// Reducer
 import { TenantReducer, DefaultTenant } from "./approved_tenancy_rimbo-reducer";
 
 // Styles
 import styles from "../approvedTenantRimbo/approved-user.module.scss";
+
+// End-Points env
+const {
+  REACT_APP_BASE_URL,
+  REACT_APP_API_RIMBO_TENANCY,
+  REACT_APP_API_RIMBO_TENANT,
+  REACT_APP_BASE_URL_EMAIL,
+} = process.env;
 
 const ApprovedTenancyRimbo = () => {
   let { tenancyID } = useParams();
@@ -18,13 +28,16 @@ const ApprovedTenancyRimbo = () => {
 
   useEffect(() => {
     // Simplify fetchUserData.
+
     const fetchUserData = () =>
-      axios.get(`http://localhost:8081/api/tenancies/tenancy/${tenancyID}`);
+      axios.get(
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`
+      );
 
     // Add body to post decision. So we can send data.
     const postDecision = (body) =>
       axios.post(
-        `http://localhost:8081/api/tenancies/tenancy/${tenancyID}/rimbo/start-service`,
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}/rimbo/start-service`,
         body
       );
 
@@ -52,7 +65,7 @@ const ApprovedTenancyRimbo = () => {
 
       // Don't send an email if the tenancy is already accepted
       if (tenancyData.rentStart === false) {
-        axios.post("http://localhost:8080/submit-email/rj18", {
+        axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18`, {
           tenancyID,
           randomID,
           tenantsName,
@@ -72,7 +85,7 @@ const ApprovedTenancyRimbo = () => {
   useEffect(
     () => {
       const getData = () => {
-        fetch(`http://localhost:8081/api/tenants/tenant/${randomID}`)
+        fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
           .then((res) => {
             if (res.status >= 400) {
               throw new Error("Server responds with error!" + res.status);
