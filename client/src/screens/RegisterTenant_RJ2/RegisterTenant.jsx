@@ -5,7 +5,7 @@ import axios from "axios";
 import { TenantReducer, DefaultTenant } from "./tenant-reducer";
 
 // Styles
-import styles from "../RegisterTenancy/register-user.module.scss";
+import styles from "../../screens/RegisterTenancy/register-user.module.scss";
 
 // Validation
 import { newTenant } from "./tenant_validation";
@@ -14,10 +14,10 @@ import { newTenant } from "./tenant_validation";
 import { UPDATE_NEWTENANT_INFO } from "./tenant-constants";
 
 // Custom Components
-import Input from "../Input";
-import InputCheck from "../InputCheck";
-import InputFile from "../InputFile";
-import Button from "../Button";
+import Input from "../../components/Input";
+import InputCheck from "../../components/InputCheck";
+import InputFile from "../../components/InputFile";
+import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
 
 const RegisterTenant = () => {

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 // Styles
-import styles from "../RegisterTenancy/register-user.module.scss";
+import styles from "./register-user.module.scss";
 
 // Validation
 import { isLandlord } from "./validation";
@@ -12,9 +12,9 @@ import { isLandlord } from "./validation";
 import { UPDATE_LANDLORD_INFO } from "./constants";
 
 // Custom Components
-import Input from "../Input";
-import InputCheck from "../InputCheck";
-import Button from "../Button";
+import Input from "../../components/Input";
+import InputCheck from "../../components/InputCheck";
+import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
 
 // nanoid
@@ -76,25 +76,25 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
       PMName: tenancy.agencyName,
     });
 
-    await axios.post("http://localhost:8080/submit-email/rj1", {
-      tenantsName: tenancy.tenantDetails.tenantName,
-      tenantsEmail: tenancy.tenantDetails.tenantEmail,
-      tenantsPhone: tenancy.tenantDetails.tenantPhone,
-      agencyName: tenancy.agencyName,
-      agencyContactPerson: tenancy.agencyContactPerson,
-      agencyPhonePerson: tenancy.agencyPhonePerson,
-      agencyEmailPerson: tenancy.agencyEmailPerson,
-      rentDuration: tenancy.propertyDetails.rentDuration,
-      product: tenancy.propertyDetails.product,
-      rentAmount: tenancy.propertyDetails.rentAmount,
-      rentalAddress: tenancy.propertyDetails.rentalAddress,
-      rentalPostalCode: tenancy.propertyDetails.rentalPostalCode,
-      rentalCity: tenancy.propertyDetails.rentalCity,
-      landlordName: tenancy.landlordDetails.landlordName,
-      landlordEmail: tenancy.landlordDetails.landlordEmail,
-      landlordPhone: tenancy.landlordDetails.landlordPhone,
-      randomID,
-    });
+    // await axios.post("http://localhost:8080/submit-email/rj1", {
+    //   tenantsName: tenancy.tenantDetails.tenantName,
+    //   tenantsEmail: tenancy.tenantDetails.tenantEmail,
+    //   tenantsPhone: tenancy.tenantDetails.tenantPhone,
+    //   agencyName: tenancy.agencyName,
+    //   agencyContactPerson: tenancy.agencyContactPerson,
+    //   agencyPhonePerson: tenancy.agencyPhonePerson,
+    //   agencyEmailPerson: tenancy.agencyEmailPerson,
+    //   rentDuration: tenancy.propertyDetails.rentDuration,
+    //   product: tenancy.propertyDetails.product,
+    //   rentAmount: tenancy.propertyDetails.rentAmount,
+    //   rentalAddress: tenancy.propertyDetails.rentalAddress,
+    //   rentalPostalCode: tenancy.propertyDetails.rentalPostalCode,
+    //   rentalCity: tenancy.propertyDetails.rentalCity,
+    //   landlordName: tenancy.landlordDetails.landlordName,
+    //   landlordEmail: tenancy.landlordDetails.landlordEmail,
+    //   landlordPhone: tenancy.landlordDetails.landlordPhone,
+    //   randomID,
+    // });
 
     setStep(step + 1);
   };

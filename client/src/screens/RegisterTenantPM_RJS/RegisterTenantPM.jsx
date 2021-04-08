@@ -4,12 +4,12 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 // Styles
-import styles from "../RegisterTenancy/register-user.module.scss";
+import styles from "../../screens/RegisterTenancy/register-user.module.scss";
 
 // Custom Components
-import Input from "../Input";
-import InputFile from "../InputFile";
-import Button from "../Button";
+import Input from "../../components/Input";
+import InputFile from "../../components/InputFile";
+import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
 
 const RegisterTenantPM = () => {

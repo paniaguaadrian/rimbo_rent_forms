@@ -13,7 +13,7 @@ import { UPDATE_NEWTENANT_INFO } from "./tenantStripe-constants";
 
 // Styles
 import Loader from "react-loader-spinner";
-import styles from "../RegisterTenancy/register-user.module.scss";
+import styles from "../../screens/RegisterTenancy/register-user.module.scss";
 import "./CardSection.css";
 const CARD_ELEMENT_OPTIONS = {
   style: {

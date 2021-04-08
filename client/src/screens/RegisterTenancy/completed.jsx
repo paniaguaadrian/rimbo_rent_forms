@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "../RegisterTenancy/register-user.module.scss";
+import styles from "./register-user.module.scss";
 
 const Completed = ({ tenancy }) => {
   return (

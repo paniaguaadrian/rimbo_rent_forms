@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import styles from "../RegisterTenancy/register-user.module.scss";
-import Input from "../Input";
-import Button from "../Button";
+import styles from "./register-user.module.scss";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 import { isAgency } from "./validation";
 import { UPDATE_TENANCY_INFO } from "./constants";
 

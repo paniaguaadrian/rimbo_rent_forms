@@ -2,14 +2,14 @@
 import { Route } from "react-router-dom";
 
 // Custom Components
-import RegisterTenancy from "./components/RegisterTenancy";
-import RegisterTenant from "./components/RegisterTenant_RJ2/RegisterTenant";
-import StripeHandler from "./components/RegisterTenantCard_RJ3/StripeHandlerComponent";
+import RegisterTenancy from "./screens/RegisterTenancy";
+import RegisterTenant from "./screens/RegisterTenant_RJ2/RegisterTenant";
+import StripeHandler from "./screens/RegisterTenantCard_RJ3/StripeHandlerComponent";
 import ApprovedTenantRimbo from "./screens/approvedTenantRimbo/ApprovedTenantRimbo";
 import RejectedTenantRimbo from "./screens/approvedTenantRimbo/RejectedTenantRimbo";
 import ApprovedTenantPM from "./screens/approvedTenantPM/ApprovedTenantPM";
 import ApprovedTenantCardRimbo from "./screens/approvedTenantCardRimbo/ApprovedTenantCardRimbo";
-import RegisterTenantPM from "./components/RegisterTenantPM_RJS/RegisterTenantPM";
+import RegisterTenantPM from "./screens/RegisterTenantPM_RJS/RegisterTenantPM";
 import ApprovedTenancyRimbo from "./screens/approvedTenancyRimbo/ApprovedTenancyRimbo";
 
 // Normalize & Generic styles

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { isProperty } from "./validation";
-import styles from "../RegisterTenancy/register-user.module.scss";
-import Input from "../Input";
-import Button from "../Button";
+import styles from "./register-user.module.scss";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 import { UPDATE_PROPERTY_INFO } from "./constants";
 
 const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
