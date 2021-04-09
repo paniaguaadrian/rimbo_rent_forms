@@ -5,9 +5,9 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { withNamespaces } from "react-i18next";
 
 // Custom Components
-// import NavBar from "./components/NavBar/NavBar";
 import WhatsappBubble from "./components/WhatsappBubble/WhatsappBubble";
 import NavBar from "./components/RimboNavBar/Header";
+import Footer from "./components/Footer/Footer";
 
 // Material-UI
 import { Container } from "@material-ui/core";
@@ -35,6 +35,7 @@ const App = () => {
   return (
     <>
       <NavBar />
+
       <WhatsappBubble />
       <Container maxWidth="xl">
         <Switch>
@@ -71,6 +72,7 @@ const App = () => {
           <Redirect to="/404" />
         </Switch>
       </Container>
+      <Footer />
     </>
   );
 };

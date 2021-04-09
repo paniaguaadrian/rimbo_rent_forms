@@ -4,8 +4,8 @@
   /* transform: translateY(-320px); */
   width: 55px;
   height: 55px;
-  bottom: 42px;
-  right: 200px;
+  bottom: 50px;
+  right: 30px;
   background-color: #25d366;
   color: #fff;
   border-radius: 50px;
@@ -54,7 +54,7 @@
     transform: none;
     width: 55px;
     height: 55px;
-    bottom: 40px;
+    bottom: 150px;
     right: 10px;
     font-size: 22px;
   }
