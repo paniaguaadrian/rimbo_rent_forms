@@ -5,8 +5,12 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { withNamespaces } from "react-i18next";
 
 // Custom Components
-import NavBar from "./components/NavBar/NavBar";
+// import NavBar from "./components/NavBar/NavBar";
 import WhatsappBubble from "./components/WhatsappBubble/WhatsappBubble";
+import Header from "./components/RimboNavBar/Header";
+
+// Material-UI
+import { Container } from "@material-ui/core";
 
 // ! Screens
 // Forms
@@ -30,38 +34,43 @@ import "./styles/generic.scss";
 const App = () => {
   return (
     <>
-      <NavBar />
+      <Header />
       <WhatsappBubble />
-      <Switch>
-        <Route path="/register/rj1" component={RegisterTenancy} />
-        <Route path="/register/rj2/:tenancyID" component={RegisterTenant} />
-        <Route path="/register/rj3/:randomID" component={RegisterTenantCard} />
-        <Route path="/register/rjs/:tenancyID" component={RegisterTenantPM} />
-        <Route
-          path="/register/rj2/:tenancyID/approved"
-          component={ApprovedTenantRimbo}
-        />
-        <Route
-          path="/register/rj2/:tenancyID/rejected"
-          component={RejectedTenantRimbo}
-        />
-        <Route
-          path="/register/rj2/:tenancyID/pm/approved"
-          component={ApprovedTenantPM}
-        />
-        <Route
-          path="/register/rj3/:tenancyID/card/approved"
-          component={ApprovedTenantCardRimbo}
-        />
+      <Container maxWidth="xl">
+        <Switch>
+          <Route path="/register/rj1" component={RegisterTenancy} />
+          <Route path="/register/rj2/:tenancyID" component={RegisterTenant} />
+          <Route
+            path="/register/rj3/:randomID"
+            component={RegisterTenantCard}
+          />
+          <Route path="/register/rjs/:tenancyID" component={RegisterTenantPM} />
+          <Route
+            path="/register/rj2/:tenancyID/approved"
+            component={ApprovedTenantRimbo}
+          />
+          <Route
+            path="/register/rj2/:tenancyID/rejected"
+            component={RejectedTenantRimbo}
+          />
+          <Route
+            path="/register/rj2/:tenancyID/pm/approved"
+            component={ApprovedTenantPM}
+          />
+          <Route
+            path="/register/rj3/:tenancyID/card/approved"
+            component={ApprovedTenantCardRimbo}
+          />
 
-        <Route
-          path="/register/rjs/:tenancyID/service-start"
-          component={ApprovedTenancyRimbo}
-        />
+          <Route
+            path="/register/rjs/:tenancyID/service-start"
+            component={ApprovedTenancyRimbo}
+          />
 
-        <Route path="/404" component={Page404} />
-        <Redirect to="/404" />
-      </Switch>
+          <Route path="/404" component={Page404} />
+          <Redirect to="/404" />
+        </Switch>
+      </Container>
     </>
   );
 };
