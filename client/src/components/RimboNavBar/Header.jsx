@@ -20,14 +20,17 @@ import SpanishLogo from "../../images/spanish-language.png";
 import EnglishLogo from "../../images/english-language.png";
 
 // Multi language
-import { withNamespaces } from "react-i18next";
 import i18n from "../../i18n";
 
 // Styles
 import useStyles from "./styles";
 
-const Header = ({ t }) => {
+const Header = () => {
   const classes = useStyles();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const spanish_logo = (
     <button
@@ -55,16 +58,16 @@ const Header = ({ t }) => {
     </button>
   );
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+  const navLinksEs = [
+    { title: `Inquilinos`, path: `/about-us` },
+    { title: `Propietarios`, path: `/product` },
+    { title: `Agencias`, path: `/blog` },
+  ];
 
-  const navLinks = [
+  const navLinksEn = [
     { title: `Tenants`, path: `/about-us` },
     { title: `Landlords`, path: `/product` },
     { title: `Agencies`, path: `/blog` },
-    { title: spanish_logo },
-    { title: english_logo },
   ];
 
   return (
@@ -72,32 +75,54 @@ const Header = ({ t }) => {
       <HideOnScroll>
         <AppBar position="fixed" color="white">
           <Toolbar component="nav">
-            <Container maxWidth="xl" className={classes.navbarDisplayFlex}>
+            <Container maxWidth="xl" className={classes.NavBarContainer}>
               <a href="/" style={{ color: `white` }}>
                 <img
                   src={RimboLogo}
                   alt="Rimbo Logo"
-                  className={classes.logo}
+                  className={classes.Logo}
                 />
               </a>
 
               <Hidden smDown>
-                <List
-                  component="nav"
-                  aria-labelledby="main navigation"
-                  className={classes.navListDisplayFlex}
-                >
-                  {navLinks.map(({ title, path }) => (
-                    <a href={path} key={title} className={classes.linkText}>
-                      <ListItem>
-                        <ListItemText primary={title} />
-                      </ListItem>
-                    </a>
-                  ))}
-                </List>
+                {i18n.language === "es" ? (
+                  <List
+                    component="nav"
+                    aria-labelledby="main navigation"
+                    className={classes.LinksListContainer}
+                  >
+                    {navLinksEs.map(({ title, path }) => (
+                      <a href={path} key={title} className={classes.LinkText}>
+                        <ListItem>
+                          <ListItemText primary={title} />
+                        </ListItem>
+                      </a>
+                    ))}
+                    {english_logo}
+                  </List>
+                ) : (
+                  <List
+                    component="nav"
+                    aria-labelledby="main navigation"
+                    className={classes.LinksListContainer}
+                  >
+                    {navLinksEn.map(({ title, path }) => (
+                      <a href={path} key={title} className={classes.LinkText}>
+                        <ListItem>
+                          <ListItemText primary={title} />
+                        </ListItem>
+                      </a>
+                    ))}
+                    {spanish_logo}
+                  </List>
+                )}
               </Hidden>
               <Hidden mdUp>
-                <SideDrawer navLinks={navLinks} />
+                {i18n.language === "es" ? (
+                  <SideDrawer navLinks={navLinksEs} />
+                ) : (
+                  <SideDrawer navLinks={navLinksEn} />
+                )}
               </Hidden>
             </Container>
           </Toolbar>
@@ -114,4 +139,4 @@ const Header = ({ t }) => {
   );
 };
 
-export default withNamespaces()(Header);
+export default Header;

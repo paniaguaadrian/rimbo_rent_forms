@@ -7,7 +7,7 @@ import { withNamespaces } from "react-i18next";
 // Custom Components
 // import NavBar from "./components/NavBar/NavBar";
 import WhatsappBubble from "./components/WhatsappBubble/WhatsappBubble";
-import Header from "./components/RimboNavBar/Header";
+import NavBar from "./components/RimboNavBar/Header";
 
 // Material-UI
 import { Container } from "@material-ui/core";
@@ -34,7 +34,7 @@ import "./styles/generic.scss";
 const App = () => {
   return (
     <>
-      <Header />
+      <NavBar />
       <WhatsappBubble />
       <Container maxWidth="xl">
         <Switch>

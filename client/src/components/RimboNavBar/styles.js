@@ -1,20 +1,25 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  navbarDisplayFlex: {
+  // General
+  NavBarContainer: {
     display: `flex`,
     justifyContent: `space-between`,
     alignItems: `center`,
-    // marginTop: `.0.6rem`,
-    // marginBottom: `0.6rem`,
+    padding: `.5rem 1rem`,
   },
 
-  navListDisplayFlex: {
+  Logo: {
+    height: `3rem`,
+  },
+
+  LinksListContainer: {
     display: `flex`,
     justifyContent: `space-between`,
+    alignItems: `center`,
   },
 
-  linkText: {
+  LinkText: {
     textDecoration: `none`,
     color: `black`,
     transition: `all .25s ease-in-out`,
@@ -23,10 +28,7 @@ const useStyles = makeStyles({
     },
   },
 
-  logo: {
-    height: `3rem`,
-  },
-
+  // Multilingual
   LanguageLogo: {
     height: `1.3rem`,
   },
@@ -37,6 +39,24 @@ const useStyles = makeStyles({
     backgroundColor: `none !important`,
     width: `3rem !important`,
     margin: `0 auto`,
+  },
+
+  // SideDrawer Component (Mobile)
+  LanguageLogoMobile: {
+    height: `2.5rem`,
+    marginLeft: `1.8rem`,
+  },
+
+  list: {
+    width: 250,
+    height: `100%`,
+    backgroundColor: `#042040`,
+  },
+
+  linkTextMobile: {
+    textDecoration: `none`,
+    textTransform: `uppercase`,
+    color: `white`,
   },
 });
 
