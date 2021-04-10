@@ -8,14 +8,47 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 
 // Images
 import RimboLogoWhite from "../../images/rimbo_logo_white.png";
+import SpanishLogo from "../../images/spanish-language.png";
+import EnglishLogo from "../../images/english-language.png";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
 
 // Styles imported
 import classes from "./footer.module.scss";
 
 const Footer = ({ t }) => {
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
+  const spanish_logo = (
+    <button
+      onClick={() => changeLanguage("es")}
+      className={classes.ToggleLanguageButton}
+    >
+      <img
+        src={SpanishLogo}
+        alt="Spanish language logo"
+        className={classes.LanguageLogo}
+      />
+    </button>
+  );
+
+  const english_logo = (
+    <button
+      onClick={() => changeLanguage("en")}
+      className={classes.ToggleLanguageButton}
+    >
+      <img
+        src={EnglishLogo}
+        alt="English language logo"
+        className={classes.LanguageLogo}
+      />
+    </button>
+  );
+
   return (
     <div className={classes.FooterContainer}>
       <div className={classes.FooterContent}>
@@ -66,6 +99,10 @@ const Footer = ({ t }) => {
               <a href="/">
                 <li>{t("Footer.news")}</li>
               </a>
+              <div className={classes.LangugeContiner}>
+                <li>{spanish_logo}</li>
+                <li>{english_logo}</li>
+              </div>
             </ul>
           </div>
           <div className={classes.FooterLinks}>
