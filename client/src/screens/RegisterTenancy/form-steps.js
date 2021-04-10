@@ -1,4 +1,7 @@
+// React Components
 import React from "react";
+
+// Custom Components
 import AgencyDetails from "./agency-details";
 import TenantDetails from "./tenant-details";
 import PropertyDetails from "./property-details";
@@ -8,6 +11,7 @@ import Completed from "./completed";
 const FormSteps = (step, setStep, tenancy, setTenancy) => [
   {
     title: "Real State Agency",
+    titleEs: "Datos de la inmobiliaria",
     content: (
       <AgencyDetails
         setStep={setStep}
@@ -19,6 +23,7 @@ const FormSteps = (step, setStep, tenancy, setTenancy) => [
   },
   {
     title: "Tenant Information",
+    titleEs: "Datos del inquilino",
     content: (
       <TenantDetails
         setStep={setStep}
@@ -30,6 +35,7 @@ const FormSteps = (step, setStep, tenancy, setTenancy) => [
   },
   {
     title: "Apartment Details",
+    titleEs: "Datos del apartamento",
     content: (
       <PropertyDetails
         setStep={setStep}
@@ -41,6 +47,7 @@ const FormSteps = (step, setStep, tenancy, setTenancy) => [
   },
   {
     title: "Landlord Information",
+    titleEs: "Datos del propietario",
     content: (
       <LandlordDetails
         setStep={setStep}
@@ -52,6 +59,7 @@ const FormSteps = (step, setStep, tenancy, setTenancy) => [
   },
   {
     title: "Listing Complete",
+    titleEs: "Registro completado",
     content: <Completed tenancy={tenancy} />,
   },
 ];

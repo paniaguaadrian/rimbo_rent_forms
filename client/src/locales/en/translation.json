@@ -25,6 +25,32 @@
     "cookies": "Cookies Policy",
     "copyright": "© Rimbo S.L. 2021 All rights reserved"
   },
+  "404Page": {
+    "header": "404 error page - Rimbo",
+    "title": "Error 404 - The page you are looking for doesn't exist 😔",
+    "subtitle": "Please, reload the latest link you have received, or get in touch with us:",
+    "paragraphEmail": "info@rimbo.rent",
+    "paragraphPhone": "+34 623 063 769"
+  },
+  "RJ1": {
+    "helmet": "New tenancy - Rimbo - The new way of rent",
+    "header": {
+      "title": "List your tenant for screening",
+      "subtitleOne": "Fill out the fields.",
+      "subtitleTwo": "Rimbo screens in 24 hours.",
+      "subtitleThree": "Receive a response via email."
+    },
+    "stepZero": {
+      "agencyName": "Agency Name",
+      "agencyNamePL": "Enter the name",
+      "contactPerson": "Contact Person",
+      "contactPersonPL": "Enter full name",
+      "email": "Email",
+      "emailPL": "Enter a valid email address",
+      "phoneNumber": "Phone number",
+      "phoneNumberPL": "Enter phone number"
+    }
+  },
 
   "F1SC": {
     "helmet": "New tenancy - Starcity & Rimbo - The new way of rent",
@@ -148,12 +174,5 @@
     "title": "You are already part of StarCity!",
     "textOne": "Awesome, we have received your details!",
     "textTwo": "We will get in touch with you shortly to complete the process."
-  },
-  "404Page": {
-    "header": "404 error page - Starcity & Rimbo",
-    "title": "Error 404 - The page you are looking for doesn't exist 😔",
-    "subtitle": "Please, reload the latest link you have received, or get in touch with us:",
-    "paragraphEmail": "info@rimbo.rent",
-    "paragraphPhone": "+34 623 063 769"
   }
 }

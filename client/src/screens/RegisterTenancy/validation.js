@@ -20,6 +20,28 @@ export const isAgency = (values) => {
   return errors;
 };
 
+export const isAgencyEs = (values) => {
+  let errors = {};
+  if (!values.agencyName) {
+    errors.agencyName = "Se requiere el nombre de la agencia";
+  }
+  if (!values.agencyEmailPerson) {
+    errors.agencyEmailPerson = "Escribe el correo electrónico";
+  } else if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.agencyEmailPerson = "El correo electrónico no es válido";
+  }
+  if (!values.agencyContactPerson) {
+    errors.agencyContactPerson = "Añade el nombre de la persona de contacto";
+  }
+  if (!values.agencyPhonePerson) {
+    errors.agencyPhonePerson = "Escribe el teléfono";
+  }
+  if (values.agencyPhonePerson && values.agencyPhonePerson.length < 9) {
+    errors.agencyPhonePerson = "Escribe un número de teléfono válido";
+  }
+  return errors;
+};
+
 export const isTenant = (values) => {
   let errors = {};
   if (!values.tenantName) {

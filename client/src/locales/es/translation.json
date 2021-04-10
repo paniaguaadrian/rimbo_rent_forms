@@ -25,12 +25,38 @@
     "cookies": "Política de Cookies",
     "copyright": "© Rimbo S.L. 2021 Todos los derechos reservados"
   },
+  "404Page": {
+    "header": "404 error page - Rimbo",
+    "title": "404 - La página a la que intentas acceder no existe 😔",
+    "subtitle": "Por favor vuelve a cargar el último enlace que has recibido o ponte en contacto con nosotros a:",
+    "paragraphEmail": "info@rimbo.rent",
+    "paragraphPhone": "+34 623 063 769"
+  },
+  "RJ1": {
+    "helmet": "Nuevo alquiler - Rimbo - The new way of rent",
+    "header": {
+      "title": "Registra a tu inquilino para su evaluación",
+      "subtitleOne": "Completa los campos",
+      "subtitleTwo": "Rimbo lo evalúa en los próximos 24 horas.",
+      "subtitleThree": "Recibirás una respuesta por correo electrónico."
+    },
+    "stepZero": {
+      "agencyName": "Nombre de la inmobiliaria",
+      "agencyNamePL": "Escribe el nombre",
+      "contactPerson": "Persona de contacto",
+      "contactPersonPL": "Escribe tu nombre completo",
+      "email": "Correo Electrónico",
+      "emailPL": "Escribe el correo electrónico",
+      "phoneNumber": "Número de teléfono",
+      "phoneNumberPL": "Escribe el número de teléfono"
+    }
+  },
   "F1SC": {
     "helmet": "Nuevo alquiler - Starcity & Rimbo - The new way of rent",
     "header": {
-      "title": "Registra a tu residente",
-      "subtitleOne": "Completa los campos.",
-      "subtitleTwo": "El residente recibirá un email para registrar su tarjeta de débito",
+      "title": "Registra a tu inquilino para su evaluación",
+      "subtitleOne": "Completa los campos",
+      "subtitleTwo": "Rimbo lo evalúa en los próximos 24 horas.",
       "subtitleThree": "Recibirás una respuesta por correo electrónico."
     },
     "stepZero": {
@@ -137,12 +163,5 @@
     "title": "¡Ya eres parte de Starcity!",
     "textOne": "Genial, ¡hemos recibido tus detalles!",
     "textTwo": " Nos pondremos en contacto contigo en breve para completar el proceso."
-  },
-  "404Page": {
-    "header": "404 error page - Starcity & Rimbo",
-    "title": "404 - La página a la que intentas acceder no existe 😔",
-    "subtitle": "Por favor vuelve a cargar el último enlace que has recibido o ponte en contacto con nosotros a:",
-    "paragraphEmail": "info@rimbo.rent",
-    "paragraphPhone": "+34 623 063 769"
   }
 }

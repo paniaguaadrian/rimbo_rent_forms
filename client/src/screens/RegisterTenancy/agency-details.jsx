@@ -1,12 +1,25 @@
+// React Components
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import styles from "./register-user.module.scss";
+
+// Custom Components
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { isAgency } from "./validation";
+
+// Validation
+import { isAgency, isAgencyEs } from "./validation";
+
+// Constants
 import { UPDATE_TENANCY_INFO } from "./constants";
 
-const AgencyDetails = ({ step, setStep, tenancy, setTenancy }) => {
+// Multilanguage
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
+
+// Styles imported
+import styles from "./register-user.module.scss";
+
+const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [errors, setErrors] = useState({});
 
   // Handle on change
@@ -20,9 +33,16 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy }) => {
   // Hanlde con next / continue
   const handleContinue = (e) => {
     e.preventDefault();
-    const errors = isAgency(tenancy);
-    setErrors(errors);
-    if (Object.keys(errors).length > 0) return;
+    if (i18n.language === "en") {
+      const errors = isAgency(tenancy);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+    } else {
+      const errors = isAgencyEs(tenancy);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+    }
+
     setStep(step + 1);
   };
 
@@ -34,8 +54,8 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="agencyName"
             value={tenancy.agencyName}
-            label="Agency Name"
-            placeholder="Enter the name"
+            label={t("RJ1.stepZero.agencyName")}
+            placeholder={t("RJ1.stepZero.agencyNamePL")}
             onChange={(e) => handleAgency(e)}
             error={errors.agencyName}
           />
@@ -43,8 +63,8 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="agencyContactPerson"
             value={tenancy.agencyContactPerson}
-            label="Contact Person"
-            placeholder="Enter full name"
+            label={t("RJ1.stepZero.contactPerson")}
+            placeholder={t("RJ1.stepZero.contactPersonPL")}
             onChange={(e) => handleAgency(e)}
             error={errors.agencyContactPerson}
           />
@@ -54,8 +74,8 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="email"
             name="agencyEmailPerson"
             value={tenancy.agencyEmailPerson}
-            label="Email"
-            placeholder="Enter a valid email address"
+            label={t("RJ1.stepZero.email")}
+            placeholder={t("RJ1.stepZero.emailPL")}
             onChange={(e) => handleAgency(e)}
             error={errors.agencyEmailPerson}
           />
@@ -63,8 +83,8 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="tel"
             name="agencyPhonePerson"
             value={tenancy.agencyPhonePerson}
-            label="Phone number"
-            placeholder="Enter phone number"
+            label={t("RJ1.stepZero.phoneNumber")}
+            placeholder={t("RJ1.stepZero.phoneNumberPL")}
             onChange={(e) => handleAgency(e)}
             error={errors.agencyPhonePerson}
           />
@@ -72,7 +92,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy }) => {
       </div>
 
       <div className={styles.AloneButtonContainer}>
-        <Button type="submit">Next Step</Button>
+        <Button type="submit">{t("nextStepButton")}</Button>
       </div>
     </form>
   );
@@ -85,4 +105,4 @@ AgencyDetails.propTypes = {
   setTenancy: PropTypes.func,
 };
 
-export default AgencyDetails;
+export default withNamespaces()(AgencyDetails);
