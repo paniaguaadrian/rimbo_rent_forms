@@ -9,10 +9,13 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 // Images
 import RimboLogoWhite from "../../images/rimbo_logo_white.png";
 
+// Multi language
+import { withNamespaces } from "react-i18next";
+
 // Styles imported
 import classes from "./footer.module.scss";
 
-const Footer = () => {
+const Footer = ({ t }) => {
   return (
     <div className={classes.FooterContainer}>
       <div className={classes.FooterContent}>
@@ -20,10 +23,8 @@ const Footer = () => {
           <a href="http://rimbo.rent" target="_blank" rel="noopener noreferrer">
             <img src={RimboLogoWhite} alt="Rimbo Rent Logo" />
           </a>
-          <h4>Welcome to the easy renting!</h4>
-          <h4>
-            Discover a new way of renting that is fairer and safer for everyone
-          </h4>
+          <h4>{t("Footer.leftTitle")}</h4>
+          <h4>{t("Footer.leftSubtitle")} </h4>
           <div className={classes.FooterSocialMedia}>
             <ul>
               <li>
@@ -48,30 +49,30 @@ const Footer = () => {
 
         <div className={classes.FooterSecond}>
           <div className={classes.FooterLinks}>
-            <h4>Rimbo</h4>
+            <h4>{t("Footer.rimbo")}</h4>
             <ul>
               <a href="/">
-                <li>About us</li>
+                <li>{t("Footer.about")}</li>
               </a>
               <a href="/">
-                <li>Tenants</li>
+                <li>{t("Footer.tenants")}</li>
               </a>
               <a href="/">
-                <li>Landlords</li>
+                <li>{t("Footer.landlords")}</li>
               </a>
               <a href="/">
-                <li>Agencies</li>
+                <li>{t("Footer.agencies")}</li>
               </a>
               <a href="/">
-                <li>News</li>
+                <li>{t("Footer.news")}</li>
               </a>
             </ul>
           </div>
           <div className={classes.FooterLinks}>
-            <h4>Help</h4>
+            <h4>{t("Footer.help")}</h4>
             <ul>
               <a href="/">
-                <li>Contact</li>
+                <li>{t("Footer.contact")}</li>
               </a>
               <a
                 href="mailto:info@rimbo.rent"
@@ -83,16 +84,16 @@ const Footer = () => {
             </ul>
           </div>
           <div className={classes.FooterLinks}>
-            <h4>Legal</h4>
+            <h4>{t("Footer.legal")}</h4>
             <ul>
               <a href="/">
-                <li>Legal Notice</li>
+                <li>{t("Footer.legalNotice")}</li>
               </a>
               <a href="/">
-                <li>Privacy Policy</li>
+                <li>{t("Footer.privacy")}</li>
               </a>
               <a href="/">
-                <li>Cookies Policy</li>
+                <li>{t("Footer.cookies")}</li>
               </a>
             </ul>
           </div>
@@ -101,11 +102,11 @@ const Footer = () => {
       {/* End FooterContent */}
 
       <div className={classes.FooterCopyContainer}>
-        <p>© Rimbo S.L. 2021 All rights reserved</p>
+        <p>{t("Footer.copyright")}</p>
       </div>
     </div>
     // End FooterContainer
   );
 };
 
-export default Footer;
+export default withNamespaces()(Footer);

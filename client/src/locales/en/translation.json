@@ -8,12 +8,24 @@
     "linkTwo": "Landlords",
     "linkThree": "Agencies"
   },
-  "Home": {
-    "header": "Starcity & Rimbo - The new way of renting",
-    "title": "Welcome to the union between Starcity and Rimbo",
-    "subtitle": "Enjoy the new way of renting",
-    "text": "Any question please communicate with us"
+  "Footer": {
+    "leftTitle": "Welcome to the easy renting!",
+    "leftSubtitle": "Discover a new way of renting that is fairer and safer for everyone",
+    "rimbo": "Rimbo",
+    "about": "About us",
+    "tenants": "Tenants",
+    "landlords": "Landlord",
+    "agencies": "Agencies",
+    "news": "News",
+    "help": "Help",
+    "contact": "Contact",
+    "legal": "Legal",
+    "legalNotice": "Legal Notice",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookies Policy",
+    "copyright": "© Rimbo S.L. 2021 All rights reserved"
   },
+
   "F1SC": {
     "helmet": "New tenancy - Starcity & Rimbo - The new way of rent",
     "header": {
