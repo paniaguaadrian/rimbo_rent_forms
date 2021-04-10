@@ -28,10 +28,16 @@
   // Content container
 
   .FooterContent {
-    padding: 2rem 2rem;
+    padding: 1rem 1rem;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    @include xl {
+      padding: 2rem 2rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 
   // Left side
@@ -45,11 +51,25 @@
     }
     h4 {
       margin-bottom: 2rem;
+      font-size: 1.4rem;
+    }
+    @include xl {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      a {
+        margin-bottom: 2rem;
+      }
+      h4 {
+        margin-bottom: 2rem;
+        font-size: 1rem;
+      }
     }
   }
 
   .FooterSocialMedia {
-    margin-top: 6rem;
+    margin-top: 0rem;
+    margin-bottom: 3rem;
     ul {
       list-style-type: none;
       display: flex;
@@ -58,11 +78,28 @@
     li {
       margin-right: 1rem;
     }
+    @include xl {
+      margin-top: 6rem;
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+      }
+      li {
+        margin-right: 1rem;
+      }
+    }
   }
 
   .SocialMediaIcon {
     color: white;
     transition: all 0.2s ease-in-out;
+    font-size: 2rem;
+    @include xl {
+      color: white;
+      transition: all 0.2s ease-in-out;
+      font-size: 1.5rem;
+    }
   }
   .SocialMediaIcon:hover {
     color: #00fff7;
@@ -78,25 +115,49 @@
   }
 
   .FooterLinks {
-    margin-left: 4rem;
-    width: 10rem;
+    margin-left: 0rem;
+    width: 8rem;
     h4 {
       color: #00fff7;
       border-bottom: 1px solid #00fff7;
-      height: 1.5rem;
-      font-size: 1.1rem;
+      height: 1.9rem;
+      font-size: 1.4rem;
       font-weight: 400;
     }
     ul {
       list-style-type: none;
     }
     li {
-      margin-bottom: 2rem;
-      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+      margin-top: 1rem;
+      font-size: 1.2rem;
       transition: all 0.2s ease-in-out;
     }
     li:hover {
       color: $tertiary-color;
+    }
+    @include xl {
+      margin-left: 4rem;
+      width: 10rem;
+      h4 {
+        color: #00fff7;
+        border-bottom: 1px solid #00fff7;
+        height: 1.5rem;
+        font-size: 1.1rem;
+        font-weight: 400;
+      }
+      ul {
+        list-style-type: none;
+      }
+      li {
+        margin-bottom: 2rem;
+        margin-top: 1rem;
+        font-size: 1rem;
+        transition: all 0.2s ease-in-out;
+      }
+      li:hover {
+        color: $tertiary-color;
+      }
     }
   }
 }

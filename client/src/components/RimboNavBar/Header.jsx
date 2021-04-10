@@ -132,7 +132,7 @@ const Header = () => {
 
       <BackToTop>
         <Fab color="secondary" size="large" aria-label="scroll back to top">
-          <KeyboardArrowUp />
+          <KeyboardArrowUp fontSize="large" />
         </Fab>
       </BackToTop>
     </>

@@ -1,12 +1,14 @@
 import * as React from "react";
 import { Zoom, useScrollTrigger } from "@material-ui/core";
 
-const style = {
-  position: `fixed`,
-  bottom: `120px`,
-  right: `30px`,
-  zIndex: `99`,
-};
+import style from "./BackToTop.module.scss";
+
+// const style = {
+//   position: `fixed`,
+//   bottom: `120px`,
+//   right: `30px`,
+//   zIndex: `99`,
+// };
 
 const BackToTop = ({ children }) => {
   const trigger = useScrollTrigger();
@@ -22,7 +24,12 @@ const BackToTop = ({ children }) => {
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" style={style}>
+      <div
+        onClick={handleClick}
+        role="presentation"
+        className={style.FooterContainer}
+        // style={style}
+      >
         {children}
       </div>
     </Zoom>
