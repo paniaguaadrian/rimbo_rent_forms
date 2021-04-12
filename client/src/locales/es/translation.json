@@ -170,6 +170,10 @@
     "form": {
       "rentalStart": "Fecha de inicio del alquiler",
       "rentalAgreement": "Documentos (Anexo+SEPA)"
+    },
+    "success": {
+      "title": "Genial, ¡hemos recibido tus detalles!",
+      "subtitle": "Nos pondremos en contacto contigo en breve para completar el proceso."
     }
   }
 }

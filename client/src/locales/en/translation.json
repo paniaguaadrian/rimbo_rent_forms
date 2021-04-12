@@ -170,6 +170,10 @@
     "form": {
       "rentalStart": "Rental start date",
       "rentalAgreement": "Rental Agreement - Rimbo Annex"
+    },
+    "success": {
+      "title": "Awesome, we have received your details! ",
+      "subtitle": "We will get in touch with you shortly to complete the process."
     }
   }
 }

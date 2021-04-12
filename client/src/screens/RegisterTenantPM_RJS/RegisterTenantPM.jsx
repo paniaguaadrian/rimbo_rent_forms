@@ -12,6 +12,7 @@ import InputFile from "../../components/InputFile";
 import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
+import Success from "../../components/Success/Success";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
@@ -187,16 +188,10 @@ const RegisterTenantPM = ({ t }) => {
           </div>
         </div>
       ) : (
-        <div className={styles.SuccessPageContainer}>
-          <div className={styles.SuccessPageText}>
-            <h1>The form has been completed successfully</h1>
-            <h2>All data has been successfully completed</h2>
-            <p>
-              Thanks for your time <b>{responseData.tenant.tenantsName}</b>, We
-              will contact you shortly to give you more details of the process.
-            </p>
-          </div>
-        </div>
+        <Success
+          title={t("RJS.success.title")}
+          subtitle={t("RJS.success.subtitle")}
+        />
       )}
     </>
   );
