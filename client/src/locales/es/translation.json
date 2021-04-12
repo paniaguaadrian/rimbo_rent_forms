@@ -175,5 +175,25 @@
       "title": "Genial, ¡hemos recibido tus detalles!",
       "subtitle": "Nos pondremos en contacto contigo en breve para completar el proceso."
     }
+  },
+  "approvedCardRimbo": {
+    "helmet": "Tarjeta de inquilino aceptada - Rimbo - The new way of rent",
+    "title": "El inquilino ha sido aceptado después de verificar su tarjeta de débito",
+    "subTitle": "El tenant y el propietario recibirán un email de confirmación"
+  },
+  "approvedTenantPM": {
+    "helmet": "Inquilino aprobado por el propietario - Rimbo - The new way of rent",
+    "title": "Has aceptado correctamente al inquilino",
+    "subTitle": "Tanto tu como el inquilino recibiréis un email con los detalles del proceso"
+  },
+  "approvedTenantRimbo": {
+    "helmet": "Inquilino aprobado por Rimbo - Rimbo - The new way of rent",
+    "title": "Has aceptado al inquilino correctamente",
+    "subTitle": "Tanto tu como el inquilino recibiréis un email con los detalles del proceso"
+  },
+  "approvedTenancyRimbo": {
+    "helmet": "Alquiler aceptado por Rimbo - Rimbo - The new way of rent",
+    "title": "Has aceptado correctamente el nuevo alquiler",
+    "subTitle": "El inquilino y el propietario recibirán un email informando del inici del servicio"
   }
 }

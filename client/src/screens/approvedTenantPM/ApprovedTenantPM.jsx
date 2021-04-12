@@ -4,8 +4,16 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { TenantReducer, DefaultTenant } from "./approved_tenant_pm-reducer";
 
-// Styles
-import styles from "../approvedTenantRimbo/approved-user.module.scss";
+// Custom Components
+import CustomHelmet from "../../components/Helmet/CustomHelmet";
+import Success from "../../components/Success/Success";
+
+// Multi language
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
+
+// Images
+import SuccessImage from "../../images/success-image.svg";
 
 // End-Points env
 const {
@@ -15,7 +23,7 @@ const {
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
 
-const ApprovedTenantPM = () => {
+const ApprovedTenantPM = ({ t }) => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
 
@@ -154,20 +162,16 @@ const ApprovedTenantPM = () => {
   );
 
   return (
-    <div className={styles.SuccessPageContainer}>
-      <div className={styles.SuccessPageText}>
-        <h1>The tenant has been accepted</h1>
-        <h2>You have successfully accepted the tenant</h2>
-        <p>
-          The tenant <b>{responseData.tenantsName}</b> is accepted
-        </p>
-        <p>
-          Both you and the tenant will receive an email with the details of the
-          process
-        </p>
-      </div>
-    </div>
+    <>
+      <CustomHelmet header={t("approvedTenantPM.helmet")} />
+      <Success
+        title={t("approvedTenantPM.title")}
+        subtitle={t("approvedTenantPM.subTitle")}
+        imageSRC={SuccessImage}
+        imageAlt="Success image"
+      />
+    </>
   );
 };
 
-export default ApprovedTenantPM;
+export default withNamespaces()(ApprovedTenantPM);

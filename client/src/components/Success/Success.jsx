@@ -16,7 +16,7 @@ const Success = (props) => {
         <h1>{props.title}</h1>
         <h2>{props.subtitle}</h2>
         <p>{props.paragraph}</p>
-        <img src={props.image} style={imageStyle} alt="" />
+        <img src={props.imageSRC} style={imageStyle} alt={props.imageAlt} />
       </div>
     </div>
   );

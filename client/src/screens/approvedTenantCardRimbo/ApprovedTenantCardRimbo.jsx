@@ -1,9 +1,18 @@
+// React Components
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-// Styles
-import styles from "../approvedTenantRimbo/approved-user.module.scss";
+// Custom Components
+import CustomHelmet from "../../components/Helmet/CustomHelmet";
+import Success from "../../components/Success/Success";
+
+// Multi language
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
+
+// Images
+import SuccessImage from "../../images/success-image.svg";
 
 // End-Points env
 const {
@@ -12,7 +21,7 @@ const {
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
 
-const ApprovedTenantCardRimbo = () => {
+const ApprovedTenantCardRimbo = ({ t }) => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
 
@@ -50,17 +59,16 @@ const ApprovedTenantCardRimbo = () => {
   }, [randomID, tenancyID]);
 
   return (
-    <div className={styles.SuccessPageContainer}>
-      <div className={styles.SuccessPageText}>
-        <h1>The tenant has been accepted after the debit card request.</h1>
-        <h2>You have successfully accepted the tenant</h2>
-        <p>
-          The PM already recieves the RJ16 Email and the Tenant already recieves
-          the RJXX5 Email.
-        </p>
-      </div>
-    </div>
+    <>
+      <CustomHelmet header={t("approvedCardRimbo.helmet")} />
+      <Success
+        title={t("approvedCardRimbo.title")}
+        subtitle={t("approvedCardRimbo.subTitle")}
+        imageSRC={SuccessImage}
+        imageAlt="Success image"
+      />
+    </>
   );
 };
 
-export default ApprovedTenantCardRimbo;
+export default withNamespaces()(ApprovedTenantCardRimbo);

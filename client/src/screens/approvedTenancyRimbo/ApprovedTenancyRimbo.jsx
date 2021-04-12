@@ -3,11 +3,19 @@ import React, { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+// Custom Components
+import CustomHelmet from "../../components/Helmet/CustomHelmet";
+import Success from "../../components/Success/Success";
+
+// Multi language
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
+
 // Reducer
 import { TenantReducer, DefaultTenant } from "./approved_tenancy_rimbo-reducer";
 
-// Styles
-import styles from "../approvedTenantRimbo/approved-user.module.scss";
+// Images
+import SuccessImage from "../../images/success-image.svg";
 
 // End-Points env
 const {
@@ -17,7 +25,7 @@ const {
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
 
-const ApprovedTenancyRimbo = () => {
+const ApprovedTenancyRimbo = ({ t }) => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
   const [tenant] = useReducer(TenantReducer, DefaultTenant);
@@ -110,20 +118,16 @@ const ApprovedTenancyRimbo = () => {
   );
 
   return (
-    <div className={styles.SuccessPageContainer}>
-      <div className={styles.SuccessPageText}>
-        <h1>The tenancy has been accepted</h1>
-        <h2>You have successfully accepted the tenancy</h2>
-        <p>
-          The tenant <b>{responseData.tenantsName}</b> is accepted
-        </p>
-        <p>
-          The tenant an the PM will receive an email informed that the service
-          has begun.
-        </p>
-      </div>
-    </div>
+    <>
+      <CustomHelmet header={t("approvedTenancyRimbo.helmet")} />
+      <Success
+        title={t("approvedTenancyRimbo.title")}
+        subtitle={t("approvedTenancyRimbo.subTitle")}
+        imageSRC={SuccessImage}
+        imageAlt="Success image"
+      />
+    </>
   );
 };
 
-export default ApprovedTenancyRimbo;
+export default withNamespaces()(ApprovedTenancyRimbo);

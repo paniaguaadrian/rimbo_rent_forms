@@ -39,13 +39,22 @@ const App = () => {
       <WhatsappBubble />
       <Container maxWidth="xl">
         <Switch>
-          <Route path="/register/rj1" component={RegisterTenancy} />
-          <Route path="/register/rj2/:tenancyID" component={RegisterTenant} />
+          <Route exact path="/register/rj1" component={RegisterTenancy} />
           <Route
+            exact
+            path="/register/rj2/:tenancyID"
+            component={RegisterTenant}
+          />
+          <Route
+            exact
             path="/register/rj3/:randomID"
             component={RegisterTenantCard}
           />
-          <Route path="/register/rjs/:tenancyID" component={RegisterTenantPM} />
+          <Route
+            exact
+            path="/register/rjs/:tenancyID"
+            component={RegisterTenantPM}
+          />
           <Route
             path="/register/rj2/:tenancyID/approved"
             component={ApprovedTenantRimbo}

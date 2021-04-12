@@ -175,5 +175,25 @@
       "title": "Awesome, we have received your details! ",
       "subtitle": "We will get in touch with you shortly to complete the process."
     }
+  },
+  "approvedCardRimbo": {
+    "helmet": "Tenant's card approved - Rimbo - The new way of rent",
+    "title": "The tenant has been accepted after the debit card request.",
+    "subTitle": "The tenant and property manager have been receive an email confirmation."
+  },
+  "approvedTenantPM": {
+    "helmet": "Tenant approved by PM - Rimbo - The new way of rent",
+    "title": "You have successfully accepted the tenant",
+    "subTitle": "Both you and the tenant will receive an email with the details of the process"
+  },
+  "approvedTenantRimbo": {
+    "helmet": "Tenant approved by Rimbo - Rimbo - The new way of rent",
+    "title": "You have successfully accepted the tenant",
+    "subTitle": "Both you and the tenant will receive an email with the details of the process"
+  },
+  "approvedTenancyRimbo": {
+    "helmet": "Tenancy approved by Rimbo - Rimbo - The new way of rent",
+    "title": "You have successfully accepted the tenancy",
+    "subTitle": " The tenant an the PM will receive an email informed that the service has begun."
   }
 }
