@@ -8,7 +8,7 @@ import { TenantReducer, DefaultTenant } from "./tenant-reducer";
 import styles from "../../screens/RegisterTenancy/register-user.module.scss";
 
 // Validation
-import { newTenant } from "./tenant_validation";
+import { newTenant, newTenantEs } from "./tenant_validation";
 
 // Constants
 import { UPDATE_NEWTENANT_INFO } from "./tenant-constants";
@@ -19,6 +19,10 @@ import InputCheck from "../../components/InputCheck";
 import InputFile from "../../components/InputFile";
 import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
+
+// Multilanguage
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
 
 const {
   REACT_APP_BASE_URL,
@@ -101,10 +105,18 @@ const RegisterTenant = () => {
     }
     formData.append("randomID", randomID);
 
-    const errors = newTenant(tenant);
-    setErrors(errors);
-    if (Object.keys(errors).length > 0) return;
-    setProcessingTo(true);
+    if (i18n.language === "en") {
+      const errors = newTenant(tenant);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+      setProcessingTo(true);
+    } else {
+      const errors = newTenantEs(tenant);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+      setProcessingTo(true);
+    }
+
     // setIsSuccessfullySubmitted(true);
 
     // ! Post to Rimbo API (files/images)
@@ -450,4 +462,4 @@ const RegisterTenant = () => {
   );
 };
 
-export default RegisterTenant;
+export default withNamespaces()(RegisterTenant);
