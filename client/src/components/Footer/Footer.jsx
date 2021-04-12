@@ -99,10 +99,6 @@ const Footer = ({ t }) => {
               <a href="/">
                 <li>{t("Footer.news")}</li>
               </a>
-              <div className={classes.LangugeContiner}>
-                <li>{spanish_logo}</li>
-                <li>{english_logo}</li>
-              </div>
             </ul>
           </div>
           <div className={classes.FooterLinks}>
@@ -118,6 +114,10 @@ const Footer = ({ t }) => {
               >
                 <li>info@rimbo.rent</li>
               </a>
+              <div className={classes.LanguageContainer}>
+                <li>{spanish_logo}</li>
+                <li>{english_logo}</li>
+              </div>
             </ul>
           </div>
           <div className={classes.FooterLinks}>
