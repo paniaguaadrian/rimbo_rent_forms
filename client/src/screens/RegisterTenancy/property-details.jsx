@@ -1,12 +1,25 @@
+// React Components
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { isProperty } from "./validation";
-import styles from "./register-user.module.scss";
+
+// Custom Components
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+
+// Styles
+import styles from "./register-user.module.scss";
+
+// Validation
+import { isProperty, isPropertyEs } from "./validation";
+
+// Constants reducer
 import { UPDATE_PROPERTY_INFO } from "./constants";
 
-const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
+// Multilanguage
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
+
+const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [errors, setErrors] = useState({});
 
   // Handle on change
@@ -20,14 +33,18 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
   // Hanlde con next / continue
   const handleContinue = (e) => {
     e.preventDefault();
-    const errors = isProperty(tenancy.propertyDetails);
-    setErrors(errors);
-    if (Object.keys(errors).length > 0) return;
+    if (i18n.laanguage === "en") {
+      const errors = isProperty(tenancy.propertyDetails);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+    } else {
+      const errors = isPropertyEs(tenancy.propertyDetails);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+    }
+
     setStep(step + 1);
   };
-
-  // Values for Select input
-  const services = ["1 month", "2 months", "3 months"];
 
   return (
     <form onSubmit={handleContinue}>
@@ -35,7 +52,7 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
         <div className={styles.FormLeft}>
           <div className={styles.selectContainer}>
             <label className={styles.selectLabel} htmlFor="product">
-              Choose service
+              {t("RJ1.stepTwo.service")}
             </label>
             <select
               required
@@ -43,12 +60,22 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
               className={styles.selectInput}
               value={tenancy.propertyDetails.product}
               onChange={(e) => handleAgency(e)}
-              error={errors.product}
             >
-              <option value="">Select Rimbo Service</option>
-              {services.map((c) => (
-                <option key={c}>{c}</option>
-              ))}
+              <option name="product" value={t("RJ1.stepTwo.servicePL")}>
+                {t("RJ1.stepTwo.servicePL")}
+              </option>
+
+              <option name="product" value={t("RJ1.stepTwo.serviceOne")}>
+                {t("RJ1.stepTwo.serviceOne")}
+              </option>
+
+              <option name="product" value={t("RJ1.stepTwo.serviceTwo")}>
+                {t("RJ1.stepTwo.serviceTwo")}
+              </option>
+
+              <option name="product" value={t("RJ1.stepTwo.serviceThree")}>
+                {t("RJ1.stepTwo.serviceThree")}
+              </option>
             </select>
           </div>
 
@@ -56,8 +83,8 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="rentDuration"
             value={tenancy.propertyDetails.rentDuration}
-            label="Duration rental agreement (years)"
-            placeholder="Enter duration"
+            label={t("RJ1.stepTwo.rentDuration")}
+            placeholder={t("RJ1.stepTwo.rentDurationPL")}
             onChange={(e) => handleAgency(e)}
             error={errors.rentDuration}
           />
@@ -65,8 +92,8 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="rentAmount"
             value={tenancy.propertyDetails.rentAmount}
-            label="Monthly rent (in €)"
-            placeholder="Enter rent"
+            label={t("RJ1.stepTwo.rentAmount")}
+            placeholder={t("RJ1.stepTwo.rentAmountPL")}
             onChange={(e) => handleAgency(e)}
             error={errors.rentAmount}
           />
@@ -76,8 +103,8 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="rentalAddress"
             value={tenancy.propertyDetails.rentalAddress}
-            label="Address of the property"
-            placeholder="Enter address"
+            label={t("RJ1.stepTwo.rentalAddress")}
+            placeholder={t("RJ1.stepTwo.rentalAddressPL")}
             onChange={(e) => handleAgency(e)}
             error={errors.rentalAddress}
           />
@@ -85,8 +112,8 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="rentalCity"
             value={tenancy.propertyDetails.rentalCity}
-            label="City"
-            placeholder="Enter the city name"
+            label={t("RJ1.stepTwo.rentalCity")}
+            placeholder={t("RJ1.stepTwo.rentalCityPL")}
             onChange={(e) => handleAgency(e)}
             error={errors.rentalCity}
           />
@@ -94,8 +121,8 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="rentalPostalCode"
             value={tenancy.propertyDetails.rentalPostalCode}
-            label="Postal code"
-            placeholder="XXXXX"
+            label={t("RJ1.stepTwo.rentalPostalCode")}
+            placeholder={t("RJ1.stepTwo.rentalPostalCodePL")}
             onChange={(e) => handleAgency(e)}
             error={errors.rentalPostalCode}
           />
@@ -104,9 +131,9 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy }) => {
 
       <div className={styles.ButtonContainer}>
         <Button onClick={() => setStep(step - 1)} type="button">
-          Previous Step
+          {t("prevStepButton")}
         </Button>
-        <Button type="submit">Next Step</Button>
+        <Button type="submit">{t("nextStepButton")}</Button>
       </div>
     </form>
   );
@@ -119,4 +146,4 @@ PropertyDetails.propTypes = {
   setTenancy: PropTypes.func,
 };
 
-export default PropertyDetails;
+export default withNamespaces()(PropertyDetails);

@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import styles from "./register-user.module.scss";
 
 // Validation
-import { isLandlord } from "./validation";
+import { isLandlord, isLandlordEs } from "./validation";
 
 // Constants
 import { UPDATE_LANDLORD_INFO } from "./constants";
@@ -20,6 +20,10 @@ import Loader from "react-loader-spinner";
 // nanoid
 import { nanoid } from "nanoid";
 
+// Multilanguage
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
+
 // End-Points env
 const {
   REACT_APP_BASE_URL,
@@ -27,7 +31,7 @@ const {
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
 
-const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
+const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [errors, setErrors] = useState({});
   const [isProcessing, setProcessingTo] = useState(false);
 
@@ -41,10 +45,15 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const errors = isLandlord(tenancy.landlordDetails);
-    setErrors(errors);
-    if (Object.keys(errors).length > 0) return;
+    if (i18n.language === "en") {
+      const errors = isLandlord(tenancy.landlordDetails);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+    } else {
+      const errors = isLandlordEs(tenancy.landlordDetails);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+    }
 
     setProcessingTo(true);
 
@@ -111,8 +120,8 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="landlordName"
             value={tenancy.landlordDetails.landlordName}
-            label="Landlord full name"
-            placeholder="Enter name and surname"
+            label={t("RJ1.stepThree.landlordName")}
+            placeholder={t("RJ1.stepThree.landlordNamePL")}
             onChange={(e) => handleLandlord(e)}
             error={errors.landlordName}
           />
@@ -120,8 +129,8 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="email"
             name="landlordEmail"
             value={tenancy.landlordDetails.landlordEmail}
-            label="Landlord email"
-            placeholder="Enter a valid email address"
+            label={t("RJ1.stepThree.landlordEmail")}
+            placeholder={t("RJ1.stepThree.landlordEmailPL")}
             onChange={(e) => handleLandlord(e)}
             error={errors.landlordEmail}
           />
@@ -132,8 +141,8 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="tel"
             name="landlordPhone"
             value={tenancy.landlordDetails.landlordPhone}
-            label="Landlord phone number"
-            placeholder="Enter phone number"
+            label={t("RJ1.stepThree.landlordPhone")}
+            placeholder={t("RJ1.stepThree.landlordPhonePL")}
             onChange={(e) => handleLandlord(e)}
             error={errors.landlordPhone}
           />
@@ -151,26 +160,23 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
           error={errors.isAgentAccepted}
         />
         <p>
-          By submitting this form, you understand and accept that we use your
-          information in accordance with our{" "}
+          {t("RJ1.stepThree.checkbox")}
           <a
             href="https://rimbo.rent/en/privacy-policy/"
             target="_blank"
             rel="noreferrer"
             className="link-tag"
           >
-            {" "}
-            privacy policy
-          </a>{" "}
-          and{" "}
+            {t("RJ1.stepThree.privacy")}
+          </a>
+          {t("RJ1.stepThree.checkboxTwo")}
           <a
             href="https://rimbo.rent/en/cookies-policy/"
             target="_blank"
             rel="noreferrer"
             className="link-tag"
           >
-            {" "}
-            cookies policy
+            {t("RJ1.stepThree.cookies")}
           </a>
           .
         </p>
@@ -178,7 +184,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
 
       <div className={styles.ButtonContainer}>
         <Button onClick={() => setStep(step - 1)} type="button">
-          Previous Step
+          {t("prevStepButton")}
         </Button>
 
         {isProcessing ? (
@@ -191,7 +197,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy }) => {
           />
         ) : (
           <Button disabled={isProcessing} type="submit">
-            Submit
+            {t("submitButton")}
           </Button>
         )}
       </div>
@@ -206,4 +212,4 @@ LandlorDetails.propTypes = {
   setTenancy: PropTypes.func,
 };
 
-export default LandlorDetails;
+export default withNamespaces()(LandlorDetails);

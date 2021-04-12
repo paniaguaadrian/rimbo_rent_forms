@@ -1,12 +1,25 @@
+// React Components
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { isTenant } from "./validation";
-import styles from "./register-user.module.scss";
+
+// Custom Components
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+
+// Styles
+import styles from "./register-user.module.scss";
+
+// Validation
+import { isTenant, isTenantEs } from "./validation";
+
+// Constants Reducer
 import { UPDATE_TENANT_INFO } from "./constants";
 
-const TenantDetails = ({ step, setStep, tenancy, setTenancy }) => {
+// Multilanguage
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
+
+const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [errors, setErrors] = useState({});
 
   // Handle on change
@@ -20,9 +33,16 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy }) => {
   // Hanlde con next / continue
   const handleContinue = (e) => {
     e.preventDefault();
-    const errors = isTenant(tenancy.tenantDetails);
-    setErrors(errors);
-    if (Object.keys(errors).length > 0) return;
+    if (i18n.language === "en") {
+      const errors = isTenant(tenancy.tenantDetails);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+    } else {
+      const errors = isTenantEs(tenancy.tenantDetails);
+      setErrors(errors);
+      if (Object.keys(errors).length > 0) return;
+    }
+
     setStep(step + 1);
   };
 
@@ -34,8 +54,8 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="tenantName"
             value={tenancy.tenantDetails.tenantName}
-            label="Tenant's full name"
-            placeholder="Enter name and surname"
+            label={t("RJ1.stepOne.tenantsName")}
+            placeholder={t("RJ1.stepOne.tenantsNamePL")}
             onChange={(e) => handleTenant(e)}
             error={errors.tenantName}
           />
@@ -43,8 +63,8 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="email"
             name="tenantEmail"
             value={tenancy.tenantDetails.tenantEmail}
-            label="Tenant's email"
-            placeholder="Enter a valid email address"
+            label={t("RJ1.stepOne.tenantsEmail")}
+            placeholder={t("RJ1.stepOne.tenantsEmailPL")}
             onChange={(e) => handleTenant(e)}
             error={errors.tenantEmail}
           />
@@ -54,8 +74,8 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy }) => {
             type="text"
             name="tenantPhone"
             value={tenancy.tenantDetails.tenantPhone}
-            label="Tenant's phone number"
-            placeholder="Enter phone number"
+            label={t("RJ1.stepOne.tenantsPhone")}
+            placeholder={t("RJ1.stepOne.tenantsPhonePL")}
             onChange={(e) => handleTenant(e)}
             error={errors.tenantPhone}
           />
@@ -64,9 +84,9 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy }) => {
 
       <div className={styles.ButtonContainer}>
         <Button onClick={() => setStep(step - 1)} type="button">
-          Previous Step
+          {t("prevStepButton")}
         </Button>
-        <Button type="submit">Next Step</Button>
+        <Button type="submit">{t("nextStepButton")}</Button>
       </div>
     </form>
   );
@@ -79,4 +99,4 @@ TenantDetails.propTypes = {
   setTenancy: PropTypes.func,
 };
 
-export default TenantDetails;
+export default withNamespaces()(TenantDetails);

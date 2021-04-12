@@ -49,6 +49,43 @@
       "emailPL": "Enter a valid email address",
       "phoneNumber": "Phone number",
       "phoneNumberPL": "Enter phone number"
+    },
+    "stepOne": {
+      "tenantsName": "Tenant's full name",
+      "tenantsNamePL": "Enter name and surname",
+      "tenantsEmail": "Tenant's email",
+      "tenantsEmailPL": "Enter a valid email address",
+      "tenantsPhone": "Tenant's phone number",
+      "tenantsPhonePL": "Enter phone number"
+    },
+    "stepTwo": {
+      "service": "Choose service",
+      "servicePL": "Select Rimbo service",
+      "serviceOne": "1 month",
+      "serviceTwo": "2 months",
+      "serviceThree": "3 months",
+      "rentDuration": "Duration rental agreement (years)",
+      "rentDurationPL": "Enter duration",
+      "rentAmount": "Monthly rent (in €)",
+      "rentAmountPL": "Enter rent",
+      "rentalAddress": "Address of the property",
+      "rentalAddressPL": "Enter address",
+      "rentalCity": "City",
+      "rentalCityPL": "Enter the city name",
+      "rentalPostalCode": "Postal Code",
+      "rentalPostalCodePL": "XXXXX"
+    },
+    "stepThree": {
+      "landlordName": "Landlord full name",
+      "landlordNamePL": "Enter name and surname",
+      "landlordEmail": "Landlord email",
+      "landlordEmailPL": "Enter a valid email address",
+      "landlordPhone": "Landlord phone number",
+      "landlordPhonePL": "Enter phone number",
+      "checkbox": "By submitting this form, you understand and accept that we use your information in accordance with our ",
+      "privacy": "privacy policy",
+      "checkboxTwo": " and ",
+      "cookies": " cookies policy"
     }
   },
 

@@ -49,6 +49,43 @@
       "emailPL": "Escribe el correo electrónico",
       "phoneNumber": "Número de teléfono",
       "phoneNumberPL": "Escribe el número de teléfono"
+    },
+    "stepOne": {
+      "tenantsName": "Nombre completo del inquilino",
+      "tenantsNamePL": "Escribe el nombre completo",
+      "tenantsEmail": "Correo electrónico del inquilino",
+      "tenantsEmailPL": "Escribe el correo electrónico",
+      "tenantsPhone": "Número de teléfono del inquilino",
+      "tenantsPhonePL": "Escribe el número de teléfono"
+    },
+    "stepTwo": {
+      "service": "Servicio escogido",
+      "servicePL": "Selecciona un servicio",
+      "serviceOne": "1 mes",
+      "serviceTwo": "2 meses",
+      "serviceThree": "3 meses",
+      "rentDuration": "Duración del contrato de alquiler (años)",
+      "rentDurationPL": "Escribe la duración",
+      "rentAmount": "Alquiler mensual (en €)",
+      "rentAmountPL": "Escribe el alquiler",
+      "rentalAddress": "Dirección del inmueble",
+      "rentalAddressPL": "Escribe la dirección",
+      "rentalCity": "Población del inmueble",
+      "rentalCityPL": "Escribe el nombre de la ciudad",
+      "rentalPostalCode": "Código postal del inmueble",
+      "rentalPostalCodePL": "XXXXX"
+    },
+    "stepThree": {
+      "landlordName": "Nombre del propietario",
+      "landlordNamePL": "Ingresa el nombre del propietario",
+      "landlordEmail": "Email",
+      "landlordEmailPL": "Ingresa el email",
+      "landlordPhone": "Teléfono",
+      "landlordPhonePL": "Ingresa el teléfono",
+      "checkbox": "Al enviar este formulario, comprendes y aceptas que utilizamos tu información de acuerdo con nuestra ",
+      "privacy": "política de privacidad ",
+      "checkboxTwo": " y nuestra ",
+      "cookies": " política de cookies"
     }
   },
   "F1SC": {
