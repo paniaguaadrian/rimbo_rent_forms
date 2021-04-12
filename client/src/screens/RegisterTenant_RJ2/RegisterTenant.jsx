@@ -19,6 +19,8 @@ import InputCheck from "../../components/InputCheck";
 import InputFile from "../../components/InputFile";
 import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
+import Success from "../../components/Success/Success";
+import CustomHelmet from "../../components/Helmet/CustomHelmet";
 
 // Multilanguage
 import { withNamespaces } from "react-i18next";
@@ -31,7 +33,7 @@ const {
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
 
-const RegisterTenant = () => {
+const RegisterTenant = ({ t }) => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
 
@@ -239,38 +241,16 @@ const RegisterTenant = () => {
     sendAttachments();
   }, [responseDataAfter]); //eslint-disable-line
 
-  const documentType = ["DNI", "NIE", "Passport", "Other"];
-  const jobType = [
-    "Salaried",
-    "Autonomous",
-    "Unemployed",
-    "We are a company",
-    "I'm retired",
-    "I am a student",
-    "Other",
-  ];
-
   return (
     <>
+      <CustomHelmet header={t("RJ2.helmet")} />
       {!isSuccessfullySubmitted ? (
         <div className={styles.RegisterContainer}>
           <div className={styles.Register}>
-            <h1>
-              Tell us a little more about yourself to save
-              <br /> the deposit of your next apartment
-            </h1>
+            <h1>{t("RJ2.header.title")}</h1>
             <div className={styles.ExtraInfoContainer}>
-              <h2>
-                All we need from you is the following information. Quick and
-                easy!
-              </h2>
-              <p>
-                We will need a scanned copy of your DNI / NIE (front and back)
-                or passport and a document that confirms your current address.
-                If you are an EU citizen, please provide your NIE number in the
-                “Document number” field and send us a scanned copy of the
-                identity document of your country of origin.
-              </p>
+              <h2>{t("RJ2.header.subtitle")}</h2>
+              <p>{t("RJ2.header.extraInfo")}</p>
             </div>
           </div>
           <div className={styles.FormContent}>
@@ -285,8 +265,8 @@ const RegisterTenant = () => {
                     type="number"
                     name="monthlyNetIncome"
                     value={tenant.monthlyNetIncome}
-                    label="Monthly net income"
-                    placeholder="Write your income"
+                    label={t("RJ2.form.monthlyNetIncome")}
+                    placeholder={t("RJ2.form.monthlyNetIncomePL")}
                     onChange={(e) => handleNewTenant(e)}
                     error={errors.monthlyNetIncome}
                   />
@@ -296,7 +276,7 @@ const RegisterTenant = () => {
                       className={styles.selectLabel}
                       htmlFor="documentType"
                     >
-                      Document Type
+                      {t("RJ2.form.documentType")}
                     </label>
                     <select
                       required
@@ -306,18 +286,44 @@ const RegisterTenant = () => {
                       onChange={(e) => handleNewTenant(e)}
                       error={errors.documentType}
                     >
-                      <option value="">Select Document Type</option>
-                      {documentType.map((c) => (
-                        <option key={c}>{c}</option>
-                      ))}
+                      <option
+                        name="documentType"
+                        value={t("RJ2.form.documentTypePL")}
+                      >
+                        {t("RJ2.form.documentTypePL")}
+                      </option>
+                      <option
+                        name="documentType"
+                        value={t("RJ2.form.documentTypeOne")}
+                      >
+                        {t("RJ2.form.documentTypeOne")}
+                      </option>
+                      <option
+                        name="documentType"
+                        value={t("RJ2.form.documentTypeTwo")}
+                      >
+                        {t("RJ2.form.documentTypeTwo")}
+                      </option>
+                      <option
+                        name="documentType"
+                        value={t("RJ2.form.documentTypeThree")}
+                      >
+                        {t("RJ2.form.documentTypeThree")}
+                      </option>
+                      <option
+                        name="documentType"
+                        value={t("RJ2.form.documentTypeFour")}
+                      >
+                        {t("RJ2.form.documentTypeFour")}
+                      </option>
                     </select>
                   </div>
                   <Input
                     type="text"
                     name="tenantsAddress"
                     value={tenant.tenantsAddress}
-                    label="Current Address"
-                    placeholder="Write the address where you reside"
+                    label={t("RJ2.form.tenantsAddress")}
+                    placeholder={t("RJ2.form.tenantsAddressPL")}
                     onChange={(e) => handleNewTenant(e)}
                     error={errors.tenantsAddress}
                   />
@@ -326,7 +332,7 @@ const RegisterTenant = () => {
                 <div className={styles.FormRight}>
                   <div className={styles.selectContainer}>
                     <label className={styles.selectLabel} htmlFor="jobType">
-                      Job Type
+                      {t("RJ2.form.jobType")}
                     </label>
                     <select
                       required
@@ -336,18 +342,38 @@ const RegisterTenant = () => {
                       onChange={(e) => handleNewTenant(e)}
                       error={errors.jobType}
                     >
-                      <option value="">Select your job type</option>
-                      {jobType.map((c) => (
-                        <option key={c}>{c}</option>
-                      ))}
+                      <option name="jobType" value={t("RJ2.form.jobTypePL")}>
+                        {t("RJ2.form.jobTypePL")}
+                      </option>
+                      <option name="jobType" value={t("RJ2.form.jobTypeOne")}>
+                        {t("RJ2.form.jobTypeOne")}
+                      </option>
+                      <option name="jobType" value={t("RJ2.form.jobTypeTwo")}>
+                        {t("RJ2.form.jobTypeTwo")}
+                      </option>
+                      <option name="jobType" value={t("RJ2.form.jobTypeThree")}>
+                        {t("RJ2.form.jobTypeThree")}
+                      </option>
+                      <option name="jobType" value={t("RJ2.form.jobTypeFour")}>
+                        {t("RJ2.form.jobTypeFour")}
+                      </option>
+                      <option name="jobType" value={t("RJ2.form.jobTypeFive")}>
+                        {t("RJ2.form.jobTypeFive")}
+                      </option>
+                      <option name="jobType" value={t("RJ2.form.jobTypeSix")}>
+                        {t("RJ2.form.jobTypeSix")}
+                      </option>
+                      <option name="jobType" value={t("RJ2.form.jobTypeSeven")}>
+                        {t("RJ2.form.jobTypeSeven")}
+                      </option>
                     </select>
                   </div>
                   <Input
                     type="text"
                     name="documentNumber"
                     value={tenant.documentNumber}
-                    label="Document Number"
-                    placeholder="Write the number of your document"
+                    label={t("RJ2.form.documentNumber")}
+                    placeholder={t("RJ2.form.documentNumberPL")}
                     onChange={(e) => handleNewTenant(e)}
                     error={errors.documentNumber}
                   />
@@ -355,8 +381,8 @@ const RegisterTenant = () => {
                     type="number"
                     name="tenantsZipCode"
                     value={tenant.tenantsZipCode}
-                    label="Current zip code"
-                    placeholder="XXXXX"
+                    label={t("RJ2.form.tenantsZipCode")}
+                    placeholder={t("RJ2.form.tenantsZipCodePL")}
                     onChange={(e) => handleNewTenant(e)}
                     error={errors.tenantsZipCode}
                   />
@@ -367,16 +393,14 @@ const RegisterTenant = () => {
                   <InputFile
                     type="file"
                     name="DF"
-                    label="DNI/NIE (Front)"
-                    placeholder="XXXXX"
+                    label={t("RJ2.form.DNIFront")}
                     onChange={changeHandler}
                     required
                   />
                   <InputFile
                     type="file"
                     name="DB"
-                    label="DNI/NIE (Back)"
-                    placeholder="XXXXX"
+                    label={t("RJ2.form.DNIBack")}
                     onChange={changeHandler}
                     required
                   />
@@ -385,7 +409,7 @@ const RegisterTenant = () => {
                   <InputFile
                     type="file"
                     name="DCA"
-                    label="Document confirming your current address (eg receipt of supplies)"
+                    label={t("RJ2.form.DCA")}
                     onChange={changeHandler}
                     required
                   />
@@ -399,33 +423,30 @@ const RegisterTenant = () => {
                   name="isAcceptedPrivacy"
                   id="terms"
                   value={tenant.isAcceptedPrivacy}
-                  placeholder="Accept our terms and conditions"
+                  // placeholder={t("RJ2.form.monthlyNetIncome")}
                   onChange={(e) => handleNewTenant(e)}
                   error={errors.isAcceptedPrivacy}
                 />
                 <p>
-                  By submitting this form, you understand and agree that we use
-                  your information in accordance with our{" "}
+                  {t("RJ2.form.checkbox")}
                   <a
                     href="https://rimbo.rent/en/privacy-policy/"
                     target="_blank"
                     rel="noreferrer"
                     className="link-tag"
                   >
-                    {" "}
-                    privacy policy{" "}
-                  </a>{" "}
-                  and our{" "}
+                    {t("RJ2.form.privacy")}
+                  </a>
+                  {t("RJ2.form.checkboxTwo")}
                   <a
                     href="https://rimbo.rent/en/cookies-policy/"
                     target="_blank"
                     rel="noreferrer"
                     className="link-tag"
                   >
-                    {" "}
-                    cookies policy{" "}
+                    {t("RJ2.form.cookies")}
                   </a>
-                  to offer you Rimbo services.
+                  {t("RJ2.form.checkboxThree")}
                 </p>
               </div>
               <div className={styles.ButtonContainer}>
@@ -439,7 +460,7 @@ const RegisterTenant = () => {
                   />
                 ) : (
                   <Button disabled={isProcessing} type="submit">
-                    Submit
+                    {t("submitButton")}
                   </Button>
                 )}
               </div>
@@ -447,16 +468,10 @@ const RegisterTenant = () => {
           </div>
         </div>
       ) : (
-        <div className={styles.SuccessPageContainer}>
-          <div className={styles.SuccessPageText}>
-            <h1>The form has been completed successfully</h1>
-            <h2>All data has been successfully completed</h2>
-            <p>
-              Thanks for your time <b>{responseData.tenant.tenantsName}</b>, We
-              will contact you shortly to give you more details of the process.
-            </p>
-          </div>
-        </div>
+        <Success
+          title={t("RJ2.success.title")}
+          subtitle={t("RJ2.success.subtitle")}
+        />
       )}
     </>
   );

@@ -3,13 +3,23 @@ import React, { useState, useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+// Custom Components
+import CustomHelmet from "../../components/Helmet/CustomHelmet";
+import Success from "../../components/Success/Success";
+
+// Reducer & constants
 import { TenantStripeReducer, DefaultTenant } from "./tenantStripe-reducer";
+import { UPDATE_NEWTENANT_INFO } from "./tenantStripe-constants";
 
 // Stripe Components
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 
-// Constants
-import { UPDATE_NEWTENANT_INFO } from "./tenantStripe-constants";
+// Multi language
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
+
+// Images
+import StripeLogo from "../../images/secure-payments.png";
 
 // Styles
 import Loader from "react-loader-spinner";
@@ -38,12 +48,13 @@ const CARD_ELEMENT_OPTIONS = {
 const {
   REACT_APP_BASE_URL,
   REACT_APP_API_RIMBO_TENANCY,
+  REACT_APP_API_RIMBO_TENANT,
   REACT_APP_BASE_URL_STRIPE,
   REACT_APP_API_RIMBO_TENANT_STRIPE,
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
 
-const RegisterTenantCard = () => {
+const RegisterTenantCard = ({ t }) => {
   let { randomID } = useParams();
   const tenancyID = randomID;
 
@@ -61,6 +72,9 @@ const RegisterTenantCard = () => {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null); //eslint-disable-line
 
+  const [state, setState] = useState(null); // eslint-disable-line
+
+  // ! Fetch data from DB to autocomplete input form
   useEffect(() => {
     const getData = () => {
       fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`)
@@ -84,6 +98,58 @@ const RegisterTenantCard = () => {
     getData();
   }, [tenancyID]);
 
+  // ! Fetch data to send email notification to Gloria when tenant enters to that page (one time)
+  useEffect(() => {
+    // fetch data from DB
+    const fetchUserData = () =>
+      axios.get(
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`
+      );
+
+    const postDecision = (body) =>
+      axios.post(
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/payment/try`,
+        body
+      );
+
+    const processDecision = async () => {
+      const { data: tenancyData } = await fetchUserData();
+
+      const postBody = {
+        // use some logic based on tenancyData here to make the postBody
+        isTrying: tenant.isTrying,
+        randomID: tenancyData.tenant.randomID,
+      };
+
+      const { data: decisionResult } = await postDecision(postBody);
+
+      const { tenantsName, tenantsEmail, tenantsPhone } = tenancyData.tenant;
+      const { agencyName } = tenancyData.agent;
+
+      if (tenancyData.tenant.isTrying === false) {
+        if (i18n.language === "en") {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/en/e2r`, {
+            tenantsName,
+            tenantsEmail,
+            tenantsPhone,
+            randomID,
+            agencyName,
+          });
+        } else {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/e2r`, {
+            tenantsName,
+            tenantsEmail,
+            tenantsPhone,
+            randomID,
+            agencyName,
+          });
+        }
+      }
+      setState(decisionResult);
+    };
+    processDecision();
+  }, [randomID, tenant.isTrying, tenancyID]);
+
   // Handle on change
   const handleNewTenant = ({ target }) => {
     setTenant({
@@ -98,9 +164,10 @@ const RegisterTenantCard = () => {
 
   const handleFormSubmit = async (ev) => {
     ev.preventDefault();
-    const tenantsEmail = document.getElementById("email").innerHTML;
-    const tenantsName = document.getElementById("name").innerHTML;
-    const tenantsPhone = document.getElementById("phone").innerHTML;
+
+    const tenantsEmail = document.getElementById("email").value;
+    const tenantsName = document.getElementById("name").value;
+    const tenantsPhone = document.getElementById("phone").value;
     const timestamps = new Date()
       .toISOString()
       .replace(/T/, " ")
@@ -147,7 +214,7 @@ const RegisterTenantCard = () => {
           }
         );
 
-        // ! Post a el backend de emails en formularios
+        // ! Post to Emil service
         await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj3`, {
           tenantsName,
           tenantsEmail,
@@ -168,6 +235,7 @@ const RegisterTenantCard = () => {
 
   return (
     <>
+      <CustomHelmet header={t("RJ3.helmet")} />
       {!isSuccessfullySubmitted ? (
         <div className={styles.RegisterContainer}>
           {loading ? (
@@ -183,101 +251,121 @@ const RegisterTenantCard = () => {
           ) : (
             <>
               <div className={styles.Register}>
-                <h1>
-                  Great! You are just one step away from renting without a
-                  deposit!
-                </h1>
+                <h1>{t("RJ3.header.title")}</h1>
                 <div className={styles.ExtraInfoContainer}>
-                  <h2>
-                    You just need to review our Terms and Conditions and provide
-                    the charge authorization
-                  </h2>
-                  <div>
-                    <p>
-                      * The card will NOT be blocked. The card will NOT be
-                      charged now. Only in case of legal claims presented by the
-                      landlord the card will be charged, import limited to{" "}
-                      <span>{tenancyData.product} of rent.</span>
-                    </p>
-                  </div>
+                  <h2>{t("RJ3.header.subtitle")}</h2>
                 </div>
               </div>
               <div className={styles.CardContainer}>
                 <form onSubmit={handleFormSubmit}>
                   <div className={styles.CardInput}>
                     <label>
-                      <h3>Debit card details</h3>
+                      <h3>{t("RJ3.form.tenantTitle")}</h3>
                       <div>
-                        <p id="name">{tenancyData.tenant.tenantsName}</p>
-                        <p id="email">{tenancyData.tenant.tenantsEmail}</p>
-                        <p id="phone">{tenancyData.tenant.tenantsPhone}</p>
-                      </div>
+                        <div>
+                          <h4>{t("RJ3.form.name")}</h4>
+                          <input
+                            id="name"
+                            type="text"
+                            value={tenancyData.tenant.tenantsName}
+                            disabled
+                          />
+                        </div>
+                        <div>
+                          <h4>{t("RJ3.form.email")}</h4>
+                          <input
+                            id="email"
+                            type="text"
+                            value={tenancyData.tenant.tenantsEmail}
+                            disabled
+                          />
+                        </div>
 
+                        <div>
+                          <h4>{t("RJ3.form.phone")}</h4>
+                          <input
+                            id="phone"
+                            type="text"
+                            value={tenancyData.tenant.tenantsPhone}
+                            disabled
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <p>{t("RJ3.form.cardSubtitle")}</p>
+                      </div>
+                      <h3>{t("RJ3.form.cardTitle")}</h3>
                       <CardElement
                         options={CARD_ELEMENT_OPTIONS}
                         onChange={handleCardDetailsChange}
                       />
                     </label>
+                    <div>
+                      <p>
+                        {t("RJ3.form.extraInfo")}
+                        <span>
+                          {tenancyData.product}
+                          {t("RJ3.form.extraInfoTwo")}
+                        </span>
+                      </p>
+                    </div>
+                    <div className={styles.TermsContainerStripe}>
+                      <input
+                        type="checkbox"
+                        required
+                        name="isAccepted"
+                        id="terms"
+                        value={tenant.isAccepted}
+                        onChange={(e) => handleNewTenant(e)}
+                      />
+                      <p>
+                        {t("RJ3.form.checkbox")}
+                        <a
+                          href="https://rimbo.rent/politica-privacidad/"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="link-tag"
+                        >
+                          {t("RJ3.form.generalConditions")}
+                        </a>
+                      </p>
+                    </div>
                     <div className={styles.ErrorInput}>
                       <p className="error-message">{checkoutError}</p>
                     </div>
+                    {isProcessing ? (
+                      <Loader
+                        type="Puff"
+                        color="#01d2cc"
+                        height={50}
+                        width={50}
+                        timeout={3000} //3 secs
+                      />
+                    ) : (
+                      <button disabled={isProcessing || !stripe}>
+                        {t("authorizeTwo")}
+                      </button>
+                    )}
+                    <div>
+                      <img
+                        src={StripeLogo}
+                        alt="Stripe Security Payment Logo"
+                      />
+                    </div>
                   </div>
-
-                  <div className={styles.TermsContainerStripe}>
-                    <input
-                      type="checkbox"
-                      required
-                      name="isAccepted"
-                      id="terms"
-                      value={tenant.isAccepted}
-                      onChange={(e) => handleNewTenant(e)}
-                    />
-                    <p>
-                      By hiring Rimbo's Services, you accept the{" "}
-                      <a
-                        href="https://rimbo.rent/politica-privacidad/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="link-tag"
-                      >
-                        {" "}
-                        Rimbo general conditions
-                      </a>
-                    </p>
-                  </div>
-
-                  {isProcessing ? (
-                    <Loader
-                      type="Puff"
-                      color="#01d2cc"
-                      height={50}
-                      width={50}
-                      timeout={3000} //3 secs
-                    />
-                  ) : (
-                    <button disabled={isProcessing || !stripe}>
-                      Authorize
-                    </button>
-                  )}
                 </form>
               </div>
             </>
           )}
         </div>
       ) : (
-        <div className={styles.SuccessPageContainer}>
-          <div className={styles.SuccessPageText}>
-            <h1>Your payment has been successfully completed</h1>
-            <h4>You will shortly receive an email with more details.</h4>
-            <p>
-              Thanks for your time <b>{tenancyData.tenant.tenantsName}</b>, We
-              will contact you shortly to give you more details of the process.
-            </p>
-          </div>
-        </div>
+        <Success
+          title={t("RJ3.success.title")}
+          subtitle={t("RJ3.success.subtitle")}
+        />
       )}
     </>
   );
 };
 
-export default RegisterTenantCard;
+export default withNamespaces()(RegisterTenantCard);

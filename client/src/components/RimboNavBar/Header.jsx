@@ -73,7 +73,11 @@ const Header = () => {
   return (
     <>
       <HideOnScroll>
-        <AppBar position="fixed" color="white">
+        <AppBar
+          position="fixed"
+          // color="white"
+          className={classes.AppBarContainer}
+        >
           <Toolbar component="nav">
             <Container maxWidth="xl" className={classes.NavBarContainer}>
               <a href="/" style={{ color: `white` }}>

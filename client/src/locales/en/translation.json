@@ -3,6 +3,7 @@
   "prevStepButton": "Previous Step",
   "submitButton": "Send",
   "authorize": "Send data",
+  "authorizeTwo": "Authorize",
   "NavBar": {
     "linkOne": "Tenants",
     "linkTwo": "Landlords",
@@ -86,6 +87,74 @@
       "privacy": "privacy policy",
       "checkboxTwo": " and ",
       "cookies": " cookies policy"
+    },
+    "success": {
+      "title": "Awesome, we have received your details! ",
+      "subtitle": "We will get in touch with you shortly to complete the process."
+    }
+  },
+  "RJ2": {
+    "helmet": "New tenant - Rimbo - The new way of rent",
+    "header": {
+      "title": "Tell us a little more about yourself to save the deposit of your next apartment",
+      "subtitle": "All we need from you is the following information. Quick and easy!",
+      "extraInfo": "We will need a scanned copy of your DNI / NIE (front and back) or passport and a document that confirms your current address. If you are an EU citizen, please provide your NIE number in the “Document number” field and send us a scanned copy of the identity document of your country of origin."
+    },
+    "form": {
+      "monthlyNetIncome": "Monthly net income",
+      "monthlyNetIncomePL": "Write your income",
+      "documentType": "Document type",
+      "documentTypePL": "Select Document type",
+      "documentTypeOne": "DNI",
+      "documentTypeTwo": "NIE",
+      "documentTypeThree": "Passport",
+      "documentTypeFour": "Other",
+      "tenantsAddress": "Current Address",
+      "tenantsAddressPL": "Write the address where you reside",
+      "jobType": "Job type",
+      "jobTypePL": "Select your job type",
+      "jobTypeOne": "Salaried",
+      "jobTypeTwo": "Autonomous",
+      "jobTypeThree": "Unemployed",
+      "jobTypeFour": "We are a company",
+      "jobTypeFive": "I'm retired",
+      "jobTypeSix": "I am a student",
+      "jobTypeSeven": "Other",
+      "documentNumber": "Document Number",
+      "documentNumberPL": "Write the number of your document",
+      "tenantsZipCode": "Current zip code",
+      "tenantsZipCodePL": "XXXXX",
+      "DNIFront": "DNI/NIE (Front)",
+      "DNIBack": "DNI/NIE (Back)",
+      "DCA": "Document confirming your current address (eg receipt of supplies)",
+      "checkbox": "By submitting this form, you understand and agree that we use your information in accordance with our ",
+      "privacy": "privacy policy",
+      "checkboxTwo": " and ",
+      "cookies": " cookies policy",
+      "checkboxThree": " to offer you Rimbo services."
+    },
+    "success": {
+      "title": "Awesome, we have received your details! ",
+      "subtitle": "We will get in touch with you shortly to complete the process."
+    }
+  },
+  "RJ3": {
+    "helmet": "New tenant - Rimbo - The new way of rent",
+    "header": {
+      "title": "Great! You are just one step away from renting without a deposit!",
+      "subtitle": "You just need to review our Terms and Conditions and provide the charge authorization"
+    },
+    "form": {
+      "tenantTitle": "Tenant details",
+      "name": "Full name: ",
+      "email": "Email: ",
+      "phone": "Phone: ",
+      "cardTitle": "Debit card details",
+      "cardSubtitle": "Remember, you must list the account where you receive your income",
+      "extraInfo": "*The card will NOT be blocked. The card will NOT be charged now. Only in case of legal claims presented by the landlord the card will be charged, import limited to ",
+      "extraInfoTwo": " of rent.",
+      "checkbox": "By hiring Rimbo's Services, you accept the",
+      "generalConditions": " Rimbo general conditions"
     },
     "success": {
       "title": "Awesome, we have received your details! ",

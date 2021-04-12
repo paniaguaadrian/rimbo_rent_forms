@@ -3,6 +3,7 @@
   "prevStepButton": "Atrás",
   "submitButton": "Enviar",
   "authorize": "Enviar datos",
+  "authorizeTwo": "Autorizar pago",
   "NavBar": {
     "linkOne": "Inquilinos",
     "linkTwo": "Propietarios",
@@ -86,6 +87,74 @@
       "privacy": "política de privacidad ",
       "checkboxTwo": " y nuestra ",
       "cookies": " política de cookies"
+    },
+    "success": {
+      "title": "Genial, ¡hemos recibido tus detalles!",
+      "subtitle": "Nos pondremos en contacto contigo en breve para completar el proceso."
+    }
+  },
+  "RJ2": {
+    "helmet": "Nuevo inquilino - Rimbo - The new way of rent",
+    "header": {
+      "title": "Cuéntanos un poco más de ti para ahorrarte el depósito de tu próximo piso",
+      "subtitle": "Todo lo que necesitamos de ti es la siguiente información. ¡Rapido y Facil!",
+      "extraInfo": "Necesitaremos una copia escaneada de tu DNI/NIE (anverso y reverso) o pasaporte y un documento que confirme tu dirección actual. Si eres ciudadano de la UE, por favor informa tu número de NIE en el campo “Número de documento” y envíanos una copia escaneada del documento de identidad de tu país de origen."
+    },
+    "form": {
+      "monthlyNetIncome": "Ingresos netos mensuales",
+      "monthlyNetIncomePL": "Escribe tus ingresos",
+      "documentType": "Tipo de documento",
+      "documentTypePL": "Selecciona un tipo de documento",
+      "documentTypeOne": "DNI",
+      "documentTypeTwo": "NIE",
+      "documentTypeThree": "Pasaporte",
+      "documentTypeFour": "Otros",
+      "tenantsAddress": "Dirección actual (donde has vivido hasta ahora)",
+      "tenantsAddressPL": "Escribe la dirección en la que resides ahora",
+      "jobType": "Tipo de empleo",
+      "jobTypePL": "Selecciona tu tipo de empleo",
+      "jobTypeOne": "Asalariado",
+      "jobTypeTwo": "Autónomo",
+      "jobTypeThree": "Sin empleo",
+      "jobTypeFour": "Somos una empresa",
+      "jobTypeFive": "Estoy jubilado/a",
+      "jobTypeSix": "Soy estudiante",
+      "jobTypeSeven": "Otro",
+      "documentNumber": "Número de documento",
+      "documentNumberPL": "Escribe el número de tu documento",
+      "tenantsZipCode": "Código postal actual",
+      "tenantsZipCodePL": "XXXXX",
+      "DNIFront": "DNI/NIE (Frontal)",
+      "DNIBack": "DNI/NIE (Atrás)",
+      "DCA": "Documento que confirme tu dirección actual (ej. Recibo de suministros)",
+      "checkbox": "Al enviar este formulario, comprendes y aceptas que utilizamos tu información de acuerdo con nuestra ",
+      "privacy": "política de privacidad",
+      "checkboxTwo": " y nuestra ",
+      "cookies": " política de cookies",
+      "checkboxThree": ", para ofrecerte los servicios de Rimbo"
+    },
+    "success": {
+      "title": "Genial, ¡hemos recibido tus detalles!",
+      "subtitle": "Nos pondremos en contacto contigo en breve para completar el proceso."
+    }
+  },
+  "RJ3": {
+    "helmet": "Nuevo inquilino - Rimbo - The new way of rent",
+    "header": {
+      "title": "¡Genial! ¡Estás a solo un paso de formar parte de Rimbo!",
+      "subtitle": "Solo falta que revises nuestros Términos y condiciones y que proporciones la autorización de cargo"
+    },
+    "form": {
+      "tenantTitle": "Detalles inquilino",
+      "name": "Nombre: ",
+      "email": "Correo: ",
+      "phone": "Teléfono: ",
+      "cardTitle": "Detalles tarjeta de débito",
+      "cardSubtitle": "Debes registrar la tarjeta de débito que esté conectada a tu cuenta principal",
+      "extraInfo": "*La tarjeta NO será bloqueada. NO se realizará ningún cargo en este momento. Solo se realizarán cargos en caso de que se presenten cargos legales por parte del propietario, con importe limitado hasta ",
+      "extraInfoTwo": " de alquiler.",
+      "checkbox": "Al contratar los servicios de Rimbo aceptas las",
+      "generalConditions": " condiciones generales de Rimbo"
     },
     "success": {
       "title": "Genial, ¡hemos recibido tus detalles!",

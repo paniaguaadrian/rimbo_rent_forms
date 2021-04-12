@@ -2,6 +2,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   // General
+  AppBarContainer: {
+    backgroundColor: `white`,
+  },
+
   NavBarContainer: {
     display: `flex`,
     justifyContent: `space-between`,
