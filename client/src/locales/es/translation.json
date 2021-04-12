@@ -160,5 +160,16 @@
       "title": "Genial, ¡hemos recibido tus detalles!",
       "subtitle": "Nos pondremos en contacto contigo en breve para completar el proceso."
     }
+  },
+  "RJS": {
+    "helmet": "Confirmación inicio alquiler - Rimbo - The new way of rent",
+    "header": {
+      "title": "¡Bien! ¡El alquiler ya está cubierto por Rimbo! ¡Tus inquilinos ya pueden mudarse!",
+      "subTitle": "Confirma la fecha de inicio del alquiler y sube el Anexo de Rimbo y la orden de cargo SEPA"
+    },
+    "form": {
+      "rentalStart": "Fecha de inicio del alquiler",
+      "rentalAgreement": "Documentos (Anexo+SEPA)"
+    }
   }
 }

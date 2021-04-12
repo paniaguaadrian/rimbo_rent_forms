@@ -11,6 +11,11 @@ import Input from "../../components/Input";
 import InputFile from "../../components/InputFile";
 import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
+import CustomHelmet from "../../components/Helmet/CustomHelmet";
+
+// Multi language
+import { withNamespaces } from "react-i18next";
+import i18n from "../../i18n";
 
 // End-Points env
 const {
@@ -19,7 +24,7 @@ const {
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
 
-const RegisterTenantPM = () => {
+const RegisterTenantPM = ({ t }) => {
   const { tenancyID } = useParams();
 
   const [isProcessing, setProcessingTo] = useState(false);
@@ -132,19 +137,13 @@ const RegisterTenantPM = () => {
 
   return (
     <>
+      <CustomHelmet header={t("RJS.helmet")} />
       {!isSuccessfullySubmitted ? (
         <div className={styles.RegisterContainer}>
           <div className={styles.Register}>
-            <h1>
-              Horray! The rental is now covered by Rimbo! Your tenants can move
-              in now!
-            </h1>
+            <h1>{t("RJS.header.title")}</h1>
             <div className={styles.ExtraInfoContainer}>
-              {/* <h2>
-                All we need from you is the following information. Quick and
-                easy!
-              </h2> */}
-              <p>Confirm the rental start date and upload the Rimbo Annex.</p>
+              <p>{t("RJS.header.subTitle")}</p>
             </div>
           </div>
           <div className={styles.FormContent}>
@@ -157,15 +156,14 @@ const RegisterTenantPM = () => {
                 type="date"
                 name="date"
                 value={date}
-                label="Rental start date"
-                placeholder="Write your income"
+                label={t("RJS.form.rentalStart")}
                 onChange={changeHandlerr}
                 required
               />
               <InputFile
                 type="file"
                 name="File"
-                label="Rental Agreement - Rimbo Annex"
+                label={t("RJS.form.rentalAgreement")}
                 onChange={changeHandler}
                 required
               />
@@ -181,7 +179,7 @@ const RegisterTenantPM = () => {
                   />
                 ) : (
                   <Button disabled={isProcessing} type="submit">
-                    Send
+                    {t("submitButton")}
                   </Button>
                 )}
               </div>
@@ -204,4 +202,4 @@ const RegisterTenantPM = () => {
   );
 };
 
-export default RegisterTenantPM;
+export default withNamespaces()(RegisterTenantPM);

@@ -160,5 +160,16 @@
       "title": "Awesome, we have received your details! ",
       "subtitle": "We will get in touch with you shortly to complete the process."
     }
+  },
+  "RJS": {
+    "helmet": "Rental Start Confirmation - Rimbo - The new way of rent",
+    "header": {
+      "title": "Horray! The rental is now covered by Rimbo! Your tenants can move in now!",
+      "subTitle": "Confirm the rental start date and upload the Rimbo Annex."
+    },
+    "form": {
+      "rentalStart": "Rental start date",
+      "rentalAgreement": "Rental Agreement - Rimbo Annex"
+    }
   }
 }
