@@ -30,16 +30,19 @@ const RegisterTenantPM = ({ t }) => {
 
   const [isProcessing, setProcessingTo] = useState(false);
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
-  const [responseData, setResponseData] = useState([]);
+
+  const [responseData, setResponseData] = useState([]); // eslint-disable-line
+  const [responseDataAfter, setResponseDataAfter] = useState([]);
   const [loading, setLoading] = useState(false); //eslint-disable-line
   const [err, setErr] = useState(null); //eslint-disable-line
-  // const [selectedFile, setSelectedFile] = useState(null);
+
+  const [sent, isSent] = useState(false);
+
   const [date, setDate] = useState("");
   const [files, setFiles] = useState({
     pmAnex: null,
   });
-  const [sent, isSent] = useState(false);
-  const [responseDataAfter, setResponseDataAfter] = useState([]);
+
   useEffect(() => {
     const getData = () => {
       fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`)
