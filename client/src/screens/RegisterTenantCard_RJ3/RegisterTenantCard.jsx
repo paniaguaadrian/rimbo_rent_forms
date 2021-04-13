@@ -127,23 +127,13 @@ const RegisterTenantCard = ({ t }) => {
       const { agencyName } = tenancyData.agent;
 
       if (tenancyData.tenant.isTrying === false) {
-        if (i18n.language === "en") {
-          axios.post(`${REACT_APP_BASE_URL_EMAIL}/en/e2r`, {
-            tenantsName,
-            tenantsEmail,
-            tenantsPhone,
-            randomID,
-            agencyName,
-          });
-        } else {
-          axios.post(`${REACT_APP_BASE_URL_EMAIL}/e2r`, {
-            tenantsName,
-            tenantsEmail,
-            tenantsPhone,
-            randomID,
-            agencyName,
-          });
-        }
+        axios.post(`${REACT_APP_BASE_URL_EMAIL}/e2r`, {
+          tenantsName,
+          tenantsEmail,
+          tenantsPhone,
+          randomID,
+          agencyName,
+        });
       }
       setState(decisionResult);
     };
@@ -178,7 +168,7 @@ const RegisterTenantCard = ({ t }) => {
     setProcessingTo(true);
 
     try {
-      // ! Post a el basckend de stripe en formularios
+      // ! Stripe action
       const { data: client_secret } = await axios.post(
         `${REACT_APP_BASE_URL_STRIPE}/card-wallet`,
         {
@@ -210,7 +200,7 @@ const RegisterTenantCard = ({ t }) => {
           `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT_STRIPE}/${randomID}`,
           {
             isTrying: tenant.isTrying,
-            isAccepted: tenant.isAccepted,
+            isAcceptedGC: tenant.isAcceptedGC,
             randomID: randomID,
           }
         );
@@ -314,9 +304,9 @@ const RegisterTenantCard = ({ t }) => {
                       <input
                         type="checkbox"
                         required
-                        name="isAccepted"
+                        name="isAcceptedGC"
                         id="terms"
-                        value={tenant.isAccepted}
+                        value={tenant.isAcceptedGC}
                         onChange={(e) => handleNewTenant(e)}
                       />
                       <p>

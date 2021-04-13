@@ -558,6 +558,68 @@ const sendPMEmails = async (req, res) => {
   res.status(200).json();
 };
 
+// ! E2R (email to Rimbo that informs tenant is on RJ3)
+const sendNotificationRimbo = async (req, res) => {
+  const {
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    agencyName,
+    randomID,
+  } = req.body;
+
+  const transporterE2R = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  let optionsE2R = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "E2REmail",
+    },
+    viewPath: "views/",
+  };
+
+  transporterE2R.use("compile", hbs(optionsE2R));
+
+  const RimboEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // Rimbo Email
+    subject: `${agencyName}-${tenantsName}-Registration Start`,
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "E2REmail",
+    context: {
+      tenantsName,
+      tenantsEmail,
+      tenantsPhone,
+      agencyName,
+      randomID,
+    },
+  };
+
+  transporterE2R.sendMail(RimboEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+
+  res.status(200).json();
+};
+
 // ! RJ3 Form =>  RJ15 Email
 const sendRJ3FormEmail = async (req, res) => {
   const {
@@ -935,4 +997,5 @@ export {
   sendRJSFormEmail,
   sendRJ3FilesEmail,
   sendRJ18Email,
+  sendNotificationRimbo,
 };

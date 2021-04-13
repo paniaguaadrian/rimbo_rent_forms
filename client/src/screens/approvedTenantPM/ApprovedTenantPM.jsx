@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useReducer } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+
+// Reducer
 import { TenantReducer, DefaultTenant } from "./approved_tenant_pm-reducer";
 
 // Custom Components
@@ -93,9 +95,6 @@ const ApprovedTenantPM = ({ t }) => {
       const tenancyID = tenancyData.tenancyID;
 
       console.log(tenancyData);
-      // console.log(tenantsName, randomID);
-      // console.log(agencyContactPerson, agencyEmailPerson);
-      // console.log("this is tenancyID:" + tenancyID);
 
       // Don't send an email if the tenant is already accepted
       if (tenancyData.tenant.isPMAccepted === false) {

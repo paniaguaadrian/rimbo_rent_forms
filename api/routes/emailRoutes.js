@@ -11,6 +11,7 @@ import {
   sendRJSFormEmail,
   sendRJ3FilesEmail,
   sendRJ18Email,
+  sendNotificationRimbo,
 } from "../controllers/emailsController.js";
 
 const router = express.Router();
@@ -18,6 +19,7 @@ const router = express.Router();
 router.route("/rj1").post(sendRJ1FormEmails);
 router.route("/rj2/tt").post(sendRJ2FormEmails);
 router.route("/rj2/rimbo").post(sendRJ3FilesEmail);
+router.route("/e2r").post(sendNotificationRimbo);
 router.route("/rj11").post(sendRJ11Emails);
 router.route("/rjpm").post(sendPMEmails);
 router.route("/rj3").post(sendRJ3FormEmail);
