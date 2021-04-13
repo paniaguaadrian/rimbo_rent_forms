@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 // Custom Components
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 
 // Styles
 import styles from "./register-user.module.scss";
@@ -19,8 +20,58 @@ import { UPDATE_PROPERTY_INFO } from "./constants";
 import { withNamespaces } from "react-i18next";
 import i18n from "../../i18n";
 
+// Google Maps Autocomplete
+import PlacesAutocomplete, {
+  geocodeByAddress,
+} from "react-places-autocomplete";
+
 const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [errors, setErrors] = useState({});
+
+  const [rentalAddress, setRentalAddress] = useState("");
+  const [rentalCity, setRentalCity] = useState("");
+  const [rentalPostalCode, setRentalPostalCode] = useState("");
+
+  // Google Maps Address and Zip Code
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    console.log(results);
+
+    const addressComponents = results[0].address_components;
+
+    const route = "route";
+    const locality = "locality";
+    const streetNumber = "street_number";
+    const postalCode = "postal_code";
+
+    if (
+      addressComponents[0].types[0] === route &&
+      addressComponents[1].types[0] === locality
+    ) {
+      tenancy.propertyDetails.rentalPostalCode = "";
+      tenancy.propertyDetails.rentalAddress = results[0].formatted_address;
+      setRentalPostalCode("");
+      setRentalAddress(results[0].formatted_address);
+      setRentalCity(results[0].address_components[1].long_name);
+    } else if (
+      addressComponents[0].types[0] === streetNumber && // number
+      addressComponents[1].types[0] === route && // Street
+      addressComponents[2].types[0] === locality && // Barcelona
+      addressComponents[6].types[0] === postalCode
+    ) {
+      tenancy.propertyDetails.rentalPostalCode =
+        results[0].address_components[6].long_name;
+      tenancy.propertyDetails.rentalAddress = results[0].formatted_address;
+      tenancy.propertyDetails.rentalCity =
+        results[0].address_components[2].long_name;
+
+      setRentalPostalCode(results[0].address_components[6].long_name);
+      setRentalAddress(results[0].formatted_address);
+      setRentalCity(results[0].address_components[2].long_name);
+    }
+    tenancy.propertyDetails.rentalAddress = results[0].formatted_address;
+    // setTenantsAddress(results[0].formatted_address);
+  };
 
   // Handle on change
   const handleAgency = ({ target }) => {
@@ -99,32 +150,69 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
           />
         </div>
         <div className={styles.FormRight}>
-          <Input
-            type="text"
-            name="rentalAddress"
-            value={tenancy.propertyDetails.rentalAddress}
-            label={t("RJ1.stepTwo.rentalAddress")}
-            placeholder={t("RJ1.stepTwo.rentalAddressPL")}
-            onChange={(e) => handleAgency(e)}
-            error={errors.rentalAddress}
-          />
+          <PlacesAutocomplete
+            value={rentalAddress}
+            onChange={setRentalAddress}
+            onSelect={handleSelect}
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
+              <div>
+                <Input
+                  id="googleInput"
+                  {...getInputProps()}
+                  label={t("RJ1.stepTwo.rentalAddress")}
+                  placeholder={t("RJ1.stepTwo.rentalAddressPL")}
+                  required
+                />
+                <div className={styles.GoogleSuggestionContainer}>
+                  {/* display sugestions */}
+                  {loading ? <div>...loading</div> : null}
+                  {suggestions.map((suggestion, place) => {
+                    const style = {
+                      backgroundColor: suggestion.active ? "#24c4c48f" : "#fff",
+                      cursor: "pointer",
+                    };
+                    return (
+                      <div
+                        className={styles.GoogleSuggestion}
+                        {...getSuggestionItemProps(suggestion, {
+                          style,
+                        })}
+                        key={place}
+                      >
+                        <LocationOnIcon />
+                        <span>{suggestion.description}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
           <Input
             type="text"
             name="rentalCity"
-            value={tenancy.propertyDetails.rentalCity}
+            value={rentalCity}
             label={t("RJ1.stepTwo.rentalCity")}
             placeholder={t("RJ1.stepTwo.rentalCityPL")}
-            onChange={(e) => handleAgency(e)}
-            error={errors.rentalCity}
+            onChange={setRentalCity}
+            onSelect={handleSelect}
+            disabled
           />
           <Input
             type="text"
             name="rentalPostalCode"
-            value={tenancy.propertyDetails.rentalPostalCode}
+            value={rentalPostalCode}
             label={t("RJ1.stepTwo.rentalPostalCode")}
             placeholder={t("RJ1.stepTwo.rentalPostalCodePL")}
-            onChange={(e) => handleAgency(e)}
-            error={errors.rentalPostalCode}
+            onChange={setRentalPostalCode}
+            onSelect={handleSelect}
+            disabled
           />
         </div>
       </div>
