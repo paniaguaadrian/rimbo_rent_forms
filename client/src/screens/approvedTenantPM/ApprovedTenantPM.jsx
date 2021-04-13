@@ -94,33 +94,37 @@ const ApprovedTenantPM = ({ t }) => {
 
       const tenancyID = tenancyData.tenancyID;
 
-      console.log(tenancyData);
+      const emailData = {
+        tenancyID,
+        randomID,
+        tenantsName,
+        tenantsEmail,
+        tenantsPhone,
+        monthlyNetIncome,
+        jobType,
+        documentNumber,
+        agencyContactPerson,
+        agencyEmailPerson,
+        agencyName,
+        agencyPhonePerson,
+        rentAmount,
+        product,
+        rentDuration,
+        rentalAddress,
+        rentalCity,
+        rentalPostalCode,
+        landlordName,
+        landlordEmail,
+        landlordPhone,
+      };
 
       // Don't send an email if the tenant is already accepted
       if (tenancyData.tenant.isPMAccepted === false) {
-        axios.post(`${REACT_APP_BASE_URL_EMAIL}/rjpm`, {
-          tenancyID,
-          randomID,
-          tenantsName,
-          tenantsEmail,
-          tenantsPhone,
-          monthlyNetIncome,
-          jobType,
-          documentNumber,
-          agencyContactPerson,
-          agencyEmailPerson,
-          agencyName,
-          agencyPhonePerson,
-          rentAmount,
-          product,
-          rentDuration,
-          rentalAddress,
-          rentalCity,
-          rentalPostalCode,
-          landlordName,
-          landlordEmail,
-          landlordPhone,
-        });
+        if (i18n.language === "en") {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/rjpm`, emailData);
+        } else {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rjpm`, emailData);
+        }
       }
 
       setState(decisionResult);

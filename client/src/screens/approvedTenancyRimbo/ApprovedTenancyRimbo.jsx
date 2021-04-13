@@ -21,22 +21,18 @@ import SuccessImage from "../../images/success-image.svg";
 const {
   REACT_APP_BASE_URL,
   REACT_APP_API_RIMBO_TENANCY,
-  REACT_APP_API_RIMBO_TENANT,
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
 
 const ApprovedTenancyRimbo = ({ t }) => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
+
   const [tenant] = useReducer(TenantReducer, DefaultTenant);
   const [state, setState] = useState(null); // eslint-disable-line
-  const [responseData, setResponseData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState(null);
 
   useEffect(() => {
     // Simplify fetchUserData.
-
     const fetchUserData = () =>
       axios.get(
         `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`
@@ -62,26 +58,29 @@ const ApprovedTenancyRimbo = ({ t }) => {
 
       // If the above use of {data} is correct it should be correct here too.
       const { data: decisionResult } = await postDecision(postBody);
-      // console.log(postBody);
 
       const { tenantsName, tenantsEmail, randomID } = tenancyData.tenant;
       const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
       const { rentalAddress } = tenancyData.property;
       const tenancyID = tenancyData.tenancyID;
 
-      // console.log(tenancyData);
+      const emailData = {
+        tenancyID,
+        randomID,
+        tenantsName,
+        tenantsEmail,
+        agencyContactPerson,
+        agencyEmailPerson,
+        rentalAddress,
+      };
 
       // Don't send an email if the tenancy is already accepted
       if (tenancyData.rentStart === false) {
-        axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18`, {
-          tenancyID,
-          randomID,
-          tenantsName,
-          tenantsEmail,
-          agencyContactPerson,
-          agencyEmailPerson,
-          rentalAddress,
-        });
+        if (i18n.language === "en") {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18`, emailData);
+        } else {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj18`, emailData);
+        }
       }
 
       setState(decisionResult);
@@ -89,33 +88,6 @@ const ApprovedTenancyRimbo = ({ t }) => {
 
     processDecision();
   }, [randomID, tenant.rentStart, tenancyID]);
-
-  useEffect(
-    () => {
-      const getData = () => {
-        fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
-          .then((res) => {
-            if (res.status >= 400) {
-              throw new Error("Server responds with error!" + res.status);
-            }
-            return res.json();
-          })
-          .then(
-            (responseData) => {
-              setResponseData(responseData);
-              setLoading(true);
-            },
-            (err) => {
-              setErr(err);
-              setLoading(true);
-            }
-          );
-      };
-      getData();
-    },
-    [randomID],
-    [responseData, loading, err]
-  );
 
   return (
     <>

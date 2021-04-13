@@ -20,6 +20,7 @@ import i18n from "../../i18n";
 
 // Images
 import StripeLogo from "../../images/secure-payments.png";
+import SuccessImage from "../../images/success-image.svg";
 
 // Styles
 import Loader from "react-loader-spinner";
@@ -206,18 +207,33 @@ const RegisterTenantCard = ({ t }) => {
         );
 
         // ! Post to Emil service
-        await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj3`, {
-          tenantsName,
-          tenantsEmail,
-          tenantsPhone,
-          timestamps,
-          agencyEmailPerson: tenancyData.agent.agencyEmailPerson,
-          agencyContactPerson: tenancyData.agent.agencyContactPerson,
-          agencyName: tenancyData.agent.agencyName,
-          rentalAddress: tenancyData.property.rentalAddress,
-          randomID,
-          tenancyID,
-        });
+        if (i18n.language === "en") {
+          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj3`, {
+            tenantsName,
+            tenantsEmail,
+            tenantsPhone,
+            timestamps,
+            agencyEmailPerson: tenancyData.agent.agencyEmailPerson,
+            agencyContactPerson: tenancyData.agent.agencyContactPerson,
+            agencyName: tenancyData.agent.agencyName,
+            rentalAddress: tenancyData.property.rentalAddress,
+            randomID,
+            tenancyID,
+          });
+        } else {
+          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj3`, {
+            tenantsName,
+            tenantsEmail,
+            tenantsPhone,
+            timestamps,
+            agencyEmailPerson: tenancyData.agent.agencyEmailPerson,
+            agencyContactPerson: tenancyData.agent.agencyContactPerson,
+            agencyName: tenancyData.agent.agencyName,
+            rentalAddress: tenancyData.property.rentalAddress,
+            randomID,
+            tenancyID,
+          });
+        }
       }
     } catch (err) {
       setCheckoutError(err.message);
@@ -353,6 +369,8 @@ const RegisterTenantCard = ({ t }) => {
         <Success
           title={t("RJ3.success.title")}
           subtitle={t("RJ3.success.subtitle")}
+          imageSRC={SuccessImage}
+          imageAlt="Success image"
         />
       )}
     </>

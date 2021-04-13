@@ -18,6 +18,9 @@ import Success from "../../components/Success/Success";
 import { withNamespaces } from "react-i18next";
 import i18n from "../../i18n";
 
+// Images
+import SuccessImage from "../../images/success-image.svg";
+
 // End-Points env
 const {
   REACT_APP_BASE_URL,
@@ -127,13 +130,23 @@ const RegisterTenantPM = ({ t }) => {
   useEffect(() => {
     const sendAttachments = async () => {
       if (sent) {
-        await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rjs`, {
-          agencyName: responseDataAfter.agent.agencyName,
-          rentalAddress: responseDataAfter.property.rentalAddress,
-          tenantsName: responseDataAfter.tenant.tenantsName,
-          pmAnex: responseDataAfter.pmAnex,
-          tenancyID: tenancyID,
-        });
+        if (i18n.language === "en") {
+          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rjs`, {
+            agencyName: responseDataAfter.agent.agencyName,
+            rentalAddress: responseDataAfter.property.rentalAddress,
+            tenantsName: responseDataAfter.tenant.tenantsName,
+            pmAnex: responseDataAfter.pmAnex,
+            tenancyID: tenancyID,
+          });
+        } else {
+          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rjs`, {
+            agencyName: responseDataAfter.agent.agencyName,
+            rentalAddress: responseDataAfter.property.rentalAddress,
+            tenantsName: responseDataAfter.tenant.tenantsName,
+            pmAnex: responseDataAfter.pmAnex,
+            tenancyID: tenancyID,
+          });
+        }
       }
     };
     sendAttachments();
@@ -194,6 +207,8 @@ const RegisterTenantPM = ({ t }) => {
         <Success
           title={t("RJS.success.title")}
           subtitle={t("RJS.success.subtitle")}
+          imageSRC={SuccessImage}
+          imageAlt="Success image"
         />
       )}
     </>

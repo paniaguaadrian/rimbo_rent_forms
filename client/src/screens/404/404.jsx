@@ -4,8 +4,6 @@ import React from "react";
 // Custom Components
 import WhatsappBubble from "../../components/WhatsappBubble/WhatsappBubble";
 import Component404 from "../../components/404/Component404";
-// import NavBar from "../../components/NavBar/NavBar";
-// import Footer from "../../components/Footer/Footer";
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 
 // Multi language
@@ -18,7 +16,6 @@ const Page404 = ({ t }) => {
   return (
     <>
       <CustomHelmet header={t("404Page.header")} />
-      {/* <NavBar /> */}
       <Component404
         title={t("404Page.title")}
         subtitle={t("404Page.subtitle")}
@@ -28,7 +25,6 @@ const Page404 = ({ t }) => {
         imageAlt="404 error image"
       />
       <WhatsappBubble />
-      {/* <Footer /> */}
     </>
   );
 };

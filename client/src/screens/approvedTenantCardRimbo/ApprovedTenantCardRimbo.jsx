@@ -69,16 +69,22 @@ const ApprovedTenantCardRimbo = ({ t }) => {
         agencyName,
       } = tenancyData.agent;
 
+      const emailData = {
+        tenantsName,
+        tenantsEmail,
+        agencyContactPerson,
+        agencyEmailPerson,
+        agencyName,
+        tenancyID,
+        randomID,
+      };
+
       if (tenancyData.tenant.isCardAccepted === false) {
-        await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj15`, {
-          tenantsName,
-          tenantsEmail,
-          agencyContactPerson,
-          agencyEmailPerson,
-          agencyName,
-          tenancyID,
-          randomID,
-        });
+        if (i18n.language === "en") {
+          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj15`, emailData);
+        } else {
+          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj15`, emailData);
+        }
       }
       setState(decisionResult);
     };

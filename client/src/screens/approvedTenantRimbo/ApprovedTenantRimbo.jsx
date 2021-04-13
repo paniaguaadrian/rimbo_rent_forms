@@ -65,14 +65,20 @@ const ApprovedTenantRimbo = ({ t }) => {
       const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
       const tenancyID = tenancyData.tenancyID;
 
+      const emailData = {
+        tenantsName,
+        agencyContactPerson,
+        agencyEmailPerson,
+        tenancyID,
+        randomID,
+      };
+
       if (tenancyData.tenant.isRimboAccepted === false) {
-        axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, {
-          tenantsName,
-          agencyContactPerson,
-          agencyEmailPerson,
-          tenancyID,
-          randomID,
-        });
+        if (i18n.language === "en") {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
+        } else {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
+        }
       }
 
       setState(decisionResult);
@@ -80,37 +86,6 @@ const ApprovedTenantRimbo = ({ t }) => {
 
     processDecision();
   }, [randomID, tenant.isRimboAccepted, tenancyID]);
-
-  // const [responseData, setResponseData] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // const [err, setErr] = useState(null);
-
-  // useEffect(
-  //   () => {
-  //     const getData = () => {
-  //       fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
-  //         .then((res) => {
-  //           if (res.status >= 400) {
-  //             throw new Error("Server responds with error!" + res.status);
-  //           }
-  //           return res.json();
-  //         })
-  //         .then(
-  //           (responseData) => {
-  //             setResponseData(responseData);
-  //             setLoading(true);
-  //           },
-  //           (err) => {
-  //             setErr(err);
-  //             setLoading(true);
-  //           }
-  //         );
-  //     };
-  //     getData();
-  //   },
-  //   [randomID],
-  //   [responseData, loading, err]
-  // );
 
   return (
     <>

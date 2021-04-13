@@ -26,6 +26,9 @@ import CustomHelmet from "../../components/Helmet/CustomHelmet";
 import { withNamespaces } from "react-i18next";
 import i18n from "../../i18n";
 
+// Images
+import SuccessImage from "../../images/success-image.svg";
+
 const {
   REACT_APP_BASE_URL,
   REACT_APP_API_RIMBO_TENANCY,
@@ -476,6 +479,8 @@ const RegisterTenant = ({ t }) => {
         <Success
           title={t("RJ2.success.title")}
           subtitle={t("RJ2.success.subtitle")}
+          imageSRC={SuccessImage}
+          imageAlt="Success image"
         />
       )}
     </>
