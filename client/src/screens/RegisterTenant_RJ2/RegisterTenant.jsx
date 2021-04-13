@@ -7,6 +7,9 @@ import { TenantReducer, DefaultTenant } from "./tenant-reducer";
 // Styles
 import styles from "../../screens/RegisterTenancy/register-user.module.scss";
 
+// Images
+import SuccessImage from "../../images/success-image.svg";
+
 // Validation
 import { newTenant, newTenantEs } from "./tenant_validation";
 
@@ -21,13 +24,16 @@ import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
 import Success from "../../components/Success/Success";
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 
 // Multilanguage
 import { withNamespaces } from "react-i18next";
 import i18n from "../../i18n";
 
-// Images
-import SuccessImage from "../../images/success-image.svg";
+// Google Maps Autocomplete
+import PlacesAutocomplete, {
+  geocodeByAddress,
+} from "react-places-autocomplete";
 
 const {
   REACT_APP_BASE_URL,
@@ -41,19 +47,55 @@ const RegisterTenant = ({ t }) => {
   const randomID = tenancyID;
 
   const [tenant, setTenant] = useReducer(TenantReducer, DefaultTenant);
+
   const [errors, setErrors] = useState({});
   const [isProcessing, setProcessingTo] = useState(false);
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
+  const [sent, isSent] = useState(false);
+
   const [responseData, setResponseData] = useState([]);
+  const [responseDataAfter, setResponseDataAfter] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
+
   const [files, setFiles] = useState({
     DF: null,
     DB: null,
     DCA: null,
   });
-  const [sent, isSent] = useState(false);
-  const [responseDataAfter, setResponseDataAfter] = useState([]);
+
+  const [tenantsAddress, setTenantsAddress] = useState("");
+  const [tenantsZipCode, setTenantsZipCode] = useState("");
+
+  // Google Maps Address and Zip Code
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+
+    const addressComponents = results[0].address_components;
+
+    const route = "route";
+    const locality = "locality";
+    const streetNumber = "street_number";
+    const postalCode = "postal_code";
+
+    if (
+      addressComponents[0].types[0] === route &&
+      addressComponents[1].types[0] === locality
+    ) {
+      setTenantsZipCode("");
+      setTenantsAddress(results[0].formatted_address);
+    } else if (
+      addressComponents[0].types[0] === streetNumber && // number
+      addressComponents[1].types[0] === route && // Street
+      addressComponents[2].types[0] === locality && // Barcelona
+      addressComponents[6].types[0] === postalCode
+    ) {
+      setTenantsZipCode(results[0].address_components[6].long_name);
+      setTenantsAddress(results[0].formatted_address);
+    }
+
+    setTenantsAddress(results[0].formatted_address);
+  };
 
   useEffect(
     () => {
@@ -137,8 +179,8 @@ const RegisterTenant = ({ t }) => {
         jobType: tenant.jobType,
         documentType: tenant.documentType,
         documentNumber: tenant.documentNumber,
-        tenantsAddress: tenant.tenantsAddress,
-        tenantsZipCode: tenant.tenantsZipCode,
+        tenantsAddress: tenantsAddress,
+        tenantsZipCode: tenantsZipCode,
         isAcceptedPrivacy: tenant.isAcceptedPrivacy,
         randomID: tenancyID,
       }
@@ -197,8 +239,8 @@ const RegisterTenant = ({ t }) => {
             monthlyNetIncome: tenant.monthlyNetIncome,
             jobType: tenant.jobType,
             documentNumber: tenant.documentNumber,
-            tenantsAddress: tenant.tenantsAddress,
-            tenantsZipCode: tenant.tenantsZipCode,
+            tenantsAddress: tenantsAddress,
+            tenantsZipCode: tenantsZipCode,
             // Proprety
             rentAmount: responseDataAfter.rentAmount,
             product: responseDataAfter.product,
@@ -229,8 +271,8 @@ const RegisterTenant = ({ t }) => {
             monthlyNetIncome: tenant.monthlyNetIncome,
             jobType: tenant.jobType,
             documentNumber: tenant.documentNumber,
-            tenantsAddress: tenant.tenantsAddress,
-            tenantsZipCode: tenant.tenantsZipCode,
+            tenantsAddress: tenantsAddress,
+            tenantsZipCode: tenantsZipCode,
             // Proprety
             rentAmount: responseDataAfter.rentAmount,
             product: responseDataAfter.product,
@@ -326,7 +368,7 @@ const RegisterTenant = ({ t }) => {
                       </option>
                     </select>
                   </div>
-                  <Input
+                  {/* <Input
                     type="text"
                     name="tenantsAddress"
                     value={tenant.tenantsAddress}
@@ -334,7 +376,54 @@ const RegisterTenant = ({ t }) => {
                     placeholder={t("RJ2.form.tenantsAddressPL")}
                     onChange={(e) => handleNewTenant(e)}
                     error={errors.tenantsAddress}
-                  />
+                  /> */}
+                  {/* Google maps Autocomplete */}
+                  <PlacesAutocomplete
+                    value={tenantsAddress}
+                    onChange={setTenantsAddress}
+                    onSelect={handleSelect}
+                  >
+                    {({
+                      getInputProps,
+                      suggestions,
+                      getSuggestionItemProps,
+                      loading,
+                    }) => (
+                      <div>
+                        <Input
+                          id="googleInput"
+                          {...getInputProps()}
+                          label={t("RJ2.form.tenantsAddress")}
+                          placeholder={t("RJ2.form.tenantsAddressPL")}
+                          required
+                        />
+                        <div className={styles.GoogleSuggestionContainer}>
+                          {/* display sugestions */}
+                          {loading ? <div>...loading</div> : null}
+                          {suggestions.map((suggestion, place) => {
+                            const style = {
+                              backgroundColor: suggestion.active
+                                ? "#24c4c48f"
+                                : "#fff",
+                              cursor: "pointer",
+                            };
+                            return (
+                              <div
+                                className={styles.GoogleSuggestion}
+                                {...getSuggestionItemProps(suggestion, {
+                                  style,
+                                })}
+                                key={place}
+                              >
+                                <LocationOnIcon />
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </PlacesAutocomplete>
                 </div>
 
                 <div className={styles.FormRight}>
@@ -388,11 +477,11 @@ const RegisterTenant = ({ t }) => {
                   <Input
                     type="number"
                     name="tenantsZipCode"
-                    value={tenant.tenantsZipCode}
+                    value={tenantsZipCode}
                     label={t("RJ2.form.tenantsZipCode")}
                     placeholder={t("RJ2.form.tenantsZipCodePL")}
-                    onChange={(e) => handleNewTenant(e)}
-                    error={errors.tenantsZipCode}
+                    onChange={setTenantsZipCode}
+                    disabled
                   />
                 </div>
               </div>

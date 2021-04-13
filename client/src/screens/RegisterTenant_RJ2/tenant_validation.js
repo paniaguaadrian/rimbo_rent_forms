@@ -17,12 +17,6 @@ export const newTenant = (values) => {
     errors.documentNumber =
       "Your document number must be at least 8 characters";
   }
-  if (!values.tenantsAddress) {
-    errors.tenantsAddress = "You must specify your address";
-  }
-  if (!values.tenantsZipCode) {
-    errors.tenantsZipCode = "You must specify a valid zip code";
-  }
 
   if (!values.isAcceptedPrivacy) {
     errors.isAcceptedPrivacy = "You must accept our Privacy Policy";
@@ -48,12 +42,6 @@ export const newTenantEs = (values) => {
   if (values.documentNumber && values.documentNumber.length < 8) {
     errors.documentNumber =
       "Your document number must be at least 8 characters";
-  }
-  if (!values.tenantsAddress) {
-    errors.tenantsAddress = "You must specify your address";
-  }
-  if (!values.tenantsZipCode) {
-    errors.tenantsZipCode = "You must specify a valid zip code";
   }
 
   if (!values.isAcceptedPrivacy) {

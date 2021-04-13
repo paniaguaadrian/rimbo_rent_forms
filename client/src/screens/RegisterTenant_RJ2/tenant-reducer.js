@@ -5,8 +5,6 @@ export const DefaultTenant = {
   jobType: "",
   documentType: "",
   documentNumber: "",
-  tenantsAddress: "",
-  tenantsZipCode: "",
   isAcceptedPrivacy: true,
 };
 
