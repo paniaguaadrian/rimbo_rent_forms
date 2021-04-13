@@ -40,7 +40,7 @@ const ApprovedTenantPM = ({ t }) => {
     // Add body to post decision. So we can send data.
     const postDecision = (body) =>
       axios.post(
-        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/pm/approved`,
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/pm/approved`,
         body
       );
 

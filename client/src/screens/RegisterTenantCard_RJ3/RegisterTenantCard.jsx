@@ -209,6 +209,7 @@ const RegisterTenantCard = ({ t }) => {
         await axios.post(
           `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT_STRIPE}/${randomID}`,
           {
+            isTrying: tenant.isTrying,
             isAccepted: tenant.isAccepted,
             randomID: randomID,
           }

@@ -42,7 +42,7 @@ const ApprovedTenantRimbo = ({ t }) => {
     // Add body to post decision. So we can send data.
     const postDecision = (body) =>
       axios.post(
-        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/approved`,
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/approved`,
         body
       );
 
@@ -65,11 +65,6 @@ const ApprovedTenantRimbo = ({ t }) => {
       const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
       const tenancyID = tenancyData.tenancyID;
 
-      // console.log(tenancyData);
-      // console.log(tenantsName, randomID);
-      // console.log(agencyContactPerson, agencyEmailPerson);
-      // console.log("this is tenancyID:" + tenancyID);
-
       if (tenancyData.tenant.isRimboAccepted === false) {
         axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, {
           tenantsName,
@@ -86,36 +81,36 @@ const ApprovedTenantRimbo = ({ t }) => {
     processDecision();
   }, [randomID, tenant.isRimboAccepted, tenancyID]);
 
-  const [responseData, setResponseData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState(null);
+  // const [responseData, setResponseData] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [err, setErr] = useState(null);
 
-  useEffect(
-    () => {
-      const getData = () => {
-        fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
-          .then((res) => {
-            if (res.status >= 400) {
-              throw new Error("Server responds with error!" + res.status);
-            }
-            return res.json();
-          })
-          .then(
-            (responseData) => {
-              setResponseData(responseData);
-              setLoading(true);
-            },
-            (err) => {
-              setErr(err);
-              setLoading(true);
-            }
-          );
-      };
-      getData();
-    },
-    [randomID],
-    [responseData, loading, err]
-  );
+  // useEffect(
+  //   () => {
+  //     const getData = () => {
+  //       fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
+  //         .then((res) => {
+  //           if (res.status >= 400) {
+  //             throw new Error("Server responds with error!" + res.status);
+  //           }
+  //           return res.json();
+  //         })
+  //         .then(
+  //           (responseData) => {
+  //             setResponseData(responseData);
+  //             setLoading(true);
+  //           },
+  //           (err) => {
+  //             setErr(err);
+  //             setLoading(true);
+  //           }
+  //         );
+  //     };
+  //     getData();
+  //   },
+  //   [randomID],
+  //   [responseData, loading, err]
+  // );
 
   return (
     <>

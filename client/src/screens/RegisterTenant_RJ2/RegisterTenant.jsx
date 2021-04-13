@@ -119,20 +119,17 @@ const RegisterTenant = ({ t }) => {
       setProcessingTo(true);
     }
 
-    // setIsSuccessfullySubmitted(true);
-
-    // ! Post to Rimbo API (files/images)
+    // Post to Rimbo API (files/images)
     await axios.post(
       `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/upload`,
       formData,
       { randomID }
     );
 
-    // ! Post to Rimbo API Data
+    // Post to Rimbo API Data
     await axios.post(
       `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`,
       {
-        // tenant
         monthlyNetIncome: tenant.monthlyNetIncome,
         jobType: tenant.jobType,
         documentType: tenant.documentType,
