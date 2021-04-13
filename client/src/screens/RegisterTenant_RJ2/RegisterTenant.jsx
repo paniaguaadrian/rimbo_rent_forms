@@ -144,36 +144,10 @@ const RegisterTenant = ({ t }) => {
       }
     );
 
-    // ! POST to email service
-
+    // Tenant Email action
     await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj2/tt`, {
-      // Agent/Agency
-      agencyName: responseData.agent.agencyName,
-      agencyContactPerson: responseData.agent.agencyContactPerson,
-      agencyPhonePerson: responseData.agent.agencyPhonePerson,
-      agencyEmailPerson: responseData.agent.agencyEmailPerson,
-      tenancyID,
-      // Tenant
       tenantsName: responseData.tenant.tenantsName,
-      tenantsPhone: responseData.tenant.tenantsPhone,
       tenantsEmail: responseData.tenant.tenantsEmail,
-      monthlyNetIncome: tenant.monthlyNetIncome,
-      jobType: tenant.jobType,
-      documentNumber: tenant.documentNumber,
-      // ! Falta documento de DNI
-      tenantsAddress: tenant.tenantsAddress,
-      tenantsZipCode: tenant.tenantsZipCode,
-      // Proprety
-      rentAmount: responseData.rentAmount,
-      product: responseData.product,
-      rentDuration: responseData.rentDuration,
-      rentalAddress: responseData.property.rentalAddress,
-      rentalCity: responseData.property.rentalCity,
-      rentalPostalCode: responseData.property.rentalPostalCode,
-      // Landlord
-      landlordName: responseData.landlord.landlordName,
-      landlordPhone: responseData.landlord.landlordPhone,
-      landlordEmail: responseData.landlord.landlordEmail,
     });
     isSent(true);
     setIsSuccessfullySubmitted(true);
@@ -205,37 +179,71 @@ const RegisterTenant = ({ t }) => {
   useEffect(() => {
     const sendAttachments = async () => {
       if (sent) {
-        await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj2/rimbo`, {
-          tenancyID,
-          tenantsName: responseDataAfter.tenant.tenantsName,
-          tenantsPhone: responseDataAfter.tenant.tenantsPhone,
-          tenantsEmail: responseDataAfter.tenant.tenantsEmail,
-          agencyName: responseDataAfter.agent.agencyName,
-          agencyContactPerson: responseDataAfter.agent.agencyContactPerson,
-          agencyPhonePerson: responseDataAfter.agent.agencyPhonePerson,
-          agencyEmailPerson: responseDataAfter.agent.agencyEmailPerson,
-          documentImageFront: responseDataAfter.tenant.documentImageFront,
-          documentImageBack: responseDataAfter.tenant.documentImageBack,
-          documentConfirmAddress:
-            responseDataAfter.tenant.documentConfirmAddress,
-          // Agent/Agency
-          monthlyNetIncome: tenant.monthlyNetIncome,
-          jobType: tenant.jobType,
-          documentNumber: tenant.documentNumber,
-          tenantsAddress: tenant.tenantsAddress,
-          tenantsZipCode: tenant.tenantsZipCode,
-          // Proprety
-          rentAmount: responseDataAfter.rentAmount,
-          product: responseDataAfter.product,
-          rentDuration: responseDataAfter.rentDuration,
-          rentalAddress: responseDataAfter.property.rentalAddress,
-          rentalCity: responseDataAfter.property.rentalCity,
-          rentalPostalCode: responseDataAfter.property.rentalPostalCode,
-          // Landlord
-          landlordName: responseDataAfter.landlord.landlordName,
-          landlordPhone: responseDataAfter.landlord.landlordPhone,
-          landlordEmail: responseDataAfter.landlord.landlordEmail,
-        });
+        if (i18n.language === "en") {
+          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj2/rimbo`, {
+            tenancyID,
+            tenantsName: responseDataAfter.tenant.tenantsName,
+            tenantsPhone: responseDataAfter.tenant.tenantsPhone,
+            tenantsEmail: responseDataAfter.tenant.tenantsEmail,
+            agencyName: responseDataAfter.agent.agencyName,
+            agencyContactPerson: responseDataAfter.agent.agencyContactPerson,
+            agencyPhonePerson: responseDataAfter.agent.agencyPhonePerson,
+            agencyEmailPerson: responseDataAfter.agent.agencyEmailPerson,
+            documentImageFront: responseDataAfter.tenant.documentImageFront,
+            documentImageBack: responseDataAfter.tenant.documentImageBack,
+            documentConfirmAddress:
+              responseDataAfter.tenant.documentConfirmAddress,
+            // Agent/Agency
+            monthlyNetIncome: tenant.monthlyNetIncome,
+            jobType: tenant.jobType,
+            documentNumber: tenant.documentNumber,
+            tenantsAddress: tenant.tenantsAddress,
+            tenantsZipCode: tenant.tenantsZipCode,
+            // Proprety
+            rentAmount: responseDataAfter.rentAmount,
+            product: responseDataAfter.product,
+            rentDuration: responseDataAfter.rentDuration,
+            rentalAddress: responseDataAfter.property.rentalAddress,
+            rentalCity: responseDataAfter.property.rentalCity,
+            rentalPostalCode: responseDataAfter.property.rentalPostalCode,
+            // Landlord
+            landlordName: responseDataAfter.landlord.landlordName,
+            landlordPhone: responseDataAfter.landlord.landlordPhone,
+            landlordEmail: responseDataAfter.landlord.landlordEmail,
+          });
+        } else {
+          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj2/rimbo`, {
+            tenancyID,
+            tenantsName: responseDataAfter.tenant.tenantsName,
+            tenantsPhone: responseDataAfter.tenant.tenantsPhone,
+            tenantsEmail: responseDataAfter.tenant.tenantsEmail,
+            agencyName: responseDataAfter.agent.agencyName,
+            agencyContactPerson: responseDataAfter.agent.agencyContactPerson,
+            agencyPhonePerson: responseDataAfter.agent.agencyPhonePerson,
+            agencyEmailPerson: responseDataAfter.agent.agencyEmailPerson,
+            documentImageFront: responseDataAfter.tenant.documentImageFront,
+            documentImageBack: responseDataAfter.tenant.documentImageBack,
+            documentConfirmAddress:
+              responseDataAfter.tenant.documentConfirmAddress,
+            // Agent/Agency
+            monthlyNetIncome: tenant.monthlyNetIncome,
+            jobType: tenant.jobType,
+            documentNumber: tenant.documentNumber,
+            tenantsAddress: tenant.tenantsAddress,
+            tenantsZipCode: tenant.tenantsZipCode,
+            // Proprety
+            rentAmount: responseDataAfter.rentAmount,
+            product: responseDataAfter.product,
+            rentDuration: responseDataAfter.rentDuration,
+            rentalAddress: responseDataAfter.property.rentalAddress,
+            rentalCity: responseDataAfter.property.rentalCity,
+            rentalPostalCode: responseDataAfter.property.rentalPostalCode,
+            // Landlord
+            landlordName: responseDataAfter.landlord.landlordName,
+            landlordPhone: responseDataAfter.landlord.landlordPhone,
+            landlordEmail: responseDataAfter.landlord.landlordEmail,
+          });
+        }
       }
     };
     sendAttachments();

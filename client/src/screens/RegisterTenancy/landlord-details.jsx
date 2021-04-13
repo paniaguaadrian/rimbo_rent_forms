@@ -59,7 +59,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
 
     const randomID = nanoid();
 
-    await axios.post(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`, {
+    const tenancyData = {
       // tenant
       tenantsName: tenancy.tenantDetails.tenantName,
       tenantsEmail: tenancy.tenantDetails.tenantEmail,
@@ -87,27 +87,20 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
       tenancyID: randomID,
       // property manager
       PMName: tenancy.agencyName,
-    });
+    };
 
-    await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj1`, {
-      tenantsName: tenancy.tenantDetails.tenantName,
-      tenantsEmail: tenancy.tenantDetails.tenantEmail,
-      tenantsPhone: tenancy.tenantDetails.tenantPhone,
-      agencyName: tenancy.agencyName,
-      agencyContactPerson: tenancy.agencyContactPerson,
-      agencyPhonePerson: tenancy.agencyPhonePerson,
-      agencyEmailPerson: tenancy.agencyEmailPerson,
-      rentDuration: tenancy.propertyDetails.rentDuration,
-      product: tenancy.propertyDetails.product,
-      rentAmount: tenancy.propertyDetails.rentAmount,
-      rentalAddress: tenancy.propertyDetails.rentalAddress,
-      rentalPostalCode: tenancy.propertyDetails.rentalPostalCode,
-      rentalCity: tenancy.propertyDetails.rentalCity,
-      landlordName: tenancy.landlordDetails.landlordName,
-      landlordEmail: tenancy.landlordDetails.landlordEmail,
-      landlordPhone: tenancy.landlordDetails.landlordPhone,
-      randomID,
-    });
+    // Post DB
+    await axios.post(
+      `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`,
+      tenancyData
+    );
+
+    // Email action
+    if (i18n.language === "en") {
+      await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj1`, tenancyData);
+    } else {
+      await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj1`, tenancyData);
+    }
 
     setStep(step + 1);
   };

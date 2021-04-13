@@ -88,7 +88,7 @@ const sendRJ1FormEmails = async (req, res) => {
   const PMEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // PM/Agency email
-    subject: "Rimbo Tenant Listing Successful",
+    subject: "Inquilino registrado correctamente con Rimbo",
     text: "",
     attachments: [
       {
@@ -123,7 +123,7 @@ const sendRJ1FormEmails = async (req, res) => {
   const tenantEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // tenant's email
-    subject: "Welcome to Rimbo!",
+    subject: "¡Bienvenido a Rimbo!",
     // text: "",
     attachments: [
       {
