@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer";
 // Material-UI
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
+// App Routes
 import RouterWrapper from "./RouterWrapper";
 
 // Normalize & Generic styles

@@ -7,7 +7,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 
 // Styles
-import styles from "./multi_step_form.module.scss";
+import classes from "./multi_step_form.module.scss";
 
 // Validation
 import { isTenant, isTenantEs } from "./validation";
@@ -48,45 +48,51 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
 
   return (
     <form onSubmit={handleContinue}>
-      <div className={styles.FormIntern}>
-        <div className={styles.FormLeft}>
-          <Input
-            type="text"
-            name="tenantName"
-            value={tenancy.tenantDetails.tenantName}
-            label={t("RJ1.stepOne.tenantsName")}
-            placeholder={t("RJ1.stepOne.tenantsNamePL")}
-            onChange={(e) => handleTenant(e)}
-            error={errors.tenantName}
-          />
-          <Input
-            type="email"
-            name="tenantEmail"
-            value={tenancy.tenantDetails.tenantEmail}
-            label={t("RJ1.stepOne.tenantsEmail")}
-            placeholder={t("RJ1.stepOne.tenantsEmailPL")}
-            onChange={(e) => handleTenant(e)}
-            error={errors.tenantEmail}
-          />
-        </div>
-        <div className={styles.FormRight}>
-          <Input
-            type="text"
-            name="tenantPhone"
-            value={tenancy.tenantDetails.tenantPhone}
-            label={t("RJ1.stepOne.tenantsPhone")}
-            placeholder={t("RJ1.stepOne.tenantsPhonePL")}
-            onChange={(e) => handleTenant(e)}
-            error={errors.tenantPhone}
-          />
-        </div>
-      </div>
+      <div className={classes.FormContainer}>
+        <div className={classes.GroupInput}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="tenantName"
+              value={tenancy.tenantDetails.tenantName}
+              label={t("RJ1.stepOne.tenantsName")}
+              placeholder={t("RJ1.stepOne.tenantsNamePL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantName}
+            />
+          </div>
 
-      <div className={styles.ButtonContainer}>
-        <Button onClick={() => setStep(step - 1)} type="button">
-          {t("prevStepButton")}
-        </Button>
-        <Button type="submit">{t("nextStepButton")}</Button>
+          <div className={classes.InputElement}>
+            <Input
+              type="email"
+              name="tenantEmail"
+              value={tenancy.tenantDetails.tenantEmail}
+              label={t("RJ1.stepOne.tenantsEmail")}
+              placeholder={t("RJ1.stepOne.tenantsEmailPL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantEmail}
+            />
+          </div>
+        </div>
+        <div className={classes.GroupInputAlone}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="tenantPhone"
+              value={tenancy.tenantDetails.tenantPhone}
+              label={t("RJ1.stepOne.tenantsPhone")}
+              placeholder={t("RJ1.stepOne.tenantsPhonePL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantPhone}
+            />
+          </div>
+        </div>
+        <div className={classes.ButtonContainer}>
+          <Button onClick={() => setStep(step - 1)} type="button">
+            {t("prevStepButton")}
+          </Button>
+          <Button type="submit">{t("nextStepButton")}</Button>
+        </div>
       </div>
     </form>
   );

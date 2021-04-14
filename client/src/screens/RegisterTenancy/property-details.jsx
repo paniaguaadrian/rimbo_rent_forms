@@ -8,7 +8,7 @@ import Button from "../../components/Button";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
 // Styles
-import styles from "./multi_step_form.module.scss";
+import classes from "./multi_step_form.module.scss";
 
 // Validation
 import { isProperty, isPropertyEs } from "./validation";
@@ -99,129 +99,145 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
 
   return (
     <form onSubmit={handleContinue}>
-      <div className={styles.FormIntern}>
-        <div className={styles.FormLeft}>
-          <div className={styles.selectContainer}>
-            <label className={styles.selectLabel} htmlFor="product">
-              {t("RJ1.stepTwo.service")}
-            </label>
-            <select
-              required
-              name="product"
-              className={styles.selectInput}
-              value={tenancy.propertyDetails.product}
+      <div className={classes.FormContainer}>
+        <div className={classes.GroupInput}>
+          <div className={classes.InputElement}>
+            <div className={classes.selectContainer}>
+              <label className={classes.selectLabel} htmlFor="product">
+                {t("RJ1.stepTwo.service")}
+              </label>
+              <select
+                required
+                name="product"
+                className={classes.selectInput}
+                value={tenancy.propertyDetails.product}
+                onChange={(e) => handleAgency(e)}
+              >
+                <option name="product" value={t("RJ1.stepTwo.servicePL")}>
+                  {t("RJ1.stepTwo.servicePL")}
+                </option>
+
+                <option name="product" value={t("RJ1.stepTwo.serviceOne")}>
+                  {t("RJ1.stepTwo.serviceOne")}
+                </option>
+
+                <option name="product" value={t("RJ1.stepTwo.serviceTwo")}>
+                  {t("RJ1.stepTwo.serviceTwo")}
+                </option>
+
+                <option name="product" value={t("RJ1.stepTwo.serviceThree")}>
+                  {t("RJ1.stepTwo.serviceThree")}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="rentDuration"
+              value={tenancy.propertyDetails.rentDuration}
+              label={t("RJ1.stepTwo.rentDuration")}
+              placeholder={t("RJ1.stepTwo.rentDurationPL")}
               onChange={(e) => handleAgency(e)}
-            >
-              <option name="product" value={t("RJ1.stepTwo.servicePL")}>
-                {t("RJ1.stepTwo.servicePL")}
-              </option>
-
-              <option name="product" value={t("RJ1.stepTwo.serviceOne")}>
-                {t("RJ1.stepTwo.serviceOne")}
-              </option>
-
-              <option name="product" value={t("RJ1.stepTwo.serviceTwo")}>
-                {t("RJ1.stepTwo.serviceTwo")}
-              </option>
-
-              <option name="product" value={t("RJ1.stepTwo.serviceThree")}>
-                {t("RJ1.stepTwo.serviceThree")}
-              </option>
-            </select>
+              error={errors.rentDuration}
+            />
+          </div>
+        </div>
+        <div className={classes.GroupInput}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="rentAmount"
+              value={tenancy.propertyDetails.rentAmount}
+              label={t("RJ1.stepTwo.rentAmount")}
+              placeholder={t("RJ1.stepTwo.rentAmountPL")}
+              onChange={(e) => handleAgency(e)}
+              error={errors.rentAmount}
+            />
           </div>
 
-          <Input
-            type="text"
-            name="rentDuration"
-            value={tenancy.propertyDetails.rentDuration}
-            label={t("RJ1.stepTwo.rentDuration")}
-            placeholder={t("RJ1.stepTwo.rentDurationPL")}
-            onChange={(e) => handleAgency(e)}
-            error={errors.rentDuration}
-          />
-          <Input
-            type="text"
-            name="rentAmount"
-            value={tenancy.propertyDetails.rentAmount}
-            label={t("RJ1.stepTwo.rentAmount")}
-            placeholder={t("RJ1.stepTwo.rentAmountPL")}
-            onChange={(e) => handleAgency(e)}
-            error={errors.rentAmount}
-          />
-        </div>
-        <div className={styles.FormRight}>
-          <PlacesAutocomplete
-            value={rentalAddress}
-            onChange={setRentalAddress}
-            onSelect={handleSelect}
-          >
-            {({
-              getInputProps,
-              suggestions,
-              getSuggestionItemProps,
-              loading,
-            }) => (
-              <div>
-                <Input
-                  id="googleInput"
-                  {...getInputProps()}
-                  label={t("RJ1.stepTwo.rentalAddress")}
-                  placeholder={t("RJ1.stepTwo.rentalAddressPL")}
-                  required
-                />
-                <div className={styles.GoogleSuggestionContainer}>
-                  {/* display sugestions */}
-                  {loading ? <div>...loading</div> : null}
-                  {suggestions.map((suggestion, place) => {
-                    const style = {
-                      backgroundColor: suggestion.active ? "#24c4c48f" : "#fff",
-                      cursor: "pointer",
-                    };
-                    return (
-                      <div
-                        className={styles.GoogleSuggestion}
-                        {...getSuggestionItemProps(suggestion, {
-                          style,
-                        })}
-                        key={place}
-                      >
-                        <LocationOnIcon />
-                        <span>{suggestion.description}</span>
-                      </div>
-                    );
-                  })}
+          <div className={classes.InputElement}>
+            <PlacesAutocomplete
+              value={rentalAddress}
+              onChange={setRentalAddress}
+              onSelect={handleSelect}
+            >
+              {({
+                getInputProps,
+                suggestions,
+                getSuggestionItemProps,
+                loading,
+              }) => (
+                <div>
+                  <Input
+                    id="googleInput"
+                    {...getInputProps()}
+                    label={t("RJ1.stepTwo.rentalAddress")}
+                    placeholder={t("RJ1.stepTwo.rentalAddressPL")}
+                    required
+                  />
+                  <div className={classes.GoogleSuggestionContainer}>
+                    {/* display sugestions */}
+                    {loading ? <div>...loading</div> : null}
+                    {suggestions.map((suggestion, place) => {
+                      const style = {
+                        backgroundColor: suggestion.active
+                          ? "#24c4c48f"
+                          : "#fff",
+                        cursor: "pointer",
+                      };
+                      return (
+                        <div
+                          className={classes.GoogleSuggestion}
+                          {...getSuggestionItemProps(suggestion, {
+                            style,
+                          })}
+                          key={place}
+                        >
+                          <LocationOnIcon />
+                          <span>{suggestion.description}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
-          </PlacesAutocomplete>
-          <Input
-            type="text"
-            name="rentalCity"
-            value={rentalCity}
-            label={t("RJ1.stepTwo.rentalCity")}
-            placeholder={t("RJ1.stepTwo.rentalCityPL")}
-            onChange={setRentalCity}
-            onSelect={handleSelect}
-            disabled
-          />
-          <Input
-            type="text"
-            name="rentalPostalCode"
-            value={rentalPostalCode}
-            label={t("RJ1.stepTwo.rentalPostalCode")}
-            placeholder={t("RJ1.stepTwo.rentalPostalCodePL")}
-            onChange={setRentalPostalCode}
-            onSelect={handleSelect}
-            disabled
-          />
+              )}
+            </PlacesAutocomplete>
+          </div>
         </div>
-      </div>
+        <div className={classes.GroupInput}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="rentalCity"
+              value={rentalCity}
+              label={t("RJ1.stepTwo.rentalCity")}
+              placeholder={t("RJ1.stepTwo.rentalCityPL")}
+              onChange={setRentalCity}
+              onSelect={handleSelect}
+              disabled
+            />
+          </div>
 
-      <div className={styles.ButtonContainer}>
-        <Button onClick={() => setStep(step - 1)} type="button">
-          {t("prevStepButton")}
-        </Button>
-        <Button type="submit">{t("nextStepButton")}</Button>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="rentalPostalCode"
+              value={rentalPostalCode}
+              label={t("RJ1.stepTwo.rentalPostalCode")}
+              placeholder={t("RJ1.stepTwo.rentalPostalCodePL")}
+              onChange={setRentalPostalCode}
+              onSelect={handleSelect}
+              disabled
+            />
+          </div>
+        </div>
+        <div className={classes.ButtonContainer}>
+          <Button onClick={() => setStep(step - 1)} type="button">
+            {t("prevStepButton")}
+          </Button>
+          <Button type="submit">{t("nextStepButton")}</Button>
+        </div>
       </div>
     </form>
   );

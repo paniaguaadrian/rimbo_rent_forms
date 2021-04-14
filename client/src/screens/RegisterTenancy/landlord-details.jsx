@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 // Styles
-import styles from "./multi_step_form.module.scss";
+import classes from "./multi_step_form.module.scss";
 
 // Validation
 import { isLandlord, isLandlordEs } from "./validation";
@@ -106,42 +106,48 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.RegisterForm}>
-      <div className={styles.FormIntern}>
-        <div className={styles.FormLeft}>
-          <Input
-            type="text"
-            name="landlordName"
-            value={tenancy.landlordDetails.landlordName}
-            label={t("RJ1.stepThree.landlordName")}
-            placeholder={t("RJ1.stepThree.landlordNamePL")}
-            onChange={(e) => handleLandlord(e)}
-            error={errors.landlordName}
-          />
-          <Input
-            type="email"
-            name="landlordEmail"
-            value={tenancy.landlordDetails.landlordEmail}
-            label={t("RJ1.stepThree.landlordEmail")}
-            placeholder={t("RJ1.stepThree.landlordEmailPL")}
-            onChange={(e) => handleLandlord(e)}
-            error={errors.landlordEmail}
-          />
+    <form onSubmit={handleSubmit}>
+      <div className={classes.FormContainer}>
+        <div className={classes.GroupInput}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="landlordName"
+              value={tenancy.landlordDetails.landlordName}
+              label={t("RJ1.stepThree.landlordName")}
+              placeholder={t("RJ1.stepThree.landlordNamePL")}
+              onChange={(e) => handleLandlord(e)}
+              error={errors.landlordName}
+            />
+          </div>
+          <div className={classes.InputElement}>
+            <Input
+              type="email"
+              name="landlordEmail"
+              value={tenancy.landlordDetails.landlordEmail}
+              label={t("RJ1.stepThree.landlordEmail")}
+              placeholder={t("RJ1.stepThree.landlordEmailPL")}
+              onChange={(e) => handleLandlord(e)}
+              error={errors.landlordEmail}
+            />
+          </div>
         </div>
 
-        <div className={styles.FormRight}>
-          <Input
-            type="tel"
-            name="landlordPhone"
-            value={tenancy.landlordDetails.landlordPhone}
-            label={t("RJ1.stepThree.landlordPhone")}
-            placeholder={t("RJ1.stepThree.landlordPhonePL")}
-            onChange={(e) => handleLandlord(e)}
-            error={errors.landlordPhone}
-          />
+        <div className={classes.GroupInputAlone}>
+          <div className={classes.InputElement}>
+            <Input
+              type="tel"
+              name="landlordPhone"
+              value={tenancy.landlordDetails.landlordPhone}
+              label={t("RJ1.stepThree.landlordPhone")}
+              placeholder={t("RJ1.stepThree.landlordPhonePL")}
+              onChange={(e) => handleLandlord(e)}
+              error={errors.landlordPhone}
+            />
+          </div>
         </div>
       </div>
-      <div className={styles.TermsContainer}>
+      <div className={classes.TermsContainer}>
         <InputCheck
           type="checkbox"
           required
@@ -175,7 +181,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
         </p>
       </div>
 
-      <div className={styles.ButtonContainer}>
+      <div className={classes.ButtonContainer}>
         <Button onClick={() => setStep(step - 1)} type="button">
           {t("prevStepButton")}
         </Button>

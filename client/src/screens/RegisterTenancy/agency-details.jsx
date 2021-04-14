@@ -11,7 +11,6 @@ import Grid from "@material-ui/core/Grid";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
 import ButtonMat from "@material-ui/core/Button";
 
 // Material-ui icons
@@ -19,8 +18,8 @@ import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import PhoneIcon from "@material-ui/icons/Phone";
-
-// import SendIcon from "@material-ui/icons/Send"; // Icon for button to send
+// Icon for button to send
+// import SendIcon from "@material-ui/icons/Send";
 // Icons for buttons (prev and next)
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -69,7 +68,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     <form onSubmit={handleContinue}>
       <div className={classes.FormContainer}>
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
+          <div className={classes.InputElementMaterial}>
             <Grid container spacing={2} alignItems="flex-end">
               <Grid item>
                 <HomeWorkIcon className={classes.IconStyleMaterial} />
@@ -91,7 +90,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
               </FormHelperText>
             </Grid>
           </div>
-          <div className={classes.InputElement}>
+          <div className={classes.InputElementMaterial}>
             <TextField
               type="text"
               name="agencyContactPerson"
@@ -121,7 +120,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
           </div>
         </div>
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
+          <div className={classes.InputElementMaterial}>
             <Grid container spacing={1} alignItems="flex-end">
               <Grid item>
                 <MailOutlineIcon className={classes.IconStyleMaterial} />
@@ -145,7 +144,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
               </FormHelperText>
             </Grid>
           </div>
-          <div className={classes.InputElement}>
+          <div className={classes.InputElementMaterial}>
             <TextField
               type="tel"
               name="agencyPhonePerson"
@@ -169,7 +168,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
             </FormHelperText>
           </div>
         </div>
-        <div className={classes.ButtonContainer}>
+        <div className={classes.ButtonContainerMaterial}>
           {/* <Button type="submit">{t("nextStepButton")}</Button> */}
           <ButtonMat
             type="submit"
