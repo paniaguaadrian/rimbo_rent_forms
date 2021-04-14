@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 // Styles
-import styles from "../../screens/RegisterTenancy/multi_step_form.module.scss";
+import classes from "./rjs_tetnant.module.scss";
 
 // Custom Components
 import Input from "../../components/Input";
@@ -156,49 +156,58 @@ const RegisterTenantPM = ({ t }) => {
     <>
       <CustomHelmet header={t("RJS.helmet")} />
       {!isSuccessfullySubmitted ? (
-        <div className={styles.RegisterContainer}>
-          <div className={styles.Register}>
+        <div className={classes.PageContainer}>
+          <div className={classes.HeaderContainer}>
             <h1>{t("RJS.header.title")}</h1>
-            <div className={styles.ExtraInfoContainer}>
+            <h1>{t("RJS.header.titleTwo")}</h1>
+            <div className={classes.HeaderInfo}>
               <p>{t("RJS.header.subTitle")}</p>
             </div>
           </div>
-          <div className={styles.FormContent}>
+          <div className={classes.FormContent}>
             <form
               onSubmit={handleSubmit}
-              className="styles.RegisterForm"
+              className="classes.RegisterForm"
               encType="multipart/form-data"
             >
-              <Input
-                type="date"
-                name="date"
-                value={date}
-                label={t("RJS.form.rentalStart")}
-                onChange={changeHandlerr}
-                required
-              />
-              <InputFile
-                type="file"
-                name="File"
-                label={t("RJS.form.rentalAgreement")}
-                onChange={changeHandler}
-                required
-              />
+              <div className={classes.FormContainer}>
+                <div className={classes.GroupInput}>
+                  <div className={classes.InputElement}>
+                    <Input
+                      type="date"
+                      name="date"
+                      value={date}
+                      label={t("RJS.form.rentalStart")}
+                      onChange={changeHandlerr}
+                      required
+                    />
+                  </div>
+                  <div className={classes.InputElement}>
+                    <InputFile
+                      type="file"
+                      name="File"
+                      label={t("RJS.form.rentalAgreement")}
+                      onChange={changeHandler}
+                      required
+                    />
+                  </div>
+                </div>
 
-              <div className={styles.ButtonContainer}>
-                {isProcessing ? (
-                  <Loader
-                    type="Puff"
-                    color="#01d2cc"
-                    height={50}
-                    width={50}
-                    timeout={3000} //3 secs
-                  />
-                ) : (
-                  <Button disabled={isProcessing} type="submit">
-                    {t("submitButton")}
-                  </Button>
-                )}
+                <div className={classes.ButtonContainer}>
+                  {isProcessing ? (
+                    <Loader
+                      type="Puff"
+                      color="#01d2cc"
+                      height={50}
+                      width={50}
+                      timeout={3000} //3 secs
+                    />
+                  ) : (
+                    <Button disabled={isProcessing} type="submit">
+                      {t("submitButton")}
+                    </Button>
+                  )}
+                </div>
               </div>
             </form>
           </div>

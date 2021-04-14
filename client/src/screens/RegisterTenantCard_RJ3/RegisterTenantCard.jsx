@@ -24,7 +24,7 @@ import SuccessImage from "../../images/success-image.svg";
 
 // Styles
 import Loader from "react-loader-spinner";
-import styles from "../../screens/RegisterTenancy/multi_step_form.module.scss";
+import classes from "./rj3_tenant.module.scss";
 import "./CardSection.css";
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -244,9 +244,9 @@ const RegisterTenantCard = ({ t }) => {
     <>
       <CustomHelmet header={t("RJ3.helmet")} />
       {!isSuccessfullySubmitted ? (
-        <div className={styles.RegisterContainer}>
+        <div className={classes.RegisterContainer}>
           {loading ? (
-            <div className={styles.Register}>
+            <div className={classes.Register}>
               <Loader
                 type="Puff"
                 color="#01d2cc"
@@ -257,15 +257,15 @@ const RegisterTenantCard = ({ t }) => {
             </div>
           ) : (
             <>
-              <div className={styles.Register}>
+              <div className={classes.Register}>
                 <h1>{t("RJ3.header.title")}</h1>
-                <div className={styles.ExtraInfoContainer}>
+                <div className={classes.ExtraInfoContainer}>
                   <h2>{t("RJ3.header.subtitle")}</h2>
                 </div>
               </div>
-              <div className={styles.CardContainer}>
+              <div className={classes.CardContainer}>
                 <form onSubmit={handleFormSubmit}>
-                  <div className={styles.CardInput}>
+                  <div className={classes.CardInput}>
                     <label>
                       <h3>{t("RJ3.form.tenantTitle")}</h3>
                       <div>
@@ -316,7 +316,7 @@ const RegisterTenantCard = ({ t }) => {
                         </span>
                       </p>
                     </div>
-                    <div className={styles.TermsContainerStripe}>
+                    <div className={classes.TermsContainerStripe}>
                       <input
                         type="checkbox"
                         required
@@ -337,7 +337,7 @@ const RegisterTenantCard = ({ t }) => {
                         </a>
                       </p>
                     </div>
-                    <div className={styles.ErrorInput}>
+                    <div className={classes.ErrorInput}>
                       <p className="error-message">{checkoutError}</p>
                     </div>
                     {isProcessing ? (
