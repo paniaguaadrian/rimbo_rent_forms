@@ -267,8 +267,7 @@ const RegisterTenantCard = ({ t }) => {
                 <form onSubmit={handleFormSubmit}>
                   <div className={classes.CardLeft}>
                     <h3>{t("RJ3.form.tenantTitle")}</h3>
-
-                    <div>
+                    <div className={classes.CardLeftInput}>
                       <h4>{t("RJ3.form.name")}</h4>
                       <input
                         id="name"
@@ -277,7 +276,7 @@ const RegisterTenantCard = ({ t }) => {
                         disabled
                       />
                     </div>
-                    <div>
+                    <div className={classes.CardLeftInput}>
                       <h4>{t("RJ3.form.email")}</h4>
                       <input
                         id="email"
@@ -286,7 +285,7 @@ const RegisterTenantCard = ({ t }) => {
                         disabled
                       />
                     </div>
-                    <div>
+                    <div className={classes.CardLeftInput}>
                       <h4>{t("RJ3.form.phone")}</h4>
                       <input
                         id="phone"
@@ -295,8 +294,14 @@ const RegisterTenantCard = ({ t }) => {
                         disabled
                       />
                     </div>
-                    <div>
+                    <div className={classes.CardLeftInfo}>
                       <p>{t("RJ3.form.cardSubtitle")}</p>
+                    </div>
+                    <div>
+                      <img
+                        src={StripeLogo}
+                        alt="Stripe Security Payment Logo"
+                      />
                     </div>
                   </div>
                   <div className={classes.CardRight}>
@@ -307,12 +312,17 @@ const RegisterTenantCard = ({ t }) => {
                         onChange={handleCardDetailsChange}
                       />
                     </label>
-                    <div>
+                    <div className={classes.ErrorInput}>
+                      <p className="error-message">{checkoutError}</p>
+                    </div>
+                    <div className={classes.CardRightInfo}>
                       <p>
                         {t("RJ3.form.extraInfo")}
                         <span>
-                          {tenancyData.product}
-                          {t("RJ3.form.extraInfoTwo")}
+                          <b>
+                            {tenancyData.product}
+                            {t("RJ3.form.extraInfoTwo")}
+                          </b>
                         </span>
                       </p>
                     </div>
@@ -337,9 +347,7 @@ const RegisterTenantCard = ({ t }) => {
                         </a>
                       </p>
                     </div>
-                    <div className={classes.ErrorInput}>
-                      <p className="error-message">{checkoutError}</p>
-                    </div>
+
                     {isProcessing ? (
                       <Loader
                         type="Puff"
@@ -353,12 +361,6 @@ const RegisterTenantCard = ({ t }) => {
                         {t("authorizeTwo")}
                       </button>
                     )}
-                    <div>
-                      <img
-                        src={StripeLogo}
-                        alt="Stripe Security Payment Logo"
-                      />
-                    </div>
                   </div>
                 </form>
               </div>
