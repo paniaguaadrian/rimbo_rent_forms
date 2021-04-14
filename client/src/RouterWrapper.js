@@ -28,41 +28,41 @@ const RouterWrapper = () => {
     <>
       <Container maxWidth="xl">
         <Switch>
-          <Route exact path="/register/rj1" component={RegisterTenancy} />
+          <Route exact path="/register/tenancy" component={RegisterTenancy} />
           <Route
             exact
-            path="/register/rj2/:tenancyID"
+            path="/register/tenant/:tenancyID"
             component={RegisterTenant}
           />
           <Route
             exact
-            path="/register/rj3/:randomID"
+            path="/register/card/:randomID"
             component={RegisterTenantCard}
           />
           <Route
             exact
-            path="/register/rjs/:tenancyID"
+            path="/register/contract/:tenancyID"
             component={RegisterTenantPM}
           />
           <Route
-            path="/register/rj2/:tenancyID/approved"
+            path="/register/tenant/:tenancyID/approved"
             component={ApprovedTenantRimbo}
           />
           <Route
-            path="/register/rj2/:tenancyID/rejected"
+            path="/register/tenant/:tenancyID/rejected"
             component={RejectedTenantRimbo}
           />
           <Route
-            path="/register/rj2/:tenancyID/pm/approved"
+            path="/register/tenant/:tenancyID/pm/approved"
             component={ApprovedTenantPM}
           />
           <Route
-            path="/register/rj3/:tenancyID/card/approved"
+            path="/register/card/:tenancyID/card/approved"
             component={ApprovedTenantCardRimbo}
           />
 
           <Route
-            path="/register/rjs/:tenancyID/service-start"
+            path="/register/contract/:tenancyID/service-start"
             component={ApprovedTenancyRimbo}
           />
 
