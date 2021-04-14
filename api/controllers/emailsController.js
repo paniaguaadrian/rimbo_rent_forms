@@ -935,6 +935,11 @@ const sendRJ18Email = async (req, res) => {
         path: "./views/images/rimbo-logo.png",
         cid: "rimbologo",
       },
+      {
+        filename: "General_Rules_and_Guidelines_Tenant_Rimbo_ENGLISH.pdf",
+        path:
+          "./views/images/General_Rules_and_Guidelines_Tenant_Rimbo_ENGLISH.pdf",
+      },
     ],
     template: "rj17Email",
     context: {
@@ -956,6 +961,11 @@ const sendRJ18Email = async (req, res) => {
         filename: "rimbo-logo.png",
         path: "./views/images/rimbo-logo.png",
         cid: "rimbologo",
+      },
+      {
+        filename: "General_Rules_&_Guidelines_Landlord_RIMBO_ENGLISH.pdf",
+        path:
+          "./views/images/General_Rules_&_Guidelines_Landlord_RIMBO_ENGLISH.pdf",
       },
     ],
     template: "rj20Email",

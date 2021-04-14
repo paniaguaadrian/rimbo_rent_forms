@@ -874,6 +874,11 @@ const sendRJ18Email = async (req, res) => {
         path: "./viewsEs/images/rimbo-logo.png",
         cid: "rimbologo",
       },
+      {
+        filename: "Reglas_Generales_y_Guía_Inquilino_Rimbo_ESPAÑOL.pdf",
+        path:
+          "./viewsEs/images/Reglas_Generales_y_Guía_Inquilino_Rimbo_ESPAÑOL.pdf",
+      },
     ],
     template: "rj17Email",
     context: {
@@ -895,6 +900,11 @@ const sendRJ18Email = async (req, res) => {
         filename: "rimbo-logo.png",
         path: "./viewsEs/images/rimbo-logo.png",
         cid: "rimbologo",
+      },
+      {
+        filename: "Reglas_Generales_y_Guía_Propietario_RIMBO_ESPAÑOL.pdf",
+        path:
+          "./viewsEs/images/Reglas_Generales_y_Guía_Propietario_RIMBO_ESPAÑOL.pdf",
       },
     ],
     template: "rj20Email",
