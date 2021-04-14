@@ -1,16 +1,16 @@
 // Multilingual
 import { withNamespaces } from "react-i18next";
 
+// App Routes
+import RouterWrapper from "./RouterWrapper";
+
 // Custom Components
 import WhatsappBubble from "./components/WhatsappBubble/WhatsappBubble";
 import NavBar from "./components/RimboNavBar/Header";
 import Footer from "./components/Footer/Footer";
 
-// Material-UI
+// Material-UI Theme
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-
-// App Routes
-import RouterWrapper from "./RouterWrapper";
 
 // Normalize & Generic styles
 import "./styles/generic.scss";

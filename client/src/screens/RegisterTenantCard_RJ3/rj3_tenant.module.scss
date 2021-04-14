@@ -264,7 +264,7 @@
   p {
     color: $primary-color;
     font-size: 1.1rem;
-    padding: 0 1rem;
+    padding: 0rem;
     text-align: center;
   }
   @include xl {
@@ -272,7 +272,7 @@
     p {
       color: $primary-color;
       font-size: 0.7rem;
-      padding: 0 4rem;
+      padding: 0 1rem;
     }
   }
 }
@@ -324,7 +324,7 @@
     text-align: center;
     font-size: 1.2rem;
     @include xl {
-      text-align: left;
+      text-align: center;
       font-size: 1rem;
       margin-left: 1rem;
     }
