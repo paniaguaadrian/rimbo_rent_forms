@@ -59,15 +59,15 @@ const Header = () => {
   );
 
   const navLinksEs = [
-    { title: `Inquilinos`, path: `/about-us` },
-    { title: `Propietarios`, path: `/product` },
-    { title: `Agencias`, path: `/blog` },
+    { title: `Inquilinos`, path: `https://rimbo.rent/inquilinos-2/` },
+    { title: `Propietarios`, path: `https://rimbo.rent/propietarios/` },
+    { title: `Inmobiliarias`, path: `https://rimbo.rent/inmobiliarias/` },
   ];
 
   const navLinksEn = [
-    { title: `Tenants`, path: `/about-us` },
-    { title: `Landlords`, path: `/product` },
-    { title: `Agencies`, path: `/blog` },
+    { title: `Tenants`, path: `https://rimbo.rent/en/tenants/` },
+    { title: `Landlords`, path: `https://rimbo.rent/en/landlords/` },
+    { title: `Agencies`, path: `https://rimbo.rent/en/agencies/` },
   ];
 
   return (
@@ -80,7 +80,7 @@ const Header = () => {
         >
           <Toolbar component="nav">
             <Container maxWidth="xl" className={classes.NavBarContainer}>
-              <a href="/" style={{ color: `white` }}>
+              <a href="https://rimbo.rent/en/" style={{ color: `white` }}>
                 <img
                   src={RimboLogo}
                   alt="Rimbo Logo"
