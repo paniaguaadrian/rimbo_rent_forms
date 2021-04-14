@@ -5,7 +5,7 @@ import axios from "axios";
 import { TenantReducer, DefaultTenant } from "./tenant-reducer";
 
 // Styles
-import styles from "./rj2_tenant.module.scss";
+import classes from "./rj2_tenant.module.scss";
 
 // Images
 import SuccessImage from "../../images/success-image.svg";
@@ -295,225 +295,245 @@ const RegisterTenant = ({ t }) => {
     <>
       <CustomHelmet header={t("RJ2.helmet")} />
       {!isSuccessfullySubmitted ? (
-        <div className={styles.RegisterContainer}>
-          <div className={styles.Register}>
+        <div className={classes.PageContainer}>
+          <div className={classes.HeaderContainer}>
             <h1>{t("RJ2.header.title")}</h1>
-            <div className={styles.ExtraInfoContainer}>
+            <h1>{t("RJ2.header.titleTwo")}</h1>
+            <div className={classes.HeaderInfo}>
               <h2>{t("RJ2.header.subtitle")}</h2>
               <p>{t("RJ2.header.extraInfo")}</p>
             </div>
           </div>
-          <div className={styles.FormContent}>
+          <div className={classes.FormContent}>
             <form
               onSubmit={handleSubmit}
-              className="styles.RegisterForm"
+              className="classes.RegisterForm"
               encType="multipart/form-data"
             >
-              <div className={styles.FormIntern}>
-                <div className={styles.FormLeft}>
-                  <Input
-                    type="number"
-                    name="monthlyNetIncome"
-                    value={tenant.monthlyNetIncome}
-                    label={t("RJ2.form.monthlyNetIncome")}
-                    placeholder={t("RJ2.form.monthlyNetIncomePL")}
-                    onChange={(e) => handleNewTenant(e)}
-                    error={errors.monthlyNetIncome}
-                  />
-
-                  <div className={styles.selectContainer}>
-                    <label
-                      className={styles.selectLabel}
-                      htmlFor="documentType"
-                    >
-                      {t("RJ2.form.documentType")}
-                    </label>
-                    <select
-                      required
-                      name="documentType"
-                      className={styles.selectInput}
-                      value={tenant.documentType}
+              <div className={classes.FormContainer}>
+                <div className={classes.GroupInput}>
+                  <div className={classes.InputElement}>
+                    <Input
+                      type="number"
+                      name="monthlyNetIncome"
+                      value={tenant.monthlyNetIncome}
+                      label={t("RJ2.form.monthlyNetIncome")}
+                      placeholder={t("RJ2.form.monthlyNetIncomePL")}
                       onChange={(e) => handleNewTenant(e)}
-                      error={errors.documentType}
-                    >
-                      <option
-                        name="documentType"
-                        value={t("RJ2.form.documentTypePL")}
-                      >
-                        {t("RJ2.form.documentTypePL")}
-                      </option>
-                      <option
-                        name="documentType"
-                        value={t("RJ2.form.documentTypeOne")}
-                      >
-                        {t("RJ2.form.documentTypeOne")}
-                      </option>
-                      <option
-                        name="documentType"
-                        value={t("RJ2.form.documentTypeTwo")}
-                      >
-                        {t("RJ2.form.documentTypeTwo")}
-                      </option>
-                      <option
-                        name="documentType"
-                        value={t("RJ2.form.documentTypeThree")}
-                      >
-                        {t("RJ2.form.documentTypeThree")}
-                      </option>
-                      <option
-                        name="documentType"
-                        value={t("RJ2.form.documentTypeFour")}
-                      >
-                        {t("RJ2.form.documentTypeFour")}
-                      </option>
-                    </select>
+                      error={errors.monthlyNetIncome}
+                    />
                   </div>
-                  {/* <Input
-                    type="text"
-                    name="tenantsAddress"
-                    value={tenant.tenantsAddress}
-                    label={t("RJ2.form.tenantsAddress")}
-                    placeholder={t("RJ2.form.tenantsAddressPL")}
-                    onChange={(e) => handleNewTenant(e)}
-                    error={errors.tenantsAddress}
-                  /> */}
-                  {/* Google maps Autocomplete */}
-                  <PlacesAutocomplete
-                    value={tenantsAddress}
-                    onChange={setTenantsAddress}
-                    onSelect={handleSelect}
-                  >
-                    {({
-                      getInputProps,
-                      suggestions,
-                      getSuggestionItemProps,
-                      loading,
-                    }) => (
-                      <div>
-                        <Input
-                          id="googleInput"
-                          {...getInputProps()}
-                          label={t("RJ2.form.tenantsAddress")}
-                          placeholder={t("RJ2.form.tenantsAddressPL")}
-                          required
-                        />
-                        <div className={styles.GoogleSuggestionContainer}>
-                          {/* display sugestions */}
-                          {loading ? <div>...loading</div> : null}
-                          {suggestions.map((suggestion, place) => {
-                            const style = {
-                              backgroundColor: suggestion.active
-                                ? "#24c4c48f"
-                                : "#fff",
-                              cursor: "pointer",
-                            };
-                            return (
-                              <div
-                                className={styles.GoogleSuggestion}
-                                {...getSuggestionItemProps(suggestion, {
-                                  style,
-                                })}
-                                key={place}
-                              >
-                                <LocationOnIcon />
-                                <span>{suggestion.description}</span>
-                              </div>
-                            );
-                          })}
+                  <div className={classes.InputElement}>
+                    <div className={classes.selectContainer}>
+                      <label className={classes.selectLabel} htmlFor="jobType">
+                        {t("RJ2.form.jobType")}
+                      </label>
+                      <select
+                        required
+                        name="jobType"
+                        className={classes.selectInput}
+                        value={tenant.jobType}
+                        onChange={(e) => handleNewTenant(e)}
+                        error={errors.jobType}
+                      >
+                        <option name="jobType" value={t("RJ2.form.jobTypePL")}>
+                          {t("RJ2.form.jobTypePL")}
+                        </option>
+                        <option name="jobType" value={t("RJ2.form.jobTypeOne")}>
+                          {t("RJ2.form.jobTypeOne")}
+                        </option>
+                        <option name="jobType" value={t("RJ2.form.jobTypeTwo")}>
+                          {t("RJ2.form.jobTypeTwo")}
+                        </option>
+                        <option
+                          name="jobType"
+                          value={t("RJ2.form.jobTypeThree")}
+                        >
+                          {t("RJ2.form.jobTypeThree")}
+                        </option>
+                        <option
+                          name="jobType"
+                          value={t("RJ2.form.jobTypeFour")}
+                        >
+                          {t("RJ2.form.jobTypeFour")}
+                        </option>
+                        <option
+                          name="jobType"
+                          value={t("RJ2.form.jobTypeFive")}
+                        >
+                          {t("RJ2.form.jobTypeFive")}
+                        </option>
+                        <option name="jobType" value={t("RJ2.form.jobTypeSix")}>
+                          {t("RJ2.form.jobTypeSix")}
+                        </option>
+                        <option
+                          name="jobType"
+                          value={t("RJ2.form.jobTypeSeven")}
+                        >
+                          {t("RJ2.form.jobTypeSeven")}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className={classes.GroupInput}>
+                  <div className={classes.InputElement}>
+                    <div className={classes.selectContainer}>
+                      <label
+                        className={classes.selectLabel}
+                        htmlFor="documentType"
+                      >
+                        {t("RJ2.form.documentType")}
+                      </label>
+                      <select
+                        required
+                        name="documentType"
+                        className={classes.selectInput}
+                        value={tenant.documentType}
+                        onChange={(e) => handleNewTenant(e)}
+                        error={errors.documentType}
+                      >
+                        <option
+                          name="documentType"
+                          value={t("RJ2.form.documentTypePL")}
+                        >
+                          {t("RJ2.form.documentTypePL")}
+                        </option>
+                        <option
+                          name="documentType"
+                          value={t("RJ2.form.documentTypeOne")}
+                        >
+                          {t("RJ2.form.documentTypeOne")}
+                        </option>
+                        <option
+                          name="documentType"
+                          value={t("RJ2.form.documentTypeTwo")}
+                        >
+                          {t("RJ2.form.documentTypeTwo")}
+                        </option>
+                        <option
+                          name="documentType"
+                          value={t("RJ2.form.documentTypeThree")}
+                        >
+                          {t("RJ2.form.documentTypeThree")}
+                        </option>
+                        <option
+                          name="documentType"
+                          value={t("RJ2.form.documentTypeFour")}
+                        >
+                          {t("RJ2.form.documentTypeFour")}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className={classes.InputElement}>
+                    <Input
+                      type="text"
+                      name="documentNumber"
+                      value={tenant.documentNumber}
+                      label={t("RJ2.form.documentNumber")}
+                      placeholder={t("RJ2.form.documentNumberPL")}
+                      onChange={(e) => handleNewTenant(e)}
+                      error={errors.documentNumber}
+                    />
+                  </div>
+                </div>
+                <div className={classes.GroupInput}>
+                  <div className={classes.InputElement}>
+                    <PlacesAutocomplete
+                      value={tenantsAddress}
+                      onChange={setTenantsAddress}
+                      onSelect={handleSelect}
+                    >
+                      {({
+                        getInputProps,
+                        suggestions,
+                        getSuggestionItemProps,
+                        loading,
+                      }) => (
+                        <div>
+                          <Input
+                            id="googleInput"
+                            {...getInputProps()}
+                            label={t("RJ2.form.tenantsAddress")}
+                            placeholder={t("RJ2.form.tenantsAddressPL")}
+                            required
+                          />
+                          <div className={classes.GoogleSuggestionContainer}>
+                            {/* display sugestions */}
+                            {loading ? <div>...loading</div> : null}
+                            {suggestions.map((suggestion, place) => {
+                              const style = {
+                                backgroundColor: suggestion.active
+                                  ? "#24c4c48f"
+                                  : "#fff",
+                                cursor: "pointer",
+                              };
+                              return (
+                                <div
+                                  className={classes.GoogleSuggestion}
+                                  {...getSuggestionItemProps(suggestion, {
+                                    style,
+                                  })}
+                                  key={place}
+                                >
+                                  <LocationOnIcon />
+                                  <span>{suggestion.description}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </PlacesAutocomplete>
-                </div>
-
-                <div className={styles.FormRight}>
-                  <div className={styles.selectContainer}>
-                    <label className={styles.selectLabel} htmlFor="jobType">
-                      {t("RJ2.form.jobType")}
-                    </label>
-                    <select
-                      required
-                      name="jobType"
-                      className={styles.selectInput}
-                      value={tenant.jobType}
-                      onChange={(e) => handleNewTenant(e)}
-                      error={errors.jobType}
-                    >
-                      <option name="jobType" value={t("RJ2.form.jobTypePL")}>
-                        {t("RJ2.form.jobTypePL")}
-                      </option>
-                      <option name="jobType" value={t("RJ2.form.jobTypeOne")}>
-                        {t("RJ2.form.jobTypeOne")}
-                      </option>
-                      <option name="jobType" value={t("RJ2.form.jobTypeTwo")}>
-                        {t("RJ2.form.jobTypeTwo")}
-                      </option>
-                      <option name="jobType" value={t("RJ2.form.jobTypeThree")}>
-                        {t("RJ2.form.jobTypeThree")}
-                      </option>
-                      <option name="jobType" value={t("RJ2.form.jobTypeFour")}>
-                        {t("RJ2.form.jobTypeFour")}
-                      </option>
-                      <option name="jobType" value={t("RJ2.form.jobTypeFive")}>
-                        {t("RJ2.form.jobTypeFive")}
-                      </option>
-                      <option name="jobType" value={t("RJ2.form.jobTypeSix")}>
-                        {t("RJ2.form.jobTypeSix")}
-                      </option>
-                      <option name="jobType" value={t("RJ2.form.jobTypeSeven")}>
-                        {t("RJ2.form.jobTypeSeven")}
-                      </option>
-                    </select>
+                      )}
+                    </PlacesAutocomplete>
                   </div>
-                  <Input
-                    type="text"
-                    name="documentNumber"
-                    value={tenant.documentNumber}
-                    label={t("RJ2.form.documentNumber")}
-                    placeholder={t("RJ2.form.documentNumberPL")}
-                    onChange={(e) => handleNewTenant(e)}
-                    error={errors.documentNumber}
-                  />
-                  <Input
-                    type="number"
-                    name="tenantsZipCode"
-                    value={tenantsZipCode}
-                    label={t("RJ2.form.tenantsZipCode")}
-                    placeholder={t("RJ2.form.tenantsZipCodePL")}
-                    onChange={setTenantsZipCode}
-                    disabled
-                  />
+                  <div className={classes.InputElement}>
+                    <Input
+                      type="number"
+                      name="tenantsZipCode"
+                      value={tenantsZipCode}
+                      label={t("RJ2.form.tenantsZipCode")}
+                      placeholder={t("RJ2.form.tenantsZipCodePL")}
+                      onChange={setTenantsZipCode}
+                      disabled
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className={styles.FormIntern}>
-                <div className={styles.FormLeft}>
-                  <InputFile
-                    type="file"
-                    name="DF"
-                    label={t("RJ2.form.DNIFront")}
-                    onChange={changeHandler}
-                    required
-                  />
-                  <InputFile
-                    type="file"
-                    name="DB"
-                    label={t("RJ2.form.DNIBack")}
-                    onChange={changeHandler}
-                    required
-                  />
+
+                <div className={classes.GroupInput}>
+                  <div className={classes.InputElement}>
+                    <InputFile
+                      type="file"
+                      name="DF"
+                      label={t("RJ2.form.DNIFront")}
+                      onChange={changeHandler}
+                      required
+                    />
+                  </div>
+                  <div className={classes.InputElement}>
+                    <InputFile
+                      type="file"
+                      name="DB"
+                      label={t("RJ2.form.DNIBack")}
+                      onChange={changeHandler}
+                      required
+                    />
+                  </div>
                 </div>
-                <div className={styles.FormRight}>
-                  <InputFile
-                    type="file"
-                    name="DCA"
-                    label={t("RJ2.form.DCA")}
-                    onChange={changeHandler}
-                    required
-                  />
+                <div className={classes.GroupInputAlone}>
+                  <div className={classes.InputElement}>
+                    <InputFile
+                      type="file"
+                      name="DCA"
+                      label={t("RJ2.form.DCA")}
+                      onChange={changeHandler}
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className={styles.TermsContainer}>
+              <div className={classes.TermsContainer}>
                 <InputCheck
                   type="checkbox"
                   required
@@ -546,7 +566,7 @@ const RegisterTenant = ({ t }) => {
                   {t("RJ2.form.checkboxThree")}
                 </p>
               </div>
-              <div className={styles.ButtonContainer}>
+              <div className={classes.ButtonContainer}>
                 {isProcessing ? (
                   <Loader
                     type="Puff"
