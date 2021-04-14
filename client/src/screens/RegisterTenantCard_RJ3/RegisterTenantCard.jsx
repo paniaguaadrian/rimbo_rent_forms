@@ -244,9 +244,9 @@ const RegisterTenantCard = ({ t }) => {
     <>
       <CustomHelmet header={t("RJ3.helmet")} />
       {!isSuccessfullySubmitted ? (
-        <div className={classes.RegisterContainer}>
+        <div className={classes.PageContainer}>
           {loading ? (
-            <div className={classes.Register}>
+            <div className={classes.HeaderContainer}>
               <Loader
                 type="Puff"
                 color="#01d2cc"
@@ -257,51 +257,51 @@ const RegisterTenantCard = ({ t }) => {
             </div>
           ) : (
             <>
-              <div className={classes.Register}>
+              <div className={classes.HeaderContainer}>
                 <h1>{t("RJ3.header.title")}</h1>
-                <div className={classes.ExtraInfoContainer}>
+                <div className={classes.HeaderInfo}>
                   <h2>{t("RJ3.header.subtitle")}</h2>
                 </div>
               </div>
               <div className={classes.CardContainer}>
                 <form onSubmit={handleFormSubmit}>
-                  <div className={classes.CardInput}>
-                    <label>
-                      <h3>{t("RJ3.form.tenantTitle")}</h3>
-                      <div>
-                        <div>
-                          <h4>{t("RJ3.form.name")}</h4>
-                          <input
-                            id="name"
-                            type="text"
-                            value={tenancyData.tenant.tenantsName}
-                            disabled
-                          />
-                        </div>
-                        <div>
-                          <h4>{t("RJ3.form.email")}</h4>
-                          <input
-                            id="email"
-                            type="text"
-                            value={tenancyData.tenant.tenantsEmail}
-                            disabled
-                          />
-                        </div>
+                  <div className={classes.CardLeft}>
+                    <h3>{t("RJ3.form.tenantTitle")}</h3>
 
-                        <div>
-                          <h4>{t("RJ3.form.phone")}</h4>
-                          <input
-                            id="phone"
-                            type="text"
-                            value={tenancyData.tenant.tenantsPhone}
-                            disabled
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <p>{t("RJ3.form.cardSubtitle")}</p>
-                      </div>
-                      <h3>{t("RJ3.form.cardTitle")}</h3>
+                    <div>
+                      <h4>{t("RJ3.form.name")}</h4>
+                      <input
+                        id="name"
+                        type="text"
+                        value={tenancyData.tenant.tenantsName}
+                        disabled
+                      />
+                    </div>
+                    <div>
+                      <h4>{t("RJ3.form.email")}</h4>
+                      <input
+                        id="email"
+                        type="text"
+                        value={tenancyData.tenant.tenantsEmail}
+                        disabled
+                      />
+                    </div>
+                    <div>
+                      <h4>{t("RJ3.form.phone")}</h4>
+                      <input
+                        id="phone"
+                        type="text"
+                        value={tenancyData.tenant.tenantsPhone}
+                        disabled
+                      />
+                    </div>
+                    <div>
+                      <p>{t("RJ3.form.cardSubtitle")}</p>
+                    </div>
+                  </div>
+                  <div className={classes.CardRight}>
+                    <h3>{t("RJ3.form.cardTitle")}</h3>
+                    <label>
                       <CardElement
                         options={CARD_ELEMENT_OPTIONS}
                         onChange={handleCardDetailsChange}
@@ -316,7 +316,7 @@ const RegisterTenantCard = ({ t }) => {
                         </span>
                       </p>
                     </div>
-                    <div className={classes.TermsContainerStripe}>
+                    <div className={classes.TermsContainer}>
                       <input
                         type="checkbox"
                         required
