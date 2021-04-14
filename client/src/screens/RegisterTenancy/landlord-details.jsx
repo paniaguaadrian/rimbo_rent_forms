@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 // Styles
-import styles from "./register-user.module.scss";
+import styles from "./multi_step_form.module.scss";
 
 // Validation
 import { isLandlord, isLandlordEs } from "./validation";

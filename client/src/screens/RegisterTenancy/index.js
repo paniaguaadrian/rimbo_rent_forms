@@ -5,11 +5,16 @@ import React, { useReducer, useState } from "react";
 import FormSteps from "./form-steps";
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 
+// Material UI Icons
+import SubjectIcon from "@material-ui/icons/Subject";
+import RestoreIcon from "@material-ui/icons/Restore";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
+
 // Reducer import
 import { TenancyReducer, DefaultTenancy } from "./tenancy-reducer";
 
 // Styles imported
-import styles from "./register-user.module.scss";
+import classes from "./multi_step_form.module.scss";
 
 // Multilanguage
 import { withNamespaces } from "react-i18next";
@@ -25,14 +30,25 @@ const RegisterTenancy = ({ t }) => {
   return (
     <>
       <CustomHelmet header={t("RJ1.helmet")} />
-      <div className={styles.RegisterContainer}>
+      <div className={classes.PageContainer}>
         {step === 0 || step === 1 || step === 2 || step === 3 ? (
-          <div className={styles.Register}>
+          <div className={classes.HeaderContainer}>
             <h1>{t("RJ1.header.title")}</h1>
-            <div className={styles.ExtraInfoContainer}>
-              <p>{t("RJ1.header.subtitleOne")}</p>
-              <p>{t("RJ1.header.subtitleTwo")}</p>
-              <p>{t("RJ1.header.subtitleThree")}</p>
+            <div className={classes.HeaderInfo}>
+              <div className={classes.HeaderInfoElement}>
+                <SubjectIcon className={classes.MaterialIcon} />
+                <p>{t("RJ1.header.subtitleOne")}</p>
+              </div>
+
+              <div className={classes.HeaderInfoElement}>
+                <RestoreIcon className={classes.MaterialIcon} />
+                <p>{t("RJ1.header.subtitleTwo")}</p>
+              </div>
+
+              <div className={classes.HeaderInfoElement}>
+                <MailOutlineIcon className={classes.MaterialIcon} />
+                <p>{t("RJ1.header.subtitleThree")}</p>
+              </div>
             </div>
             {i18n.language === "es" ? (
               <h4>
@@ -48,7 +64,7 @@ const RegisterTenancy = ({ t }) => {
           </div>
         ) : null}
 
-        <div className={styles.FormContent}>{steps[`${step}`].content}</div>
+        <div className={classes.FormContent}>{steps[`${step}`].content}</div>
       </div>
     </>
   );

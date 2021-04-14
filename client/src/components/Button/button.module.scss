@@ -3,29 +3,28 @@
 
 Button {
   width: 13rem;
-  height: 3.2rem;
-  font-size: 1.7rem !important;
-  font-weight: 400 !important;
+  height: 3rem;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
   font-family: Nunito, sans-serif;
   cursor: pointer;
   transition: all 0.2s;
   touch-action: manipulation;
-  color: $white;
+  color: $white !important;
   border: none;
-  border-radius: 20px;
+  border-radius: 14px;
   background: $gradient;
 
   @include xl {
-    // margin-left: 1rem !important;
-    width: 8rem;
+    width: 11rem;
     height: 2rem;
-    font-size: 1rem !important;
+    font-size: 0.8rem !important;
     font-weight: 600 !important;
     font-family: Nunito, sans-serif;
     cursor: pointer;
     transition: all 0.2s;
     touch-action: manipulation;
-    color: $white;
+    color: $white !important;
     border: none;
     border-radius: 30px;
     background: $gradient;

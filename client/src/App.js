@@ -11,6 +11,7 @@ import Footer from "./components/Footer/Footer";
 
 // Material-UI
 import { Container } from "@material-ui/core";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 // ! Screens
 // Forms
@@ -31,12 +32,23 @@ import Page404 from "./screens/404/404";
 // Normalize & Generic styles
 import "./styles/generic.scss";
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#6aa3a1",
+    },
+    secondary: {
+      main: "#24c4c4",
+    },
+  },
+});
+
 const App = () => {
   return (
-    <>
+    <MuiThemeProvider theme={theme}>
       <NavBar />
-
       <WhatsappBubble />
+
       <Container maxWidth="xl">
         <Switch>
           <Route exact path="/register/rj1" component={RegisterTenancy} />
@@ -82,7 +94,7 @@ const App = () => {
         </Switch>
       </Container>
       <Footer />
-    </>
+    </MuiThemeProvider>
   );
 };
 

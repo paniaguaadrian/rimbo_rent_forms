@@ -7,7 +7,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 
 // Styles
-import styles from "./register-user.module.scss";
+import styles from "./multi_step_form.module.scss";
 
 // Validation
 import { isTenant, isTenantEs } from "./validation";

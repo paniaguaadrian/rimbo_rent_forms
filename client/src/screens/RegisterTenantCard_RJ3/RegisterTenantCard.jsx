@@ -24,7 +24,7 @@ import SuccessImage from "../../images/success-image.svg";
 
 // Styles
 import Loader from "react-loader-spinner";
-import styles from "../../screens/RegisterTenancy/register-user.module.scss";
+import styles from "../../screens/RegisterTenancy/multi_step_form.module.scss";
 import "./CardSection.css";
 const CARD_ELEMENT_OPTIONS = {
   style: {

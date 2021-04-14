@@ -5,7 +5,7 @@ import axios from "axios";
 import { TenantReducer, DefaultTenant } from "./tenant-reducer";
 
 // Styles
-import styles from "../../screens/RegisterTenancy/register-user.module.scss";
+import styles from "./rj2_tenant.module.scss";
 
 // Images
 import SuccessImage from "../../images/success-image.svg";

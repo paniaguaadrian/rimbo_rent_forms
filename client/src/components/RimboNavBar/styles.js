@@ -49,6 +49,7 @@ const useStyles = makeStyles({
   LanguageLogoMobile: {
     height: `2.5rem`,
     marginLeft: `1.8rem`,
+    marginTop: `4rem`,
   },
 
   list: {

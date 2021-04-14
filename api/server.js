@@ -49,11 +49,11 @@ app.get("/", (req, res) => {
   res.send("API is running");
 });
 
-// * Declare routes and URL
+// Declare routes and URL
 app.use("/submit-email", emailRoutes);
 app.use("/submit-email/es", emailRoutesEs);
 
-// ! Stripe action =====> START
+// Stripe action =====> START
 app.get("/stripe/card-wallet", (req, res) => {
   res.send("Api is working...!");
 });
@@ -79,7 +79,7 @@ app.post("/stripe/card-wallet", async (req, res) => {
     res.status(500).json({ statusCode: 500, message: error.message });
   }
 });
-// ! Stripe action =====> END
+// Stripe action =====> END
 
 app.use(notFound);
 app.use(errorHandler);

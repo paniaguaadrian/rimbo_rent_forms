@@ -8,7 +8,7 @@ import Button from "../../components/Button";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
 // Styles
-import styles from "./register-user.module.scss";
+import styles from "./multi_step_form.module.scss";
 
 // Validation
 import { isProperty, isPropertyEs } from "./validation";

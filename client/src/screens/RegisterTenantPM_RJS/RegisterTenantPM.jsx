@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 // Styles
-import styles from "../../screens/RegisterTenancy/register-user.module.scss";
+import styles from "../../screens/RegisterTenancy/multi_step_form.module.scss";
 
 // Custom Components
 import Input from "../../components/Input";
