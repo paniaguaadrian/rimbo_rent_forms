@@ -297,12 +297,6 @@ const RegisterTenantCard = ({ t }) => {
                     <div className={classes.CardLeftInfo}>
                       <p>{t("RJ3.form.cardSubtitle")}</p>
                     </div>
-                    <div>
-                      <img
-                        src={StripeLogo}
-                        alt="Stripe Security Payment Logo"
-                      />
-                    </div>
                   </div>
                   <div className={classes.CardRight}>
                     <h3>{t("RJ3.form.cardTitle")}</h3>
@@ -314,6 +308,12 @@ const RegisterTenantCard = ({ t }) => {
                     </label>
                     <div className={classes.ErrorInput}>
                       <p className="error-message">{checkoutError}</p>
+                    </div>
+                    <div>
+                      <img
+                        src={StripeLogo}
+                        alt="Stripe Security Payment Logo"
+                      />
                     </div>
                     <div className={classes.CardRightInfo}>
                       <p>

@@ -3,6 +3,9 @@ import {
   UPDATE_TENANT_INFO,
   UPDATE_PROPERTY_INFO,
   UPDATE_LANDLORD_INFO,
+  DELETE_TENANTTWO_INFO,
+  DELETE_TENANTTHREE_INFO,
+  DELETE_TENANTFOUR_INFO,
 } from "./constants";
 
 export const DefaultTenancy = {
@@ -16,6 +19,18 @@ export const DefaultTenancy = {
     tenantName: "",
     tenantPhone: "",
     tenantEmail: "",
+
+    tenantNameTwo: "",
+    tenantPhoneTwo: "",
+    tenantEmailTwo: "",
+
+    tenantNameThree: "",
+    tenantPhoneThree: "",
+    tenantEmailThree: "",
+
+    tenantNameFour: "",
+    tenantPhoneFour: "",
+    tenantEmailFour: "",
   },
   propertyDetails: {
     rentalCity: "",
@@ -47,6 +62,39 @@ export const TenancyReducer = (tenancy, { type, payload }) => {
         tenantDetails: {
           ...tenancy.tenantDetails,
           ...payload,
+        },
+      };
+
+    case DELETE_TENANTTWO_INFO:
+      return {
+        ...tenancy,
+        tenantDetails: {
+          ...tenancy.tenantDetails,
+          tenantNameTwo: "",
+          tenantPhoneTwo: "",
+          tenantEmailTwo: "",
+        },
+      };
+
+    case DELETE_TENANTTHREE_INFO:
+      return {
+        ...tenancy,
+        tenantDetails: {
+          ...tenancy.tenantDetails,
+          tenantNameThree: "",
+          tenantPhoneThree: "",
+          tenantEmailThree: "",
+        },
+      };
+
+    case DELETE_TENANTFOUR_INFO:
+      return {
+        ...tenancy,
+        tenantDetails: {
+          ...tenancy.tenantDetails,
+          tenantNameFour: "",
+          tenantPhoneFour: "",
+          tenantEmailFour: "",
         },
       };
 

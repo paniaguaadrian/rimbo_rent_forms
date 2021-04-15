@@ -13,7 +13,12 @@ import classes from "./multi_step_form.module.scss";
 import { isTenant, isTenantEs } from "./validation";
 
 // Constants Reducer
-import { UPDATE_TENANT_INFO } from "./constants";
+import {
+  UPDATE_TENANT_INFO,
+  DELETE_TENANTTWO_INFO,
+  DELETE_TENANTTHREE_INFO,
+  DELETE_TENANTFOUR_INFO,
+} from "./constants";
 
 // Multilanguage
 import { withNamespaces } from "react-i18next";
@@ -21,6 +26,72 @@ import i18n from "../../i18n";
 
 const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [errors, setErrors] = useState({});
+  const [showButtonTwo, setShowButtonTwo] = useState(true);
+  const [showButtonThree, setShowButtonThree] = useState(true);
+  const [showButtonFour, setShowButtonFour] = useState(true);
+
+  const [showDeleteTwo, setShowDeleteTwo] = useState(true);
+  const [showDeleteThree, setShowDeleteThree] = useState(true);
+  const [showDeleteFour, setShowDeleteFour] = useState(true); //eslint-disable-line
+
+  const [showTenantTwoForm, setShowTenantTwoForm] = useState(false);
+  const [showTenantThreeForm, setShowTenantThreeForm] = useState(false);
+  const [showTenantFourForm, setShowTenantFourForm] = useState(false);
+
+  // ! Add tenant Two
+  // Toggle button to show Tenant 2 form
+  const handleTenantTwo = (e) => {
+    e.preventDefault();
+    setShowTenantTwoForm(true);
+    setShowButtonTwo(false);
+  };
+  // Button to delete Tenant 2 form / Data
+  const deleteTenantTwo = (e) => {
+    e.preventDefault();
+    setShowTenantTwoForm(false);
+    setShowButtonTwo(true);
+    setTenancy({
+      type: DELETE_TENANTTWO_INFO,
+    });
+  };
+
+  // ! Add tenant Three
+  // Toggle button to show Tenant 3 form
+  const handleTenantThree = (e) => {
+    e.preventDefault();
+    setShowTenantThreeForm(true);
+    setShowButtonThree(false);
+    setShowDeleteTwo(false);
+  };
+  // Button to delete Tenant 3 form / Data
+  const deleteTenantThree = (e) => {
+    e.preventDefault();
+    setShowTenantThreeForm(false);
+    setShowButtonThree(true);
+    setShowDeleteTwo(true);
+    setTenancy({
+      type: DELETE_TENANTTHREE_INFO,
+    });
+  };
+
+  // ! Add tenant Four
+  // Toggle button to show Tenant 4 form
+  const handleTenantFour = (e) => {
+    e.preventDefault();
+    setShowTenantFourForm(true);
+    setShowButtonFour(false);
+    setShowDeleteThree(false);
+  };
+  // Button to delete Tenant 4 form / Data
+  const deleteTenantFour = (e) => {
+    e.preventDefault();
+    setShowTenantFourForm(false);
+    setShowButtonFour(true);
+    setShowDeleteThree(true);
+    setTenancy({
+      type: DELETE_TENANTFOUR_INFO,
+    });
+  };
 
   // Handle on change
   const handleTenant = ({ target }) => {
@@ -45,6 +116,213 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
 
     setStep(step + 1);
   };
+
+  // Button to show tenant 2 form
+  let buttonTwo = null;
+  if (showButtonTwo) {
+    buttonTwo = (
+      <div className={classes.InputElement}>
+        <Button onClick={handleTenantTwo}>+ Add tenant</Button>
+      </div>
+    );
+  }
+  // Delete button to tenant 2 form
+  let deleteButtonTwo = null;
+  if (showDeleteTwo) {
+    deleteButtonTwo = (
+      <div className={classes.InputElement}>
+        <Button onClick={deleteTenantTwo}>Delete tenant</Button>
+      </div>
+    );
+  }
+
+  // Button to show tenant 3 form
+  let buttonThree = null;
+  if (showButtonThree) {
+    buttonThree = (
+      <div className={classes.InputElement}>
+        <Button onClick={handleTenantThree}>+ Add tenant</Button>
+      </div>
+    );
+  }
+  // Delete button to tenant 3 form
+  let deleteButtonThree = null;
+  if (showDeleteThree) {
+    deleteButtonThree = (
+      <div className={classes.InputElement}>
+        <Button onClick={deleteTenantThree}>Delete tenant</Button>
+      </div>
+    );
+  }
+
+  // Button to show tenant 4 form
+  let buttonFour = null;
+  if (showButtonFour) {
+    buttonFour = (
+      <div className={classes.InputElement}>
+        <Button onClick={handleTenantFour}>+ Add tenant</Button>
+      </div>
+    );
+  }
+  // Delete button to tenant 3 form
+  let deleteButtonFour = null;
+  if (showDeleteFour) {
+    deleteButtonFour = (
+      <div className={classes.InputElement}>
+        <Button onClick={deleteTenantFour}>Delete tenant</Button>
+      </div>
+    );
+  }
+
+  // Tenant 2 form
+  let tenantTwoForm = null;
+  if (showTenantTwoForm) {
+    tenantTwoForm = (
+      <>
+        <div className={classes.GroupInput}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="tenantNameTwo"
+              value={tenancy.tenantDetails.tenantNameTwo}
+              label={t("RJ1.stepOne.tenantsName")}
+              placeholder={t("RJ1.stepOne.tenantsNamePL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantName}
+            />
+          </div>
+
+          <div className={classes.InputElement}>
+            <Input
+              type="email"
+              name="tenantEmailTwo"
+              value={tenancy.tenantDetails.tenantEmailTwo}
+              label={t("RJ1.stepOne.tenantsEmail")}
+              placeholder={t("RJ1.stepOne.tenantsEmailPL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantEmail}
+            />
+          </div>
+        </div>
+        <div className={classes.GroupInputAlone}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="tenantPhoneTwo"
+              value={tenancy.tenantDetails.tenantPhoneTwo}
+              label={t("RJ1.stepOne.tenantsPhone")}
+              placeholder={t("RJ1.stepOne.tenantsPhonePL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantPhone}
+            />
+          </div>
+        </div>
+        <div className={classes.GroupInput}>
+          {deleteButtonTwo}
+          {buttonThree}
+        </div>
+      </>
+    );
+  }
+
+  // Tenant 3 form
+  let tenantThreeForm = null;
+  if (showTenantThreeForm) {
+    tenantThreeForm = (
+      <>
+        <div className={classes.GroupInput}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="tenantNameThree"
+              value={tenancy.tenantDetails.tenantNameThree}
+              label={t("RJ1.stepOne.tenantsName")}
+              placeholder={t("RJ1.stepOne.tenantsNamePL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantName}
+            />
+          </div>
+
+          <div className={classes.InputElement}>
+            <Input
+              type="email"
+              name="tenantEmailThree"
+              value={tenancy.tenantDetails.tenantEmailThree}
+              label={t("RJ1.stepOne.tenantsEmail")}
+              placeholder={t("RJ1.stepOne.tenantsEmailPL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantEmail}
+            />
+          </div>
+        </div>
+        <div className={classes.GroupInputAlone}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="tenantPhoneThree"
+              value={tenancy.tenantDetails.tenantPhoneThree}
+              label={t("RJ1.stepOne.tenantsPhone")}
+              placeholder={t("RJ1.stepOne.tenantsPhonePL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantPhone}
+            />
+          </div>
+        </div>
+        <div className={classes.GroupInput}>
+          {deleteButtonThree}
+          {buttonFour}
+        </div>
+      </>
+    );
+  }
+
+  // Tenant 4 form
+  let tenantFourForm = null;
+  if (showTenantFourForm) {
+    tenantFourForm = (
+      <>
+        <div className={classes.GroupInput}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="tenantNameFour"
+              value={tenancy.tenantDetails.tenantNameFour}
+              label={t("RJ1.stepOne.tenantsName")}
+              placeholder={t("RJ1.stepOne.tenantsNamePL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantName}
+            />
+          </div>
+
+          <div className={classes.InputElement}>
+            <Input
+              type="email"
+              name="tenantEmailFour"
+              value={tenancy.tenantDetails.tenantEmailFour}
+              label={t("RJ1.stepOne.tenantsEmail")}
+              placeholder={t("RJ1.stepOne.tenantsEmailPL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantEmail}
+            />
+          </div>
+        </div>
+        <div className={classes.GroupInputAlone}>
+          <div className={classes.InputElement}>
+            <Input
+              type="text"
+              name="tenantPhoneFour"
+              value={tenancy.tenantDetails.tenantPhoneFour}
+              label={t("RJ1.stepOne.tenantsPhone")}
+              placeholder={t("RJ1.stepOne.tenantsPhonePL")}
+              onChange={(e) => handleTenant(e)}
+              error={errors.tenantPhone}
+            />
+          </div>
+        </div>
+        <div className={classes.GroupInputAlone}>{deleteButtonFour}</div>
+      </>
+    );
+  }
 
   return (
     <form onSubmit={handleContinue}>
@@ -87,6 +365,11 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
             />
           </div>
         </div>
+        {buttonTwo}
+        {tenantTwoForm}
+        {tenantThreeForm}
+        {tenantFourForm}
+
         <div className={classes.ButtonContainer}>
           <Button onClick={() => setStep(step - 1)} type="button">
             {t("prevStepButton")}

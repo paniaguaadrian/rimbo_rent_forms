@@ -58,13 +58,35 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     setProcessingTo(true);
 
     const randomID = nanoid();
+    const randomIDTwo = nanoid();
+    const randomIDThree = nanoid();
+    const randomIDFour = nanoid();
 
     const tenancyData = {
       // tenant
       tenantsName: tenancy.tenantDetails.tenantName,
       tenantsEmail: tenancy.tenantDetails.tenantEmail,
       tenantsPhone: tenancy.tenantDetails.tenantPhone,
+      propertyManagerName: tenancy.agencyName,
       randomID: randomID,
+
+      // tenantTwo
+      tenantsNameTwo: tenancy.tenantDetails.tenantNameTwo,
+      tenantsEmailTwo: tenancy.tenantDetails.tenantEmailTwo,
+      tenantsPhoneTwo: tenancy.tenantDetails.tenantPhoneTwo,
+      randomIDTwo: randomIDTwo,
+
+      // tenantThree
+      tenantsNameThree: tenancy.tenantDetails.tenantNameThree,
+      tenantsEmailThree: tenancy.tenantDetails.tenantEmailThree,
+      tenantsPhoneThree: tenancy.tenantDetails.tenantPhoneThree,
+      randomIDThree: randomIDThree,
+
+      // tenantThree
+      tenantsNameFour: tenancy.tenantDetails.tenantNameFour,
+      tenantsEmailFour: tenancy.tenantDetails.tenantEmailFour,
+      tenantsPhoneFour: tenancy.tenantDetails.tenantPhoneFour,
+      randomIDFour: randomIDFour,
 
       // agency, agent
       agencyName: tenancy.agencyName,
@@ -96,11 +118,11 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     );
 
     // Email action
-    if (i18n.language === "en") {
-      await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj1`, tenancyData);
-    } else {
-      await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj1`, tenancyData);
-    }
+    // if (i18n.language === "en") {
+    //   await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj1`, tenancyData);
+    // } else {
+    //   await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj1`, tenancyData);
+    // }
 
     setStep(step + 1);
   };

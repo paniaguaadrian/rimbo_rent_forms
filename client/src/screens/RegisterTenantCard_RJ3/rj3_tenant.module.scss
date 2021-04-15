@@ -91,13 +91,14 @@
   padding: 2rem 8rem;
 
   @include xl {
+    display: flex;
     margin: 0 auto;
     margin-top: 1rem;
     margin-bottom: 1rem;
     align-items: center !important;
-    display: flex;
     flex-direction: row !important;
-    padding: 2rem 10rem;
+    justify-content: space-between !important;
+    padding: 2rem 14rem;
   }
   h3 {
     margin-bottom: 1.5rem;
@@ -134,44 +135,14 @@
   width: 100%;
   float: left;
   padding: 2rem;
+  // margin-top: 0rem; // ! Hmmmmmmmmm //
 
-  img {
-    margin: 0 auto;
-    margin-top: 2rem;
-    width: 15rem;
-  }
   @include xl {
     text-align: center;
-    width: 50%;
+    width: 45%;
     float: left;
     padding: 2rem;
-    img {
-      margin: 0 auto;
-      margin-top: 2rem;
-      width: 10rem;
-    }
-  }
-  @include xl {
-    text-align: center;
-    width: 100%;
-    float: left;
-    padding: 2rem;
-    img {
-      margin: 0 auto;
-      margin-top: 2rem;
-      width: 10rem;
-    }
-    @include xl {
-      text-align: center;
-      width: 50%;
-      float: left;
-      padding: 2rem;
-      img {
-        margin: 0 auto;
-        margin-top: 2rem;
-        width: 10rem;
-      }
-    }
+    // margin-top: 3rem; // ! Hmmmmmmmmm //
   }
 }
 
@@ -244,6 +215,12 @@
   background-color: rgba(255, 255, 255, 0.861) !important;
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 40px 55px -7px;
+
+  img {
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 18rem;
+  }
   @include xl {
     width: 50%;
     float: right;
@@ -256,6 +233,12 @@
     background-color: rgba(255, 255, 255, 0.861) !important;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 40px 55px -7px;
+
+    img {
+      margin: 0 auto;
+      margin-top: 1rem;
+      width: 10rem;
+    }
   }
 }
 
@@ -326,7 +309,7 @@
     @include xl {
       text-align: center;
       font-size: 1rem;
-      margin-left: 1rem;
+      margin-left: 0.1rem;
     }
   }
   a {

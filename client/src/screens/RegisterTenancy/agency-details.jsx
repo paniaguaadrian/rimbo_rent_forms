@@ -121,7 +121,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
         </div>
         <div className={classes.GroupInput}>
           <div className={classes.InputElementMaterial}>
-            <Grid container spacing={1} alignItems="flex-end">
+            <Grid container spacing={1} alignItems="center">
               <Grid item>
                 <MailOutlineIcon className={classes.IconStyleMaterial} />
               </Grid>
