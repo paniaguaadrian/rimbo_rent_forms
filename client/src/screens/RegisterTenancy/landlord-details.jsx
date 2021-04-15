@@ -118,11 +118,11 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     );
 
     // Email action
-    // if (i18n.language === "en") {
-    //   await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj1`, tenancyData);
-    // } else {
-    //   await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj1`, tenancyData);
-    // }
+    if (i18n.language === "en") {
+      await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj1`, tenancyData);
+    } else {
+      await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj1`, tenancyData);
+    }
 
     setStep(step + 1);
   };

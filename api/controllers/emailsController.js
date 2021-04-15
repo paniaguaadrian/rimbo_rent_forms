@@ -13,6 +13,19 @@ const sendRJ1FormEmails = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+
+    tenantsNameTwo,
+    tenantsEmailTwo,
+    tenantsPhoneTwo,
+
+    tenantsNameThree,
+    tenantsEmailThree,
+    tenantsPhoneThree,
+
+    tenantsNameFour,
+    tenantsEmailFour,
+    tenantsPhoneFour,
+
     agencyName,
     agencyContactPerson,
     agencyEmailPerson,
@@ -27,6 +40,9 @@ const sendRJ1FormEmails = async (req, res) => {
     landlordEmail,
     landlordPhone,
     randomID,
+    randomIDTwo,
+    randomIDThree,
+    randomIDFour,
   } = req.body;
 
   const transporterRJ3 = nodemailer.createTransport(
@@ -38,6 +54,27 @@ const sendRJ1FormEmails = async (req, res) => {
   );
 
   const transporterRJ4 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+  const transporterRJ4Two = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+  const transporterRJ4Three = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+  const transporterRJ4Four = nodemailer.createTransport(
     sgTransport({
       auth: {
         api_key: process.env.SENDGRID_API,
@@ -71,6 +108,33 @@ const sendRJ1FormEmails = async (req, res) => {
     viewPath: "views/",
   };
 
+  let optionsRJ4Two = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rj4EmailTwo",
+    },
+    viewPath: "views/",
+  };
+
+  let optionsRJ4Three = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rj4EmailThree",
+    },
+    viewPath: "views/",
+  };
+
+  let optionsRJ4Four = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "rj4EmailFour",
+    },
+    viewPath: "views/",
+  };
+
   let optionsRJD = {
     viewEngine: {
       extname: ".handlebars",
@@ -82,6 +146,9 @@ const sendRJ1FormEmails = async (req, res) => {
 
   transporterRJ3.use("compile", hbs(optionsRJ3));
   transporterRJ4.use("compile", hbs(optionsRJ4));
+  transporterRJ4Two.use("compile", hbs(optionsRJ4Two));
+  transporterRJ4Three.use("compile", hbs(optionsRJ4Three));
+  transporterRJ4Four.use("compile", hbs(optionsRJ4Four));
   transporterRJD.use("compile", hbs(optionsRJD));
 
   // RJ3 Email  @PM/Agency
@@ -122,7 +189,7 @@ const sendRJ1FormEmails = async (req, res) => {
   // RJ4 Email  @Tenant
   const tenantEmail = {
     from: "Rimbo info@rimbo.rent",
-    to: testEmail, // tenant's email
+    to: tenantsEmail, // tenant's email
     subject: "Welcome to Rimbo!",
     // text: "",
     attachments: [
@@ -144,13 +211,179 @@ const sendRJ1FormEmails = async (req, res) => {
       randomID,
     },
   };
-  transporterRJ4.sendMail(tenantEmail, (err, data) => {
-    if (err) {
-      console.log("There is an error here...!" + err);
-    } else {
-      console.log("Email sent!");
-    }
-  });
+
+  // RJ4 Email  @TenantTwo
+  const tenantEmailTwo = {
+    from: "Rimbo info@rimbo.rent",
+    to: tenantsEmailTwo, // tenant's email Two
+    subject: "Welcome to Rimbo!",
+    // text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj4EmailTwo",
+    context: {
+      tenantsNameTwo,
+      randomIDTwo,
+      agencyName,
+      rentalAddress,
+      rentalPostalCode,
+      rentalCity,
+      agencyName,
+      rentalAddress,
+    },
+  };
+
+  // RJ4 Email  @TenantThree
+  const tenantEmailThree = {
+    from: "Rimbo info@rimbo.rent",
+    to: tenantsEmailThree, // tenant's email Three
+    subject: "Welcome to Rimbo!",
+    // text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj4EmailThree",
+    context: {
+      tenantsNameThree,
+      randomIDThree,
+      agencyName,
+      rentalAddress,
+      rentalPostalCode,
+      rentalCity,
+      agencyName,
+      rentalAddress,
+    },
+  };
+
+  // RJ4 Email  @TenantFour
+  const tenantEmailFour = {
+    from: "Rimbo info@rimbo.rent",
+    to: tenantsEmailFour, // tenant's email Three
+    subject: "Welcome to Rimbo!",
+    // text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj4EmailFour",
+    context: {
+      tenantsNameFour,
+      randomIDFour,
+      agencyName,
+      rentalAddress,
+      rentalPostalCode,
+      rentalCity,
+      agencyName,
+      rentalAddress,
+    },
+  };
+
+  // ! Logic to send emails up to 4 tenants
+  if (
+    tenantsNameTwo === "" &&
+    tenantsNameTwo === null &&
+    tenantsNameThree === "" &&
+    tenantsNameThree === null &&
+    tenantsNameFour === "" &&
+    tenantsNameFour === null
+  ) {
+    transporterRJ4.sendMail(tenantEmail, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+  } else if (
+    tenantsNameThree === "" &&
+    tenantsNameThree === null &&
+    tenantsNameFour === "" &&
+    tenantsNameFour === null
+  ) {
+    transporterRJ4.sendMail(tenantEmail, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+
+    transporterRJ4Two.sendMail(tenantEmailTwo, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+  } else if (tenantsNameFour === "" && tenantsNameFour === null) {
+    transporterRJ4.sendMail(tenantEmail, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+
+    transporterRJ4Two.sendMail(tenantEmailTwo, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+
+    transporterRJ4Three.sendMail(tenantEmailThree, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+  } else {
+    transporterRJ4.sendMail(tenantEmail, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+
+    transporterRJ4Two.sendMail(tenantEmailTwo, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+
+    transporterRJ4Three.sendMail(tenantEmailThree, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+
+    transporterRJ4Four.sendMail(tenantEmailFour, (err, data) => {
+      if (err) {
+        console.log("There is an error here...!" + err);
+      } else {
+        console.log("Email sent!");
+      }
+    });
+  }
 
   // RJD Email  @Rimbo
   const RimboEmail = {
