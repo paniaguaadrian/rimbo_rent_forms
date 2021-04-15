@@ -103,11 +103,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
               // error={errors.agencyContactPerson}
               InputProps={{
                 startAdornment: (
-                  <InputAdornment
-                    position="start"
-                    variant="outlined"
-                    disablePointerEvents="true"
-                  >
+                  <InputAdornment position="start" disablePointerEvents={true}>
                     <PersonPinIcon className={classes.IconStyleMaterial} />
                   </InputAdornment>
                 ),

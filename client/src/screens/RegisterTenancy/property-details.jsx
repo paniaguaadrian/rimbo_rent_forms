@@ -65,12 +65,15 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
       tenancy.propertyDetails.rentalCity =
         results[0].address_components[2].long_name;
 
+      const street = results[0].address_components[1].long_name;
+      const streetNumber = results[0].address_components[0].long_name;
+      const finalAddress = `${street}, ${streetNumber}`;
+
       setRentalPostalCode(results[0].address_components[6].long_name);
-      setRentalAddress(results[0].formatted_address);
+      setRentalAddress(finalAddress);
       setRentalCity(results[0].address_components[2].long_name);
     }
     tenancy.propertyDetails.rentalAddress = results[0].formatted_address;
-    // setTenantsAddress(results[0].formatted_address);
   };
 
   // Handle on change
