@@ -37,7 +37,8 @@ import PlacesAutocomplete, {
 
 const {
   REACT_APP_BASE_URL,
-  REACT_APP_API_RIMBO_TENANCY,
+  // REACT_APP_API_RIMBO_TENANCY,
+  REACT_APP_API_RIMBO_TENANCIES,
   REACT_APP_API_RIMBO_TENANT,
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
@@ -53,8 +54,12 @@ const RegisterTenant = ({ t }) => {
   const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
   const [sent, isSent] = useState(false);
 
-  const [responseData, setResponseData] = useState([]);
-  const [responseDataAfter, setResponseDataAfter] = useState([]);
+  const [tenantData, setTenantData] = useState([]);
+
+  const [tenancyData, setTenancyData] = useState([]);
+
+  const [tenantDataAfter, setTenantDataAfter] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(null);
 
@@ -100,9 +105,8 @@ const RegisterTenant = ({ t }) => {
   useEffect(
     () => {
       const getData = () => {
-        fetch(
-          `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`
-        )
+        // Hemos cambiado este endpoint de REACT_APP_API_RIMBO_TENANCY al actual para hacer fetch del tenant, no necesitamos hacer fetch de toda la tenancy.
+        fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
           .then((res) => {
             if (res.status >= 400) {
               throw new Error("Server responds with error!" + res.status);
@@ -110,8 +114,8 @@ const RegisterTenant = ({ t }) => {
             return res.json();
           })
           .then(
-            (responseData) => {
-              setResponseData(responseData);
+            (tenantData) => {
+              setTenantData(tenantData);
               setLoading(true);
             },
             (err) => {
@@ -122,8 +126,8 @@ const RegisterTenant = ({ t }) => {
       };
       getData();
     },
-    [tenancyID],
-    [responseData, loading, err]
+    [randomID],
+    [tenantData, loading, err]
   );
 
   const handleNewTenant = ({ target }) => {
@@ -165,6 +169,7 @@ const RegisterTenant = ({ t }) => {
     }
 
     // Post to Rimbo API (files/images)
+    // ! This seems working
     await axios.post(
       `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/upload`,
       formData,
@@ -172,6 +177,7 @@ const RegisterTenant = ({ t }) => {
     );
 
     // Post to Rimbo API Data
+    // ! This seems working
     await axios.post(
       `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`,
       {
@@ -187,17 +193,19 @@ const RegisterTenant = ({ t }) => {
     );
 
     // Tenant Email action
+    // ! This seems working
     await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj2/tt`, {
-      tenantsName: responseData.tenant.tenantsName,
-      tenantsEmail: responseData.tenant.tenantsEmail,
+      tenantsName: tenantData.tenantsName,
+      tenantsEmail: tenantData.tenantsEmail,
     });
-    isSent(true);
+
     setIsSuccessfullySubmitted(true);
   };
 
   useEffect(() => {
     const getData = () => {
-      fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`)
+      // Change that ${REACT_APP_API_RIMBO_TENANCY}/${tenancyID} to find all tenancies
+      fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`)
         .then((res) => {
           if (res.status >= 400) {
             throw new Error("Server responds with error!" + res.status);
@@ -205,8 +213,8 @@ const RegisterTenant = ({ t }) => {
           return res.json();
         })
         .then(
-          (responseDataAfter) => {
-            setResponseDataAfter(responseDataAfter);
+          (tenancyData) => {
+            setTenancyData(tenancyData);
             setLoading(true);
           },
           (err) => {
@@ -216,80 +224,124 @@ const RegisterTenant = ({ t }) => {
         );
     };
     getData();
-  }, [sent, tenancyID]);
+  }, [tenancyID]);
 
+  const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
+
+  const getTenancy = (randomID) => {
+    for (let tenancy of tenancyData) {
+      for (let key in tenancy) {
+        if (!tenants.includes(key)) continue;
+        if (tenancy[key].randomID === randomID) return tenancy;
+      }
+    }
+  };
+
+  const desiredTenancy = getTenancy(randomID);
+
+  console.log(desiredTenancy);
+
+  useEffect(
+    () => {
+      const getData = () => {
+        // Hemos cambiado este endpoint de REACT_APP_API_RIMBO_TENANCY al actual para hacer fetch del tenant, no necesitamos hacer fetch de toda la tenancy.
+        fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
+          .then((res) => {
+            if (res.status >= 400) {
+              throw new Error("Server responds with error!" + res.status);
+            }
+            return res.json();
+          })
+          .then(
+            (tenantDataAfter) => {
+              setTenantDataAfter(tenantDataAfter);
+              setLoading(true);
+            },
+            (err) => {
+              setErr(err);
+              setLoading(true);
+            }
+          );
+      };
+      getData();
+    },
+    [randomID],
+    [tenantDataAfter, loading, err]
+  );
+
+  console.log(tenantDataAfter);
+
+  // !Send an email with the specific data
   useEffect(() => {
     const sendAttachments = async () => {
       if (sent) {
         if (i18n.language === "en") {
           await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj2/rimbo`, {
             tenancyID,
-            tenantsName: responseDataAfter.tenant.tenantsName,
-            tenantsPhone: responseDataAfter.tenant.tenantsPhone,
-            tenantsEmail: responseDataAfter.tenant.tenantsEmail,
-            agencyName: responseDataAfter.agent.agencyName,
-            agencyContactPerson: responseDataAfter.agent.agencyContactPerson,
-            agencyPhonePerson: responseDataAfter.agent.agencyPhonePerson,
-            agencyEmailPerson: responseDataAfter.agent.agencyEmailPerson,
-            documentImageFront: responseDataAfter.tenant.documentImageFront,
-            documentImageBack: responseDataAfter.tenant.documentImageBack,
-            documentConfirmAddress:
-              responseDataAfter.tenant.documentConfirmAddress,
-            // Agent/Agency
+            tenantsName: tenantData.tenantsName,
+            tenantsPhone: tenantData.tenantsPhone,
+            tenantsEmail: tenantData.tenantsEmail,
             monthlyNetIncome: tenant.monthlyNetIncome,
             jobType: tenant.jobType,
             documentNumber: tenant.documentNumber,
             tenantsAddress: tenantsAddress,
             tenantsZipCode: tenantsZipCode,
+            documentImageFront: tenantDataAfter.documentImageFront,
+            documentImageBack: tenantDataAfter.documentImageBack,
+            documentConfirmAddress: tenantDataAfter.documentConfirmAddress,
+            // Agent/Agency
+            agencyName: desiredTenancy.agent.agencyName,
+            agencyContactPerson: desiredTenancy.agent.agencyContactPerson,
+            agencyPhonePerson: desiredTenancy.agent.agencyPhonePerson,
+            agencyEmailPerson: desiredTenancy.agent.agencyEmailPerson,
             // Proprety
-            rentAmount: responseDataAfter.rentAmount,
-            product: responseDataAfter.product,
-            rentDuration: responseDataAfter.rentDuration,
-            rentalAddress: responseDataAfter.property.rentalAddress,
-            rentalCity: responseDataAfter.property.rentalCity,
-            rentalPostalCode: responseDataAfter.property.rentalPostalCode,
+            rentAmount: desiredTenancy.rentAmount,
+            product: desiredTenancy.product,
+            rentDuration: desiredTenancy.rentDuration,
+            rentalAddress: desiredTenancy.property.rentalAddress,
+            rentalCity: desiredTenancy.property.rentalCity,
+            rentalPostalCode: desiredTenancy.property.rentalPostalCode,
             // Landlord
-            landlordName: responseDataAfter.landlord.landlordName,
-            landlordPhone: responseDataAfter.landlord.landlordPhone,
-            landlordEmail: responseDataAfter.landlord.landlordEmail,
+            landlordName: desiredTenancy.landlord.landlordName,
+            landlordPhone: desiredTenancy.landlord.landlordPhone,
+            landlordEmail: desiredTenancy.landlord.landlordEmail,
           });
         } else {
           await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj2/rimbo`, {
             tenancyID,
-            tenantsName: responseDataAfter.tenant.tenantsName,
-            tenantsPhone: responseDataAfter.tenant.tenantsPhone,
-            tenantsEmail: responseDataAfter.tenant.tenantsEmail,
-            agencyName: responseDataAfter.agent.agencyName,
-            agencyContactPerson: responseDataAfter.agent.agencyContactPerson,
-            agencyPhonePerson: responseDataAfter.agent.agencyPhonePerson,
-            agencyEmailPerson: responseDataAfter.agent.agencyEmailPerson,
-            documentImageFront: responseDataAfter.tenant.documentImageFront,
-            documentImageBack: responseDataAfter.tenant.documentImageBack,
-            documentConfirmAddress:
-              responseDataAfter.tenant.documentConfirmAddress,
-            // Agent/Agency
+            tenantsName: tenantData.tenantsName,
+            tenantsPhone: tenantData.tenantsPhone,
+            tenantsEmail: tenantData.tenantsEmail,
             monthlyNetIncome: tenant.monthlyNetIncome,
             jobType: tenant.jobType,
             documentNumber: tenant.documentNumber,
             tenantsAddress: tenantsAddress,
             tenantsZipCode: tenantsZipCode,
+            documentImageFront: tenantDataAfter.documentImageFront,
+            documentImageBack: tenantDataAfter.documentImageBack,
+            documentConfirmAddress: tenantDataAfter.documentConfirmAddress,
+            // Agent/Agency
+            agencyName: desiredTenancy.agent.agencyName,
+            agencyContactPerson: desiredTenancy.agent.agencyContactPerson,
+            agencyPhonePerson: desiredTenancy.agent.agencyPhonePerson,
+            agencyEmailPerson: desiredTenancy.agent.agencyEmailPerson,
             // Proprety
-            rentAmount: responseDataAfter.rentAmount,
-            product: responseDataAfter.product,
-            rentDuration: responseDataAfter.rentDuration,
-            rentalAddress: responseDataAfter.property.rentalAddress,
-            rentalCity: responseDataAfter.property.rentalCity,
-            rentalPostalCode: responseDataAfter.property.rentalPostalCode,
+            rentAmount: desiredTenancy.rentAmount,
+            product: desiredTenancy.product,
+            rentDuration: desiredTenancy.rentDuration,
+            rentalAddress: desiredTenancy.property.rentalAddress,
+            rentalCity: desiredTenancy.property.rentalCity,
+            rentalPostalCode: desiredTenancy.property.rentalPostalCode,
             // Landlord
-            landlordName: responseDataAfter.landlord.landlordName,
-            landlordPhone: responseDataAfter.landlord.landlordPhone,
-            landlordEmail: responseDataAfter.landlord.landlordEmail,
+            landlordName: desiredTenancy.landlord.landlordName,
+            landlordPhone: desiredTenancy.landlord.landlordPhone,
+            landlordEmail: desiredTenancy.landlord.landlordEmail,
           });
         }
       }
     };
     sendAttachments();
-  }, [responseDataAfter]); //eslint-disable-line
+  }, [tenancyData]); //eslint-disable-line
 
   return (
     <>

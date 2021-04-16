@@ -891,7 +891,7 @@ const sendRJ3FormEmail = async (req, res) => {
   const RimbosEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo email
-    subject: `Card registered successfully`,
+    subject: `${tenantsName} Card successfully registered`,
     text: "",
     attachments: [
       {
