@@ -2,9 +2,21 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-// Custom Components
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+// Material-ui Components
+import FormHelperText from "@material-ui/core/FormHelperText";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import ButtonMat from "@material-ui/core/Button";
+import Divider from "@material-ui/core/Divider";
+
+// Material Icons
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import PersonIcon from "@material-ui/icons/Person";
+import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
+import LocalPhoneOutlinedIcon from "@material-ui/icons/LocalPhoneOutlined";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 
 // Styles
 import classes from "./multi_step_form.module.scss";
@@ -121,8 +133,17 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   let buttonTwo = null;
   if (showButtonTwo) {
     buttonTwo = (
-      <div className={classes.InputElement}>
-        <Button onClick={handleTenantTwo}>+ Add tenant</Button>
+      <div className={classes.ButtonContainerMaterial}>
+        <ButtonMat
+          type="button"
+          onClick={handleTenantTwo}
+          variant="contained"
+          color="primary"
+          size="large"
+          endIcon={<GroupAddIcon />}
+        >
+          {t("addTenant")}
+        </ButtonMat>
       </div>
     );
   }
@@ -130,8 +151,17 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   let deleteButtonTwo = null;
   if (showDeleteTwo) {
     deleteButtonTwo = (
-      <div className={classes.InputElement}>
-        <Button onClick={deleteTenantTwo}>Delete tenant</Button>
+      <div className={classes.InputAddDeleteButton}>
+        <ButtonMat
+          type="button"
+          onClick={deleteTenantTwo}
+          variant="contained"
+          color="secondary"
+          size="large"
+          endIcon={<HighlightOffOutlinedIcon />}
+        >
+          {t("deleteTenant")}
+        </ButtonMat>
       </div>
     );
   }
@@ -140,8 +170,17 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   let buttonThree = null;
   if (showButtonThree) {
     buttonThree = (
-      <div className={classes.InputElement}>
-        <Button onClick={handleTenantThree}>+ Add tenant</Button>
+      <div className={classes.InputAddDeleteButton}>
+        <ButtonMat
+          type="button"
+          onClick={handleTenantThree}
+          variant="contained"
+          color="primary"
+          size="large"
+          endIcon={<GroupAddIcon />}
+        >
+          {t("addTenant")}
+        </ButtonMat>
       </div>
     );
   }
@@ -149,8 +188,17 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   let deleteButtonThree = null;
   if (showDeleteThree) {
     deleteButtonThree = (
-      <div className={classes.InputElement}>
-        <Button onClick={deleteTenantThree}>Delete tenant</Button>
+      <div className={classes.InputAddDeleteButton}>
+        <ButtonMat
+          type="button"
+          onClick={deleteTenantThree}
+          variant="contained"
+          color="secondary"
+          size="large"
+          endIcon={<HighlightOffOutlinedIcon />}
+        >
+          {t("deleteTenant")}
+        </ButtonMat>
       </div>
     );
   }
@@ -159,8 +207,17 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   let buttonFour = null;
   if (showButtonFour) {
     buttonFour = (
-      <div className={classes.InputElement}>
-        <Button onClick={handleTenantFour}>+ Add tenant</Button>
+      <div className={classes.InputAddDeleteButton}>
+        <ButtonMat
+          type="button"
+          onClick={handleTenantFour}
+          variant="contained"
+          color="primary"
+          size="large"
+          endIcon={<GroupAddIcon />}
+        >
+          {t("addTenant")}
+        </ButtonMat>
       </div>
     );
   }
@@ -168,8 +225,17 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   let deleteButtonFour = null;
   if (showDeleteFour) {
     deleteButtonFour = (
-      <div className={classes.InputElement}>
-        <Button onClick={deleteTenantFour}>Delete tenant</Button>
+      <div className={classes.InputAddDeleteButton}>
+        <ButtonMat
+          type="button"
+          onClick={deleteTenantFour}
+          variant="contained"
+          color="secondary"
+          size="large"
+          endIcon={<HighlightOffOutlinedIcon />}
+        >
+          {t("deleteTenant")}
+        </ButtonMat>
       </div>
     );
   }
@@ -179,45 +245,84 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   if (showTenantTwoForm) {
     tenantTwoForm = (
       <>
+        <Divider variant="middle" />
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="tenantNameTwo"
               value={tenancy.tenantDetails.tenantNameTwo}
               label={t("RJ1.stepOne.tenantsName")}
               placeholder={t("RJ1.stepOne.tenantsNamePL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantName}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <PersonIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantName}
+            </FormHelperText>
           </div>
 
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="email"
               name="tenantEmailTwo"
               value={tenancy.tenantDetails.tenantEmailTwo}
               label={t("RJ1.stepOne.tenantsEmail")}
               placeholder={t("RJ1.stepOne.tenantsEmailPL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantEmail}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <EmailOutlinedIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantEmail}
+            </FormHelperText>
           </div>
         </div>
         <div className={classes.GroupInputAlone}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="tenantPhoneTwo"
               value={tenancy.tenantDetails.tenantPhoneTwo}
               label={t("RJ1.stepOne.tenantsPhone")}
               placeholder={t("RJ1.stepOne.tenantsPhonePL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantPhone}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <LocalPhoneOutlinedIcon
+                      className={classes.IconStyleMaterial}
+                    />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantPhone}
+            </FormHelperText>
           </div>
         </div>
-        <div className={classes.GroupInput}>
+        <div className={classes.DeleteAddContainerButton}>
           {deleteButtonTwo}
           {buttonThree}
         </div>
@@ -230,45 +335,84 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   if (showTenantThreeForm) {
     tenantThreeForm = (
       <>
+        <Divider variant="middle" />
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="tenantNameThree"
               value={tenancy.tenantDetails.tenantNameThree}
               label={t("RJ1.stepOne.tenantsName")}
               placeholder={t("RJ1.stepOne.tenantsNamePL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantName}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <PersonIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantName}
+            </FormHelperText>
           </div>
 
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="email"
               name="tenantEmailThree"
               value={tenancy.tenantDetails.tenantEmailThree}
               label={t("RJ1.stepOne.tenantsEmail")}
               placeholder={t("RJ1.stepOne.tenantsEmailPL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantEmail}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <EmailOutlinedIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantEmail}
+            </FormHelperText>
           </div>
         </div>
         <div className={classes.GroupInputAlone}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="tenantPhoneThree"
               value={tenancy.tenantDetails.tenantPhoneThree}
               label={t("RJ1.stepOne.tenantsPhone")}
               placeholder={t("RJ1.stepOne.tenantsPhonePL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantPhone}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <LocalPhoneOutlinedIcon
+                      className={classes.IconStyleMaterial}
+                    />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantPhone}
+            </FormHelperText>
           </div>
         </div>
-        <div className={classes.GroupInput}>
+        <div className={classes.DeleteAddContainerButton}>
           {deleteButtonThree}
           {buttonFour}
         </div>
@@ -281,45 +425,86 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   if (showTenantFourForm) {
     tenantFourForm = (
       <>
+        <Divider variant="middle" />
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="tenantNameFour"
               value={tenancy.tenantDetails.tenantNameFour}
               label={t("RJ1.stepOne.tenantsName")}
               placeholder={t("RJ1.stepOne.tenantsNamePL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantName}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <PersonIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantName}
+            </FormHelperText>
           </div>
 
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="email"
               name="tenantEmailFour"
               value={tenancy.tenantDetails.tenantEmailFour}
               label={t("RJ1.stepOne.tenantsEmail")}
               placeholder={t("RJ1.stepOne.tenantsEmailPL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantEmail}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <EmailOutlinedIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantEmail}
+            </FormHelperText>
           </div>
         </div>
         <div className={classes.GroupInputAlone}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="tenantPhoneFour"
               value={tenancy.tenantDetails.tenantPhoneFour}
               label={t("RJ1.stepOne.tenantsPhone")}
               placeholder={t("RJ1.stepOne.tenantsPhonePL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantPhone}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <LocalPhoneOutlinedIcon
+                      className={classes.IconStyleMaterial}
+                    />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantPhone}
+            </FormHelperText>
           </div>
         </div>
-        <div className={classes.GroupInputAlone}>{deleteButtonFour}</div>
+        <div className={classes.DeleteAddContainerButton}>
+          {deleteButtonFour}
+        </div>
       </>
     );
   }
@@ -328,53 +513,105 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     <form onSubmit={handleContinue}>
       <div className={classes.FormContainer}>
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="tenantName"
               value={tenancy.tenantDetails.tenantName}
               label={t("RJ1.stepOne.tenantsName")}
               placeholder={t("RJ1.stepOne.tenantsNamePL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantName}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <PersonIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantName}
+            </FormHelperText>
           </div>
 
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="email"
               name="tenantEmail"
               value={tenancy.tenantDetails.tenantEmail}
               label={t("RJ1.stepOne.tenantsEmail")}
               placeholder={t("RJ1.stepOne.tenantsEmailPL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantEmail}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <EmailOutlinedIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantEmail}
+            </FormHelperText>
           </div>
         </div>
         <div className={classes.GroupInputAlone}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="tenantPhone"
               value={tenancy.tenantDetails.tenantPhone}
               label={t("RJ1.stepOne.tenantsPhone")}
               placeholder={t("RJ1.stepOne.tenantsPhonePL")}
               onChange={(e) => handleTenant(e)}
-              error={errors.tenantPhone}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <LocalPhoneOutlinedIcon
+                      className={classes.IconStyleMaterial}
+                    />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantPhone}
+            </FormHelperText>
           </div>
         </div>
         {buttonTwo}
         {tenantTwoForm}
         {tenantThreeForm}
         {tenantFourForm}
-
-        <div className={classes.ButtonContainer}>
-          <Button onClick={() => setStep(step - 1)} type="button">
+        <div className={classes.ButtonContainerMaterial}>
+          <ButtonMat
+            type="button"
+            onClick={() => setStep(step - 1)}
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<ChevronLeftIcon />}
+          >
             {t("prevStepButton")}
-          </Button>
-          <Button type="submit">{t("nextStepButton")}</Button>
+          </ButtonMat>
+          <ButtonMat
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={<ChevronRightIcon />}
+          >
+            {t("nextStepButton")}
+          </ButtonMat>
         </div>
       </div>
     </form>

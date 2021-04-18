@@ -7,6 +7,22 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
+// Material-ui Components
+// import FormHelperText from "@material-ui/core/FormHelperText";
+// import TextField from "@material-ui/core/TextField";
+// import InputAdornment from "@material-ui/core/InputAdornment";
+// import ButtonMat from "@material-ui/core/Button";
+// import Divider from "@material-ui/core/Divider";
+
+// // Material Icons
+// import GroupAddIcon from "@material-ui/icons/GroupAdd";
+// import PersonIcon from "@material-ui/icons/Person";
+// import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
+// import LocalPhoneOutlinedIcon from "@material-ui/icons/LocalPhoneOutlined";
+// import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+// import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+// import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
+
 // Styles
 import classes from "./multi_step_form.module.scss";
 

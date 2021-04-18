@@ -13,7 +13,7 @@ Button {
   color: $white !important;
   border: none;
   border-radius: 14px;
-  background: $gradient;
+  // background: $gradient;
 
   @include xl {
     width: 11rem;
@@ -27,6 +27,6 @@ Button {
     color: $white !important;
     border: none;
     border-radius: 30px;
-    background: $gradient;
+    // background: $gradient;
   }
 }

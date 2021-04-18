@@ -171,9 +171,9 @@
   flex-direction: column;
   justify-content: center;
   @include xl {
+    margin-left: 2.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
   }
 }
 
@@ -196,25 +196,27 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 2rem 2rem;
+  margin: 2rem 0;
   width: 100%;
   @include xl {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    margin: 2rem 2rem;
+    margin: 2rem 0;
     width: 20rem;
   }
 
   .InputMaterial {
-    width: 20rem;
+    width: 27rem;
     @include xl {
-      width: 15rem;
+      width: 18rem;
+      // height: 2rem;
     }
   }
 
   .ErrorTextMaterial {
-    margin-left: 2.7rem;
     color: $danger;
+    text-align: left;
   }
 
   .IconStyleMaterial {
@@ -222,13 +224,42 @@
   }
 }
 
+.InputAddDeleteButton {
+  margin: 0.5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
 // Button Container
+
+.DeleteAddContainerButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .AloneButtonContainer {
   margin: 1rem 0;
   text-align: center;
   @include xl {
     margin: 0.8rem 0;
     text-align: center;
+  }
+}
+
+.AddButtonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 2rem 0;
+  width: 100%;
+  @include xl {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0rem 0;
   }
 }
 
@@ -260,7 +291,7 @@
   margin: 1rem 0;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   text-align: center;
   @include xl {
     margin-top: 2rem;

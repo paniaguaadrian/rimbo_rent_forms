@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 // import Button from "../../components/Button"; // This is my button component
 
 // Material-ui Components
-import Grid from "@material-ui/core/Grid";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -18,10 +17,7 @@ import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import PhoneIcon from "@material-ui/icons/Phone";
-// Icon for button to send
-// import SendIcon from "@material-ui/icons/Send";
 // Icons for buttons (prev and next)
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
 // Validation
@@ -69,26 +65,27 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
       <div className={classes.FormContainer}>
         <div className={classes.GroupInput}>
           <div className={classes.InputElementMaterial}>
-            <Grid container spacing={2} alignItems="flex-end">
-              <Grid item>
-                <HomeWorkIcon className={classes.IconStyleMaterial} />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  type="text"
-                  name="agencyName"
-                  value={tenancy.agencyName}
-                  label={t("RJ1.stepZero.agencyName")}
-                  placeholder={t("RJ1.stepZero.agencyNamePL")}
-                  onChange={(e) => handleAgency(e)}
-                  className={classes.InputMaterial}
-                  fullWidth
-                />
-              </Grid>
-              <FormHelperText className={classes.ErrorTextMaterial}>
-                {errors.agencyName}
-              </FormHelperText>
-            </Grid>
+            <TextField
+              type="text"
+              name="agencyName"
+              value={tenancy.agencyName}
+              label={t("RJ1.stepZero.agencyName")}
+              placeholder={t("RJ1.stepZero.agencyNamePL")}
+              onChange={(e) => handleAgency(e)}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <HomeWorkIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.agencyName}
+            </FormHelperText>
           </div>
           <div className={classes.InputElementMaterial}>
             <TextField
@@ -100,7 +97,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
               onChange={(e) => handleAgency(e)}
               className={classes.InputMaterial}
               fullWidth
-              // error={errors.agencyContactPerson}
+              variant="outlined"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start" disablePointerEvents={true}>
@@ -108,7 +105,6 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
                   </InputAdornment>
                 ),
               }}
-              variant="outlined"
             />
             <FormHelperText className={classes.ErrorTextMaterial}>
               {errors.agencyContactPerson}
@@ -117,28 +113,27 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
         </div>
         <div className={classes.GroupInput}>
           <div className={classes.InputElementMaterial}>
-            <Grid container spacing={1} alignItems="center">
-              <Grid item>
-                <MailOutlineIcon className={classes.IconStyleMaterial} />
-              </Grid>
-              <Grid item>
-                <TextField
-                  type="email"
-                  name="agencyEmailPerson"
-                  value={tenancy.agencyEmailPerson}
-                  label={t("RJ1.stepZero.email")}
-                  placeholder={t("RJ1.stepZero.emailPL")}
-                  onChange={(e) => handleAgency(e)}
-                  className={classes.InputMaterial}
-                  fullWidth
-                  // error={errors.agencyEmailPerson}
-                  variant="outlined"
-                />
-              </Grid>
-              <FormHelperText className={classes.ErrorTextMaterial}>
-                {errors.agencyEmailPerson}
-              </FormHelperText>
-            </Grid>
+            <TextField
+              type="email"
+              name="agencyEmailPerson"
+              value={tenancy.agencyEmailPerson}
+              label={t("RJ1.stepZero.email")}
+              placeholder={t("RJ1.stepZero.emailPL")}
+              onChange={(e) => handleAgency(e)}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <MailOutlineIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.agencyEmailPerson}
+            </FormHelperText>
           </div>
           <div className={classes.InputElementMaterial}>
             <TextField
@@ -150,7 +145,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
               onChange={(e) => handleAgency(e)}
               className={classes.InputMaterial}
               fullWidth
-              // error={errors.agencyPhonePerson}
+              variant="outlined"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -165,16 +160,6 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
           </div>
         </div>
         <div className={classes.ButtonContainerMaterial}>
-          {/* <Button type="submit">{t("nextStepButton")}</Button> */}
-          <ButtonMat
-            type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
-            startIcon={<ChevronLeftIcon />}
-          >
-            {t("prevStepButton")}
-          </ButtonMat>
           <ButtonMat
             type="submit"
             variant="contained"

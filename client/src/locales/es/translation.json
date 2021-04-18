@@ -4,6 +4,8 @@
   "submitButton": "Enviar",
   "authorize": "Enviar datos",
   "authorizeTwo": "Autorizar pago",
+  "addTenant": "Añadir inquilino",
+  "deleteTenant": "Eliminar inquilino",
   "NavBar": {
     "linkOne": "Inquilinos",
     "linkTwo": "Propietarios",

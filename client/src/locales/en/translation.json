@@ -4,6 +4,8 @@
   "submitButton": "Send",
   "authorize": "Send data",
   "authorizeTwo": "Authorize",
+  "addTenant": "Add tenant",
+  "deleteTenant": "Delete tenant",
   "NavBar": {
     "linkOne": "Tenants",
     "linkTwo": "Landlords",
