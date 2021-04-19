@@ -3,30 +3,26 @@
 
 Button {
   width: 13rem;
-  height: 3rem;
-  font-size: 1.3rem !important;
-  font-weight: 600 !important;
+  height: 3.2rem;
+  font-size: 1.7rem !important;
+  font-weight: 400 !important;
   font-family: Nunito, sans-serif;
   cursor: pointer;
   transition: all 0.2s;
-  touch-action: manipulation;
-  color: $white !important;
+  color: $white;
   border: none;
-  border-radius: 14px;
-  // background: $gradient;
+  border-radius: 20px;
 
   @include xl {
-    width: 11rem;
+    width: 12rem;
     height: 2rem;
-    font-size: 0.8rem !important;
-    font-weight: 600 !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
     font-family: Nunito, sans-serif;
     cursor: pointer;
-    transition: all 0.2s;
-    touch-action: manipulation;
-    color: $white !important;
+    transition: ease-in-out 0.2s;
+    color: $white;
     border: none;
     border-radius: 30px;
-    // background: $gradient;
   }
 }
