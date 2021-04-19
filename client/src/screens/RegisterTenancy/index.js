@@ -6,9 +6,13 @@ import FormSteps from "./form-steps";
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 
 // Material UI Icons
-import SubjectIcon from "@material-ui/icons/Subject";
-import RestoreIcon from "@material-ui/icons/Restore";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import SubjectIcon from "@material-ui/icons/Subject"; //eslint-disable-line
+import RestoreIcon from "@material-ui/icons/Restore"; //eslint-disable-line
+import MailOutlineIcon from "@material-ui/icons/MailOutline"; //eslint-disable-line
+
+import LooksOneIcon from "@material-ui/icons/LooksOne";
+import LooksTwoIcon from "@material-ui/icons/LooksTwo";
+import Looks3Icon from "@material-ui/icons/Looks3";
 
 // Reducer import
 import { TenancyReducer, DefaultTenancy } from "./tenancy-reducer";
@@ -36,17 +40,17 @@ const RegisterTenancy = ({ t }) => {
             <h1>{t("RJ1.header.title")}</h1>
             <div className={classes.HeaderInfo}>
               <div className={classes.HeaderInfoElement}>
-                <SubjectIcon className={classes.MaterialIcon} />
+                <LooksOneIcon className={classes.MaterialIcon} />
                 <p>{t("RJ1.header.subtitleOne")}</p>
               </div>
 
               <div className={classes.HeaderInfoElement}>
-                <RestoreIcon className={classes.MaterialIcon} />
+                <LooksTwoIcon className={classes.MaterialIcon} />
                 <p>{t("RJ1.header.subtitleTwo")}</p>
               </div>
 
               <div className={classes.HeaderInfoElement}>
-                <MailOutlineIcon className={classes.MaterialIcon} />
+                <Looks3Icon className={classes.MaterialIcon} />
                 <p>{t("RJ1.header.subtitleThree")}</p>
               </div>
             </div>
