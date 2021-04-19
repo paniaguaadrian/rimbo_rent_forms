@@ -24,7 +24,24 @@ import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
 import Success from "../../components/Success/Success";
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
+
+// Material-ui Components
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import ButtonMat from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+
+// Material-ui Icons
+import EuroSharpIcon from "@material-ui/icons/EuroSharp";
+import AssignmentIndSharpIcon from "@material-ui/icons/AssignmentIndSharp";
+import EditLocationIcon from "@material-ui/icons/EditLocation";
+import MarkunreadMailboxIcon from "@material-ui/icons/MarkunreadMailbox";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
+import SendIcon from "@material-ui/icons/Send";
 
 // Multilanguage
 import { withNamespaces } from "react-i18next";
@@ -34,6 +51,7 @@ import i18n from "../../i18n";
 import PlacesAutocomplete, {
   geocodeByAddress,
 } from "react-places-autocomplete";
+import { Card } from "@material-ui/core";
 
 const {
   REACT_APP_BASE_URL,
@@ -364,134 +382,182 @@ const RegisterTenant = ({ t }) => {
             >
               <div className={classes.FormContainer}>
                 <div className={classes.GroupInput}>
-                  <div className={classes.InputElement}>
-                    <Input
-                      type="number"
+                  <div className={classes.InputElementMaterial}>
+                    <TextField
+                      type="text"
                       name="monthlyNetIncome"
                       value={tenant.monthlyNetIncome}
                       label={t("RJ2.form.monthlyNetIncome")}
                       placeholder={t("RJ2.form.monthlyNetIncomePL")}
                       onChange={(e) => handleNewTenant(e)}
-                      error={errors.monthlyNetIncome}
+                      className={classes.InputMaterial}
+                      fullWidth
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment
+                            position="start"
+                            disablePointerEvents={true}
+                          >
+                            <EuroSharpIcon
+                              className={classes.IconStyleMaterial}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
                     />
+                    <FormHelperText className={classes.ErrorTextMaterial}>
+                      {errors.monthlyNetIncome}
+                    </FormHelperText>
                   </div>
-                  <div className={classes.InputElement}>
-                    <div className={classes.selectContainer}>
-                      <label className={classes.selectLabel} htmlFor="jobType">
+                  <div className={classes.InputElementMaterial}>
+                    <FormControl
+                      variant="outlined"
+                      className={classes.InputMaterial}
+                    >
+                      <InputLabel shrink id="select_label">
                         {t("RJ2.form.jobType")}
-                      </label>
-                      <select
+                      </InputLabel>
+                      <Select
+                        labelId="select_label"
+                        id="select_label"
                         required
-                        name="jobType"
-                        className={classes.selectInput}
                         value={tenant.jobType}
+                        name="jobType"
                         onChange={(e) => handleNewTenant(e)}
-                        error={errors.jobType}
+                        displayEmpty
+                        label={t("RJ1.stepTwo.service")}
                       >
-                        <option name="jobType" value={t("RJ2.form.jobTypePL")}>
+                        <MenuItem value="" disabled>
                           {t("RJ2.form.jobTypePL")}
-                        </option>
-                        <option name="jobType" value={t("RJ2.form.jobTypeOne")}>
+                        </MenuItem>
+                        <MenuItem
+                          name="jobType"
+                          value={t("RJ2.form.jobTypeOne")}
+                        >
                           {t("RJ2.form.jobTypeOne")}
-                        </option>
-                        <option name="jobType" value={t("RJ2.form.jobTypeTwo")}>
+                        </MenuItem>
+                        <MenuItem
+                          name="jobType"
+                          value={t("RJ2.form.jobTypeTwo")}
+                        >
                           {t("RJ2.form.jobTypeTwo")}
-                        </option>
-                        <option
+                        </MenuItem>
+                        <MenuItem
                           name="jobType"
                           value={t("RJ2.form.jobTypeThree")}
                         >
                           {t("RJ2.form.jobTypeThree")}
-                        </option>
-                        <option
+                        </MenuItem>
+                        <MenuItem
                           name="jobType"
                           value={t("RJ2.form.jobTypeFour")}
                         >
                           {t("RJ2.form.jobTypeFour")}
-                        </option>
-                        <option
+                        </MenuItem>
+                        <MenuItem
                           name="jobType"
                           value={t("RJ2.form.jobTypeFive")}
                         >
                           {t("RJ2.form.jobTypeFive")}
-                        </option>
-                        <option name="jobType" value={t("RJ2.form.jobTypeSix")}>
+                        </MenuItem>
+                        <MenuItem
+                          name="jobType"
+                          value={t("RJ2.form.jobTypeSix")}
+                        >
                           {t("RJ2.form.jobTypeSix")}
-                        </option>
-                        <option
+                        </MenuItem>
+                        <MenuItem
                           name="jobType"
                           value={t("RJ2.form.jobTypeSeven")}
                         >
                           {t("RJ2.form.jobTypeSeven")}
-                        </option>
-                      </select>
-                    </div>
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
                   </div>
                 </div>
                 <div className={classes.GroupInput}>
-                  <div className={classes.InputElement}>
-                    <div className={classes.selectContainer}>
-                      <label
-                        className={classes.selectLabel}
-                        htmlFor="documentType"
-                      >
+                  <div className={classes.InputElementMaterial}>
+                    <FormControl
+                      variant="outlined"
+                      className={classes.InputMaterial}
+                    >
+                      <InputLabel shrink id="select_label">
                         {t("RJ2.form.documentType")}
-                      </label>
-                      <select
+                      </InputLabel>
+
+                      <Select
+                        labelId="select_label"
+                        id="select_label"
                         required
-                        name="documentType"
-                        className={classes.selectInput}
                         value={tenant.documentType}
+                        name="documentType"
                         onChange={(e) => handleNewTenant(e)}
-                        error={errors.documentType}
+                        displayEmpty
+                        label={t("RJ2.form.documentType")}
                       >
-                        <option
-                          name="documentType"
-                          value={t("RJ2.form.documentTypePL")}
-                        >
+                        <MenuItem value="" disabled>
                           {t("RJ2.form.documentTypePL")}
-                        </option>
-                        <option
+                        </MenuItem>
+                        <MenuItem
                           name="documentType"
                           value={t("RJ2.form.documentTypeOne")}
                         >
                           {t("RJ2.form.documentTypeOne")}
-                        </option>
-                        <option
+                        </MenuItem>
+                        <MenuItem
                           name="documentType"
                           value={t("RJ2.form.documentTypeTwo")}
                         >
                           {t("RJ2.form.documentTypeTwo")}
-                        </option>
-                        <option
+                        </MenuItem>
+                        <MenuItem
                           name="documentType"
                           value={t("RJ2.form.documentTypeThree")}
                         >
                           {t("RJ2.form.documentTypeThree")}
-                        </option>
-                        <option
+                        </MenuItem>
+                        <MenuItem
                           name="documentType"
                           value={t("RJ2.form.documentTypeFour")}
                         >
                           {t("RJ2.form.documentTypeFour")}
-                        </option>
-                      </select>
-                    </div>
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
                   </div>
-                  <div className={classes.InputElement}>
-                    <Input
+                  <div className={classes.InputElementMaterial}>
+                    <TextField
                       type="text"
                       name="documentNumber"
                       value={tenant.documentNumber}
                       label={t("RJ2.form.documentNumber")}
                       placeholder={t("RJ2.form.documentNumberPL")}
                       onChange={(e) => handleNewTenant(e)}
-                      error={errors.documentNumber}
+                      className={classes.InputMaterial}
+                      fullWidth
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment
+                            position="start"
+                            disablePointerEvents={true}
+                          >
+                            <AssignmentIndSharpIcon
+                              className={classes.IconStyleMaterial}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
                     />
+                    <FormHelperText className={classes.ErrorTextMaterial}>
+                      {errors.documentNumber}
+                    </FormHelperText>
                   </div>
                 </div>
                 <div className={classes.GroupInput}>
-                  <div className={classes.InputElement}>
+                  <div className={classes.InputElementMaterial}>
                     <PlacesAutocomplete
                       value={tenantsAddress}
                       onChange={setTenantsAddress}
@@ -504,14 +570,33 @@ const RegisterTenant = ({ t }) => {
                         loading,
                       }) => (
                         <div>
-                          <Input
+                          <TextField
                             id="googleInput"
                             {...getInputProps()}
+                            type="text"
                             label={t("RJ2.form.tenantsAddress")}
                             placeholder={t("RJ2.form.tenantsAddressPL")}
+                            className={classes.InputMaterial}
+                            fullWidth
+                            variant="outlined"
                             required
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment
+                                  position="start"
+                                  disablePointerEvents={true}
+                                >
+                                  <EditLocationIcon
+                                    className={classes.IconStyleMaterial}
+                                  />
+                                </InputAdornment>
+                              ),
+                            }}
                           />
-                          <div className={classes.GoogleSuggestionContainer}>
+                          <Card
+                            raised
+                            className={classes.GoogleSuggestionContainer}
+                          >
                             {/* display sugestions */}
                             {loading ? <div>...loading</div> : null}
                             {suggestions.map((suggestion, place) => {
@@ -534,26 +619,41 @@ const RegisterTenant = ({ t }) => {
                                 </div>
                               );
                             })}
-                          </div>
+                          </Card>
                         </div>
                       )}
                     </PlacesAutocomplete>
                   </div>
-                  <div className={classes.InputElement}>
-                    <Input
-                      type="number"
+                  <div className={classes.InputElementMaterial}>
+                    <TextField
+                      type="text"
                       name="tenantsZipCode"
                       value={tenantsZipCode}
                       label={t("RJ2.form.tenantsZipCode")}
                       placeholder={t("RJ2.form.tenantsZipCodePL")}
                       onChange={setTenantsZipCode}
                       disabled
+                      className={classes.InputMaterial}
+                      fullWidth
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment
+                            position="start"
+                            disablePointerEvents={true}
+                          >
+                            <MarkunreadMailboxIcon
+                              className={classes.IconStyleMaterial}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </div>
                 </div>
 
                 <div className={classes.GroupInput}>
-                  <div className={classes.InputElement}>
+                  <div className={classes.InputElementMaterial}>
                     <InputFile
                       type="file"
                       name="DF"
@@ -562,7 +662,7 @@ const RegisterTenant = ({ t }) => {
                       required
                     />
                   </div>
-                  <div className={classes.InputElement}>
+                  <div className={classes.InputElementMaterial}>
                     <InputFile
                       type="file"
                       name="DB"
@@ -572,8 +672,8 @@ const RegisterTenant = ({ t }) => {
                     />
                   </div>
                 </div>
-                <div className={classes.GroupInputAlone}>
-                  <div className={classes.InputElement}>
+                <div className={classes.GroupInputAloneFile}>
+                  <div className={classes.InputElementMaterial}>
                     <InputFile
                       type="file"
                       name="DCA"
@@ -583,55 +683,61 @@ const RegisterTenant = ({ t }) => {
                     />
                   </div>
                 </div>
-              </div>
-
-              <div className={classes.TermsContainer}>
-                <InputCheck
-                  type="checkbox"
-                  required
-                  name="isAcceptedPrivacy"
-                  id="terms"
-                  value={tenant.isAcceptedPrivacy}
-                  // placeholder={t("RJ2.form.monthlyNetIncome")}
-                  onChange={(e) => handleNewTenant(e)}
-                  error={errors.isAcceptedPrivacy}
-                />
-                <p>
-                  {t("RJ2.form.checkbox")}
-                  <a
-                    href="https://rimbo.rent/en/privacy-policy/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-tag"
-                  >
-                    {t("RJ2.form.privacy")}
-                  </a>
-                  {t("RJ2.form.checkboxTwo")}
-                  <a
-                    href="https://rimbo.rent/en/cookies-policy/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-tag"
-                  >
-                    {t("RJ2.form.cookies")}
-                  </a>
-                  {t("RJ2.form.checkboxThree")}
-                </p>
-              </div>
-              <div className={classes.ButtonContainer}>
-                {isProcessing ? (
-                  <Loader
-                    type="Puff"
-                    color="#01d2cc"
-                    height={50}
-                    width={50}
-                    timeout={3000} //3 secs
+                <div className={classes.TermsContainer}>
+                  <InputCheck
+                    type="checkbox"
+                    required
+                    name="isAcceptedPrivacy"
+                    id="terms"
+                    value={tenant.isAcceptedPrivacy}
+                    // placeholder={t("RJ2.form.monthlyNetIncome")}
+                    onChange={(e) => handleNewTenant(e)}
+                    error={errors.isAcceptedPrivacy}
                   />
-                ) : (
-                  <Button disabled={isProcessing} type="submit">
-                    {t("submitButton")}
-                  </Button>
-                )}
+                  <p>
+                    {t("RJ2.form.checkbox")}
+                    <a
+                      href="https://rimbo.rent/en/privacy-policy/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link-tag"
+                    >
+                      {t("RJ2.form.privacy")}
+                    </a>
+                    {t("RJ2.form.checkboxTwo")}
+                    <a
+                      href="https://rimbo.rent/en/cookies-policy/"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="link-tag"
+                    >
+                      {t("RJ2.form.cookies")}
+                    </a>
+                    {t("RJ2.form.checkboxThree")}
+                  </p>
+                </div>
+                <div className={classes.ButtonContainerMaterial}>
+                  {isProcessing ? (
+                    <Loader
+                      type="Puff"
+                      color="#01d2cc"
+                      height={50}
+                      width={50}
+                      timeout={3000} //3 secs
+                    />
+                  ) : (
+                    <ButtonMat
+                      disabled={isProcessing}
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      endIcon={<SendIcon />}
+                    >
+                      {t("submitButton")}
+                    </ButtonMat>
+                  )}
+                </div>
               </div>
             </form>
           </div>

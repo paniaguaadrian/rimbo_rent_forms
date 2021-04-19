@@ -7,6 +7,12 @@ import axios from "axios";
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 import Success from "../../components/Success/Success";
 
+// Material-ui Components
+import ButtonMat from "@material-ui/core/Button";
+
+// Material-ui Icons
+import SendIcon from "@material-ui/icons/Send";
+
 // Reducer & constants
 import { TenantStripeReducer, DefaultTenant } from "./tenantStripe-reducer";
 import { UPDATE_NEWTENANT_INFO } from "./tenantStripe-constants";
@@ -357,9 +363,16 @@ const RegisterTenantCard = ({ t }) => {
                         timeout={3000} //3 secs
                       />
                     ) : (
-                      <button disabled={isProcessing || !stripe}>
+                      <ButtonMat
+                        disabled={isProcessing || !stripe}
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        endIcon={<SendIcon />}
+                      >
                         {t("authorizeTwo")}
-                      </button>
+                      </ButtonMat>
                     )}
                   </div>
                 </form>

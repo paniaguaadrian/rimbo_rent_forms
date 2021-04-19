@@ -2,13 +2,13 @@
 @import "../../styles/breakpoint";
 
 .InputFile {
-  margin-bottom: 3.5rem;
+  margin-bottom: 1rem;
   font-family: Nunito, sans-serif;
   outline: none;
   display: flex;
   flex-direction: column;
   @include xl {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     font-family: Nunito, sans-serif;
     outline: none;
     display: flex;
@@ -16,15 +16,17 @@
   }
 
   label {
-    color: $primary-color;
+    color: #808080;
     font-weight: 500;
-    font-size: 1.7rem;
+    font-size: 1rem;
     outline: none;
+    text-align: left !important;
     @include xl {
-      color: $primary-color;
+      color: #808080;
       font-weight: 500;
-      font-size: 1rem;
+      font-size: 0.8rem;
       outline: none;
+      text-align: left !important;
     }
   }
 
@@ -34,12 +36,12 @@
     padding: 0.4em 0.8em;
     border-radius: none;
     border: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-top: 1rem;
 
     @include xl {
       height: 2.3em;
-      width: 20rem;
+      width: 17rem;
       padding: 0;
 
       border-radius: none;
