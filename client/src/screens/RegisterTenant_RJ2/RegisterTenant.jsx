@@ -17,10 +17,8 @@ import { newTenant, newTenantEs } from "./tenant_validation";
 import { UPDATE_NEWTENANT_INFO } from "./tenant-constants";
 
 // Custom Components
-import Input from "../../components/Input";
 import InputCheck from "../../components/InputCheck";
 import InputFile from "../../components/InputFile";
-import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
 import Success from "../../components/Success/Success";
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
@@ -415,7 +413,7 @@ const RegisterTenant = ({ t }) => {
                       variant="outlined"
                       className={classes.InputMaterial}
                     >
-                      <InputLabel shrink id="select_label">
+                      <InputLabel id="select_label">
                         {t("RJ2.form.jobType")}
                       </InputLabel>
                       <Select
@@ -428,9 +426,6 @@ const RegisterTenant = ({ t }) => {
                         displayEmpty
                         label={t("RJ1.stepTwo.service")}
                       >
-                        <MenuItem value="" disabled>
-                          {t("RJ2.form.jobTypePL")}
-                        </MenuItem>
                         <MenuItem
                           name="jobType"
                           value={t("RJ2.form.jobTypeOne")}
@@ -483,7 +478,7 @@ const RegisterTenant = ({ t }) => {
                       variant="outlined"
                       className={classes.InputMaterial}
                     >
-                      <InputLabel shrink id="select_label">
+                      <InputLabel id="select_label">
                         {t("RJ2.form.documentType")}
                       </InputLabel>
 
@@ -497,9 +492,6 @@ const RegisterTenant = ({ t }) => {
                         displayEmpty
                         label={t("RJ2.form.documentType")}
                       >
-                        <MenuItem value="" disabled>
-                          {t("RJ2.form.documentTypePL")}
-                        </MenuItem>
                         <MenuItem
                           name="documentType"
                           value={t("RJ2.form.documentTypeOne")}

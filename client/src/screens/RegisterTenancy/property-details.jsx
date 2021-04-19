@@ -123,7 +123,7 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
         <div className={classes.GroupInput}>
           <div className={classes.InputElementMaterial}>
             <FormControl variant="outlined" className={classes.InputMaterial}>
-              <InputLabel shrink id="select_label">
+              <InputLabel id="select_label">
                 {t("RJ1.stepTwo.service")}
               </InputLabel>
               <Select
@@ -136,9 +136,6 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
                 displayEmpty
                 label={t("RJ1.stepTwo.service")}
               >
-                <MenuItem value="" disabled>
-                  {t("RJ1.stepTwo.servicePL")}
-                </MenuItem>
                 <MenuItem name="product" value={t("RJ1.stepTwo.serviceOne")}>
                   {t("RJ1.stepTwo.serviceOne")}
                 </MenuItem>

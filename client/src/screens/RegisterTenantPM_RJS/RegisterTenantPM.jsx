@@ -9,10 +9,15 @@ import classes from "./rjs_tetnant.module.scss";
 // Custom Components
 import Input from "../../components/Input";
 import InputFile from "../../components/InputFile";
-import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 import Success from "../../components/Success/Success";
+
+// Material-ui Components
+import ButtonMat from "@material-ui/core/Button";
+
+// Material-ui Icons
+import SendIcon from "@material-ui/icons/Send";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
@@ -203,9 +208,16 @@ const RegisterTenantPM = ({ t }) => {
                       timeout={3000} //3 secs
                     />
                   ) : (
-                    <Button disabled={isProcessing} type="submit">
+                    <ButtonMat
+                      disabled={isProcessing}
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      endIcon={<SendIcon />}
+                    >
                       {t("submitButton")}
-                    </Button>
+                    </ButtonMat>
                   )}
                 </div>
               </div>
