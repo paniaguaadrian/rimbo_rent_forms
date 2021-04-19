@@ -215,13 +215,9 @@ const RegisterTenant = ({ t }) => {
       tenantsEmail: tenantData.tenantsEmail,
     });
 
-    setIsSuccessfullySubmitted(true);
-  };
-
-  useEffect(() => {
-    const getData = () => {
+    const getTenancyData = async () => {
       // Change that ${REACT_APP_API_RIMBO_TENANCY}/${tenancyID} to find all tenancies
-      fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`)
+      await fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`)
         .then((res) => {
           if (res.status >= 400) {
             throw new Error("Server responds with error!" + res.status);
@@ -239,8 +235,35 @@ const RegisterTenant = ({ t }) => {
           }
         );
     };
-    getData();
-  }, [tenancyID]);
+    getTenancyData();
+
+    const getTenantData = async () => {
+      // Hemos cambiado este endpoint de REACT_APP_API_RIMBO_TENANCY al actual para hacer fetch del tenant, no necesitamos hacer fetch de toda la tenancy.
+      await fetch(
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`
+      )
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!" + res.status);
+          }
+          return res.json();
+        })
+        .then(
+          (tenantDataAfter) => {
+            setTenantDataAfter(tenantDataAfter);
+            setLoading(true);
+          },
+          (err) => {
+            setErr(err);
+            setLoading(true);
+          }
+        );
+    };
+    getTenantData();
+
+    setIsSuccessfullySubmitted(true);
+    isSent(true);
+  };
 
   const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
 
@@ -254,38 +277,6 @@ const RegisterTenant = ({ t }) => {
   };
 
   const desiredTenancy = getTenancy(randomID);
-
-  console.log(desiredTenancy);
-
-  useEffect(
-    () => {
-      const getData = () => {
-        // Hemos cambiado este endpoint de REACT_APP_API_RIMBO_TENANCY al actual para hacer fetch del tenant, no necesitamos hacer fetch de toda la tenancy.
-        fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
-          .then((res) => {
-            if (res.status >= 400) {
-              throw new Error("Server responds with error!" + res.status);
-            }
-            return res.json();
-          })
-          .then(
-            (tenantDataAfter) => {
-              setTenantDataAfter(tenantDataAfter);
-              setLoading(true);
-            },
-            (err) => {
-              setErr(err);
-              setLoading(true);
-            }
-          );
-      };
-      getData();
-    },
-    [randomID],
-    [tenantDataAfter, loading, err]
-  );
-
-  console.log(tenantDataAfter);
 
   // !Send an email with the specific data
   useEffect(() => {
