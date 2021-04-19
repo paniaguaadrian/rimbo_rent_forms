@@ -2,10 +2,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-// Custom Components
-// import Input from "../../components/Input"; // This is my input component
-// import Button from "../../components/Button"; // This is my button component
-
 // Material-ui Components
 import FormHelperText from "@material-ui/core/FormHelperText";
 import TextField from "@material-ui/core/TextField";

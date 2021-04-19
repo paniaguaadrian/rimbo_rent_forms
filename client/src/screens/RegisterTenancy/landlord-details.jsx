@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+
 // Styles
 import classes from "./multi_step_form.module.scss";
 
@@ -12,10 +13,21 @@ import { isLandlord, isLandlordEs } from "./validation";
 import { UPDATE_LANDLORD_INFO } from "./constants";
 
 // Custom Components
-import Input from "../../components/Input";
 import InputCheck from "../../components/InputCheck";
-import Button from "../../components/Button";
 import Loader from "react-loader-spinner";
+
+// Material-ui Components
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import ButtonMat from "@material-ui/core/Button";
+import FormHelperText from "@material-ui/core/FormHelperText";
+
+// Material Icons
+import LocalPhoneOutlinedIcon from "@material-ui/icons/LocalPhoneOutlined";
+import PersonIcon from "@material-ui/icons/Person";
+import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import SendIcon from "@material-ui/icons/Send";
 
 // nanoid
 import { nanoid } from "nanoid";
@@ -131,96 +143,147 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     <form onSubmit={handleSubmit}>
       <div className={classes.FormContainer}>
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="landlordName"
               value={tenancy.landlordDetails.landlordName}
               label={t("RJ1.stepThree.landlordName")}
               placeholder={t("RJ1.stepThree.landlordNamePL")}
               onChange={(e) => handleLandlord(e)}
-              error={errors.landlordName}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <PersonIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.landlordName}
+            </FormHelperText>
           </div>
-          <div className={classes.InputElement}>
-            <Input
-              type="email"
+          <div className={classes.InputElementMaterial}>
+            <TextField
+              type="text"
               name="landlordEmail"
               value={tenancy.landlordDetails.landlordEmail}
               label={t("RJ1.stepThree.landlordEmail")}
               placeholder={t("RJ1.stepThree.landlordEmailPL")}
               onChange={(e) => handleLandlord(e)}
-              error={errors.landlordEmail}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <EmailOutlinedIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.landlordEmail}
+            </FormHelperText>
           </div>
         </div>
-
         <div className={classes.GroupInputAlone}>
-          <div className={classes.InputElement}>
-            <Input
-              type="tel"
+          <div className={classes.InputElementMaterial}>
+            <TextField
+              type="text"
               name="landlordPhone"
               value={tenancy.landlordDetails.landlordPhone}
               label={t("RJ1.stepThree.landlordPhone")}
               placeholder={t("RJ1.stepThree.landlordPhonePL")}
               onChange={(e) => handleLandlord(e)}
-              error={errors.landlordPhone}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <LocalPhoneOutlinedIcon
+                      className={classes.IconStyleMaterial}
+                    />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.landlordPhone}
+            </FormHelperText>
           </div>
         </div>
-      </div>
-      <div className={classes.TermsContainer}>
-        <InputCheck
-          type="checkbox"
-          required
-          name="isAgentAccepted"
-          id="terms"
-          value={tenancy.landlordDetails.isAgentAccepted}
-          placeholder="Accept our terms and conditions"
-          onChange={(e) => handleLandlord(e)}
-          error={errors.isAgentAccepted}
-        />
-        <p>
-          {t("RJ1.stepThree.checkbox")}
-          <a
-            href="https://rimbo.rent/en/privacy-policy/"
-            target="_blank"
-            rel="noreferrer"
-            className="link-tag"
-          >
-            {t("RJ1.stepThree.privacy")}
-          </a>
-          {t("RJ1.stepThree.checkboxTwo")}
-          <a
-            href="https://rimbo.rent/en/cookies-policy/"
-            target="_blank"
-            rel="noreferrer"
-            className="link-tag"
-          >
-            {t("RJ1.stepThree.cookies")}
-          </a>
-          .
-        </p>
-      </div>
 
-      <div className={classes.ButtonContainer}>
-        <Button onClick={() => setStep(step - 1)} type="button">
-          {t("prevStepButton")}
-        </Button>
-
-        {isProcessing ? (
-          <Loader
-            type="Puff"
-            color="#01d2cc"
-            height={50}
-            width={50}
-            timeout={3000} //3 secs
+        <div className={classes.TermsContainer}>
+          <InputCheck
+            type="checkbox"
+            required
+            name="isAgentAccepted"
+            id="terms"
+            value={tenancy.landlordDetails.isAgentAccepted}
+            placeholder="Accept our terms and conditions"
+            onChange={(e) => handleLandlord(e)}
+            error={errors.isAgentAccepted}
           />
-        ) : (
-          <Button disabled={isProcessing} type="submit">
-            {t("submitButton")}
-          </Button>
-        )}
+          <p>
+            {t("RJ1.stepThree.checkbox")}
+            <a
+              href="https://rimbo.rent/en/privacy-policy/"
+              target="_blank"
+              rel="noreferrer"
+              className="link-tag"
+            >
+              {t("RJ1.stepThree.privacy")}
+            </a>
+            {t("RJ1.stepThree.checkboxTwo")}
+            <a
+              href="https://rimbo.rent/en/cookies-policy/"
+              target="_blank"
+              rel="noreferrer"
+              className="link-tag"
+            >
+              {t("RJ1.stepThree.cookies")}
+            </a>
+            .
+          </p>
+        </div>
+        <div className={classes.ButtonContainerMaterial}>
+          <ButtonMat
+            type="button"
+            onClick={() => setStep(step - 1)}
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<ChevronLeftIcon />}
+          >
+            {t("prevStepButton")}
+          </ButtonMat>
+
+          {isProcessing ? (
+            <Loader
+              type="Puff"
+              color="#01d2cc"
+              height={50}
+              width={50}
+              timeout={3000} //3 secs
+            />
+          ) : (
+            <ButtonMat
+              disabled={isProcessing}
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
+              endIcon={<SendIcon />}
+            >
+              {t("submitButton")}
+            </ButtonMat>
+          )}
+        </div>
       </div>
     </form>
   );

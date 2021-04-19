@@ -2,26 +2,27 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-// Custom Components
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+// Material-ui Components
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import ButtonMat from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+
+// Material Icons
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import EuroSymbolIcon from "@material-ui/icons/EuroSymbol";
+import EditLocationIcon from "@material-ui/icons/EditLocation";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
+import MarkunreadMailboxIcon from "@material-ui/icons/MarkunreadMailbox";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
-// Material-ui Components
-// import FormHelperText from "@material-ui/core/FormHelperText";
-// import TextField from "@material-ui/core/TextField";
-// import InputAdornment from "@material-ui/core/InputAdornment";
-// import ButtonMat from "@material-ui/core/Button";
-// import Divider from "@material-ui/core/Divider";
-
-// // Material Icons
-// import GroupAddIcon from "@material-ui/icons/GroupAdd";
-// import PersonIcon from "@material-ui/icons/Person";
-// import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
-// import LocalPhoneOutlinedIcon from "@material-ui/icons/LocalPhoneOutlined";
-// import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-// import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-// import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
+import Card from "@material-ui/core/Card";
 
 // Styles
 import classes from "./multi_step_form.module.scss";
@@ -120,62 +121,86 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     <form onSubmit={handleContinue}>
       <div className={classes.FormContainer}>
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
-            <div className={classes.selectContainer}>
-              <label className={classes.selectLabel} htmlFor="product">
+          <div className={classes.InputElementMaterial}>
+            <FormControl variant="outlined" className={classes.InputMaterial}>
+              <InputLabel shrink id="select_label">
                 {t("RJ1.stepTwo.service")}
-              </label>
-              <select
+              </InputLabel>
+              <Select
+                labelId="select_label"
+                id="select_label"
                 required
-                name="product"
-                className={classes.selectInput}
                 value={tenancy.propertyDetails.product}
+                name="product"
                 onChange={(e) => handleAgency(e)}
+                displayEmpty
+                label={t("RJ1.stepTwo.service")}
               >
-                <option name="product" value={t("RJ1.stepTwo.servicePL")}>
+                <MenuItem value="" disabled>
                   {t("RJ1.stepTwo.servicePL")}
-                </option>
-
-                <option name="product" value={t("RJ1.stepTwo.serviceOne")}>
+                </MenuItem>
+                <MenuItem name="product" value={t("RJ1.stepTwo.serviceOne")}>
                   {t("RJ1.stepTwo.serviceOne")}
-                </option>
-
-                <option name="product" value={t("RJ1.stepTwo.serviceTwo")}>
+                </MenuItem>
+                <MenuItem name="product" value={t("RJ1.stepTwo.serviceTwo")}>
                   {t("RJ1.stepTwo.serviceTwo")}
-                </option>
-
-                <option name="product" value={t("RJ1.stepTwo.serviceThree")}>
+                </MenuItem>
+                <MenuItem name="product" value={t("RJ1.stepTwo.serviceThree")}>
                   {t("RJ1.stepTwo.serviceThree")}
-                </option>
-              </select>
-            </div>
+                </MenuItem>
+              </Select>
+            </FormControl>
           </div>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="rentDuration"
               value={tenancy.propertyDetails.rentDuration}
               label={t("RJ1.stepTwo.rentDuration")}
               placeholder={t("RJ1.stepTwo.rentDurationPL")}
               onChange={(e) => handleAgency(e)}
-              error={errors.rentDuration}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <AccessTimeIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.rentDuration}
+            </FormHelperText>
           </div>
         </div>
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="rentAmount"
               value={tenancy.propertyDetails.rentAmount}
               label={t("RJ1.stepTwo.rentAmount")}
               placeholder={t("RJ1.stepTwo.rentAmountPL")}
               onChange={(e) => handleAgency(e)}
-              error={errors.rentAmount}
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <EuroSymbolIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.rentAmount}
+            </FormHelperText>
           </div>
 
-          <div className={classes.InputElement}>
+          <div className={classes.InputElementMaterial}>
             <PlacesAutocomplete
               value={rentalAddress}
               onChange={setRentalAddress}
@@ -188,14 +213,30 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
                 loading,
               }) => (
                 <div>
-                  <Input
+                  <TextField
                     id="googleInput"
                     {...getInputProps()}
+                    type="text"
                     label={t("RJ1.stepTwo.rentalAddress")}
                     placeholder={t("RJ1.stepTwo.rentalAddressPL")}
+                    className={classes.InputMaterial}
+                    fullWidth
+                    variant="outlined"
                     required
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment
+                          position="start"
+                          disablePointerEvents={true}
+                        >
+                          <EditLocationIcon
+                            className={classes.IconStyleMaterial}
+                          />
+                        </InputAdornment>
+                      ),
+                    }}
                   />
-                  <div className={classes.GoogleSuggestionContainer}>
+                  <Card raised className={classes.GoogleSuggestionContainer}>
                     {/* display sugestions */}
                     {loading ? <div>...loading</div> : null}
                     {suggestions.map((suggestion, place) => {
@@ -218,15 +259,15 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
                         </div>
                       );
                     })}
-                  </div>
+                  </Card>
                 </div>
               )}
             </PlacesAutocomplete>
           </div>
         </div>
         <div className={classes.GroupInput}>
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="rentalCity"
               value={rentalCity}
@@ -234,12 +275,25 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
               placeholder={t("RJ1.stepTwo.rentalCityPL")}
               onChange={setRentalCity}
               onSelect={handleSelect}
+              className={classes.InputMaterial}
+              fullWidth
               disabled
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <LocationCityIcon className={classes.IconStyleMaterial} />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantName}
+            </FormHelperText>
           </div>
 
-          <div className={classes.InputElement}>
-            <Input
+          <div className={classes.InputElementMaterial}>
+            <TextField
               type="text"
               name="rentalPostalCode"
               value={rentalPostalCode}
@@ -248,14 +302,44 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
               onChange={setRentalPostalCode}
               onSelect={handleSelect}
               disabled
+              className={classes.InputMaterial}
+              fullWidth
+              variant="outlined"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" disablePointerEvents={true}>
+                    <MarkunreadMailboxIcon
+                      className={classes.IconStyleMaterial}
+                    />
+                  </InputAdornment>
+                ),
+              }}
             />
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.tenantName}
+            </FormHelperText>
           </div>
         </div>
-        <div className={classes.ButtonContainer}>
-          <Button onClick={() => setStep(step - 1)} type="button">
+        <div className={classes.ButtonContainerMaterial}>
+          <ButtonMat
+            type="button"
+            onClick={() => setStep(step - 1)}
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<ChevronLeftIcon />}
+          >
             {t("prevStepButton")}
-          </Button>
-          <Button type="submit">{t("nextStepButton")}</Button>
+          </ButtonMat>
+          <ButtonMat
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={<ChevronRightIcon />}
+          >
+            {t("nextStepButton")}
+          </ButtonMat>
         </div>
       </div>
     </form>
