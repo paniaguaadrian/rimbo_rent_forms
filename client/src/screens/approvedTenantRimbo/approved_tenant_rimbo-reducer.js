@@ -1,6 +1,7 @@
 import { UPDATE_NEWTENANT_RIMBO_APPROVED } from "./approved_tenant_rimbo-constants";
 
 export const DefaultTenant = {
+  isAllTenantsAccepted: true,
   isRimboAccepted: true,
 };
 

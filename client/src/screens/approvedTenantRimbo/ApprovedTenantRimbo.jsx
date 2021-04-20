@@ -21,6 +21,7 @@ import SuccessImage from "../../images/success-image.svg";
 const {
   REACT_APP_BASE_URL,
   REACT_APP_API_RIMBO_TENANCY,
+  REACT_APP_API_RIMBO_TENANCIES,
   REACT_APP_API_RIMBO_TENANT,
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
@@ -28,64 +29,123 @@ const {
 const ApprovedTenantRimbo = ({ t }) => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
+  const randomIDSend = tenancyID;
   const [tenant] = useReducer(TenantReducer, DefaultTenant);
 
   const [state, setState] = useState(null); // eslint-disable-line
+  const [tenancyState, setTenancyState] = useState(null); // eslint-disable-line
 
   useEffect(() => {
-    // Simplify fetchUserData.
-    const fetchUserData = () =>
+    // ! TENANT: Simplify fetch tenant Data.
+    const fetchTenantData = () =>
       axios.get(
-        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`
       );
 
-    // Add body to post decision. So we can send data.
+    // ! TENANT: Add body to post decision. So we can send data. For tenant
     const postDecision = (body) =>
       axios.post(
         `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/approved`,
         body
       );
 
+    // ! TENANCY: Simplofy fetch tenancy Data.
+    const fetchTenancyData = () =>
+      axios.get(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`);
+
+    // ! TENANCY: Add body to post decision. So we can send data. For tenancy
+    const postTenancyDecision = (body) =>
+      axios.post(
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}/allTenantsAccepted`,
+        body
+      );
+
     const processDecision = async () => {
-      const { data: tenancyData } = await fetchUserData();
-      // let's console.log userData here, so we know it is in the right format.
-      // console.log(tenancyData);
+      // ! TENANT
+      const { data: tenantData } = await fetchTenantData();
 
       const postBody = {
-        // use some logic based on tenancyData here to make the postBody
         isRimboAccepted: tenant.isRimboAccepted,
-        randomID: tenancyData.tenant.randomID,
+        randomID: tenantData.randomID,
       };
 
-      // If the above use of {data} is correct it should be correct here too.
       const { data: decisionResult } = await postDecision(postBody);
-      // console.log(postBody);
-
-      const { tenantsName, randomID } = tenancyData.tenant;
-      const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
-      const tenancyID = tenancyData.tenancyID;
-
-      const emailData = {
-        tenantsName,
-        agencyContactPerson,
-        agencyEmailPerson,
-        tenancyID,
-        randomID,
-      };
-
-      if (tenancyData.tenant.isRimboAccepted === false) {
-        if (i18n.language === "en") {
-          axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
-        } else {
-          axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
-        }
-      }
 
       setState(decisionResult);
+
+      // ! TENANCY (AFTER TENANT IS ALL ACCEPTED)
+
+      const { data: tenancyData } = await fetchTenancyData();
+      // console.log(tenancyData);
+
+      const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
+
+      const getTenancy = (randomID) => {
+        for (let tenancy of tenancyData) {
+          for (let key in tenancy) {
+            if (!tenants.includes(key)) continue;
+            if (tenancy[key].randomID === randomID) return tenancy;
+          }
+        }
+      };
+
+      const desiredTenancy = getTenancy(randomID);
+      console.log(desiredTenancy);
+
+      const hasFilled = Object.keys(desiredTenancy)
+        .map((key) => {
+          const isExist = tenants.includes(key);
+          if (isExist) return desiredTenancy[key].isRimboAccepted;
+          return isExist;
+        })
+        .filter((item) => item !== undefined)
+        .some((x) => x);
+
+      console.log(hasFilled);
+
+      if (hasFilled) {
+        if (!desiredTenancy.isAllTenantsAccepted) {
+          const postTenancyBody = {
+            isAllTenantsAccepted: tenant.isAllTenantsAccepted,
+            tenancyID: desiredTenancy.tenancyID,
+          };
+
+          const { data: decisionTenancyResult } = await postTenancyDecision(
+            postTenancyBody
+          );
+
+          const { tenantsName, randomIDSend } = tenantData;
+          const {
+            agencyContactPerson,
+            agencyEmailPerson,
+          } = desiredTenancy.agent;
+          const tenancyID = desiredTenancy.tenancyID;
+          const emailData = {
+            tenantsName,
+            agencyContactPerson,
+            agencyEmailPerson,
+            tenancyID,
+            randomID: randomIDSend,
+          };
+
+          if (i18n.language === "en") {
+            axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
+          } else {
+            axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
+          }
+          setTenancyState(decisionTenancyResult);
+        }
+      }
     };
 
     processDecision();
-  }, [randomID, tenant.isRimboAccepted, tenancyID]);
+  }, [
+    tenant.isRimboAccepted,
+    tenancyID,
+    randomID,
+    randomIDSend,
+    tenant.isAllTenantsAccepted,
+  ]);
 
   return (
     <>
