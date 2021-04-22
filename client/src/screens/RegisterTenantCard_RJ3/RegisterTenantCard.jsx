@@ -54,7 +54,8 @@ const CARD_ELEMENT_OPTIONS = {
 // End-Points env
 const {
   REACT_APP_BASE_URL,
-  REACT_APP_API_RIMBO_TENANCY,
+  // REACT_APP_API_RIMBO_TENANCY,
+  REACT_APP_API_RIMBO_TENANCIES,
   REACT_APP_API_RIMBO_TENANT,
   REACT_APP_BASE_URL_STRIPE,
   REACT_APP_API_RIMBO_TENANT_STRIPE,
@@ -75,6 +76,7 @@ const RegisterTenantCard = ({ t }) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const [tenantData, setTenantData] = useState([]);
   const [tenancyData, setTenancyData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null); //eslint-disable-line
@@ -82,9 +84,35 @@ const RegisterTenantCard = ({ t }) => {
   const [state, setState] = useState(null); // eslint-disable-line
 
   // ! Fetch data from DB to autocomplete input form
+  // ! tenantData
   useEffect(() => {
     const getData = () => {
-      fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`)
+      fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
+        .then((res) => {
+          if (res.status >= 400) {
+            throw new Error("Server responds with error!" + res.status);
+          }
+          return res.json();
+        })
+        .then(
+          (tenantData) => {
+            setTenantData(tenantData);
+            setLoading(false);
+          },
+          (err) => {
+            setErr(err);
+            setLoading(false);
+          }
+        );
+    };
+    getData();
+  }, [randomID]);
+
+  // ! Fetch data from DB to autocomplete input form
+  // ! tenancyData
+  useEffect(() => {
+    const getTenancyData = () => {
+      fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`)
         .then((res) => {
           if (res.status >= 400) {
             throw new Error("Server responds with error!" + res.status);
@@ -102,16 +130,33 @@ const RegisterTenantCard = ({ t }) => {
           }
         );
     };
-    getData();
-  }, [tenancyID]);
+    getTenancyData();
+  }, []);
+
+  const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
+
+  const getTenancy = (randomID) => {
+    for (let tenancy of tenancyData) {
+      for (let key in tenancy) {
+        if (!tenants.includes(key)) continue;
+        if (tenancy[key].randomID === randomID) return tenancy;
+      }
+    }
+  };
+
+  const desiredTenancy = getTenancy(randomID);
+  console.log(desiredTenancy);
 
   // ! Fetch data to send email notification to Gloria when tenant enters to that page (one time)
   useEffect(() => {
     // fetch data from DB
     const fetchUserData = () =>
       axios.get(
-        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`
       );
+
+    const fetchTenancyData = () =>
+      axios.get(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`);
 
     const postDecision = (body) =>
       axios.post(
@@ -120,20 +165,35 @@ const RegisterTenantCard = ({ t }) => {
       );
 
     const processDecision = async () => {
-      const { data: tenancyData } = await fetchUserData();
+      const { data: tenantData } = await fetchUserData();
+      const { data: tenancyData } = await fetchTenancyData();
+
+      const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
+
+      const getTenancy = (randomID) => {
+        for (let tenancy of tenancyData) {
+          for (let key in tenancy) {
+            if (!tenants.includes(key)) continue;
+            if (tenancy[key].randomID === randomID) return tenancy;
+          }
+        }
+      };
+
+      const desiredTenancy = getTenancy(randomID);
+      console.log(desiredTenancy);
 
       const postBody = {
         // use some logic based on tenancyData here to make the postBody
         isTrying: tenant.isTrying,
-        randomID: tenancyData.tenant.randomID,
+        randomID: tenantData.randomID,
       };
 
       const { data: decisionResult } = await postDecision(postBody);
 
-      const { tenantsName, tenantsEmail, tenantsPhone } = tenancyData.tenant;
-      const { agencyName } = tenancyData.agent;
+      const { tenantsName, tenantsEmail, tenantsPhone } = tenantData;
+      const { agencyName } = desiredTenancy.agent;
 
-      if (tenancyData.tenant.isTrying === false) {
+      if (tenantData.isTrying === false) {
         axios.post(`${REACT_APP_BASE_URL_EMAIL}/e2r`, {
           tenantsName,
           tenantsEmail,
@@ -145,7 +205,7 @@ const RegisterTenantCard = ({ t }) => {
       setState(decisionResult);
     };
     processDecision();
-  }, [randomID, tenant.isTrying, tenancyID]);
+  }, []); // eslint-disable-line
 
   // Handle on change
   const handleNewTenant = ({ target }) => {
@@ -219,10 +279,10 @@ const RegisterTenantCard = ({ t }) => {
             tenantsEmail,
             tenantsPhone,
             timestamps,
-            agencyEmailPerson: tenancyData.agent.agencyEmailPerson,
-            agencyContactPerson: tenancyData.agent.agencyContactPerson,
-            agencyName: tenancyData.agent.agencyName,
-            rentalAddress: tenancyData.property.rentalAddress,
+            agencyEmailPerson: desiredTenancy.agent.agencyEmailPerson,
+            agencyContactPerson: desiredTenancy.agent.agencyContactPerson,
+            agencyName: desiredTenancy.agent.agencyName,
+            rentalAddress: desiredTenancy.property.rentalAddress,
             randomID,
             tenancyID,
           });
@@ -232,10 +292,10 @@ const RegisterTenantCard = ({ t }) => {
             tenantsEmail,
             tenantsPhone,
             timestamps,
-            agencyEmailPerson: tenancyData.agent.agencyEmailPerson,
-            agencyContactPerson: tenancyData.agent.agencyContactPerson,
-            agencyName: tenancyData.agent.agencyName,
-            rentalAddress: tenancyData.property.rentalAddress,
+            agencyEmailPerson: desiredTenancy.agent.agencyEmailPerson,
+            agencyContactPerson: desiredTenancy.agent.agencyContactPerson,
+            agencyName: desiredTenancy.agent.agencyName,
+            rentalAddress: desiredTenancy.property.rentalAddress,
             randomID,
             tenancyID,
           });
@@ -278,7 +338,7 @@ const RegisterTenantCard = ({ t }) => {
                       <input
                         id="name"
                         type="text"
-                        value={tenancyData.tenant.tenantsName}
+                        value={tenantData.tenantsName}
                         disabled
                       />
                     </div>
@@ -287,7 +347,7 @@ const RegisterTenantCard = ({ t }) => {
                       <input
                         id="email"
                         type="text"
-                        value={tenancyData.tenant.tenantsEmail}
+                        value={tenantData.tenantsEmail}
                         disabled
                       />
                     </div>
@@ -296,7 +356,7 @@ const RegisterTenantCard = ({ t }) => {
                       <input
                         id="phone"
                         type="text"
-                        value={tenancyData.tenant.tenantsPhone}
+                        value={tenantData.tenantsPhone}
                         disabled
                       />
                     </div>
@@ -326,7 +386,7 @@ const RegisterTenantCard = ({ t }) => {
                         {t("RJ3.form.extraInfo")}
                         <span>
                           <b>
-                            {tenancyData.product}
+                            {/* {desiredTenancy.product} */}
                             {t("RJ3.form.extraInfoTwo")}
                           </b>
                         </span>

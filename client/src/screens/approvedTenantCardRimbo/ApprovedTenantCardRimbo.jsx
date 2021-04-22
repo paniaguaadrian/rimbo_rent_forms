@@ -3,9 +3,6 @@ import React, { useEffect, useState, useReducer } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-// Reducers
-import { TenantReducer, DefaultTenant } from "./approved_tenant_card-reducer";
-
 // Custom Components
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 import Success from "../../components/Success/Success";
@@ -14,6 +11,9 @@ import Success from "../../components/Success/Success";
 import { withNamespaces } from "react-i18next";
 import i18n from "../../i18n";
 
+// Reducer
+import { TenantReducer, DefaultTenant } from "./approved_tenant_card-reducer";
+
 // Images
 import SuccessImage from "../../images/success-image.svg";
 
@@ -21,6 +21,7 @@ import SuccessImage from "../../images/success-image.svg";
 const {
   REACT_APP_BASE_URL,
   REACT_APP_API_RIMBO_TENANCY,
+  REACT_APP_API_RIMBO_TENANCIES,
   REACT_APP_API_RIMBO_TENANT,
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
@@ -28,69 +29,126 @@ const {
 const ApprovedTenantCardRimbo = ({ t }) => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
-
+  const randomIDSend = tenancyID;
   const [tenant] = useReducer(TenantReducer, DefaultTenant);
+
   const [state, setState] = useState(null); // eslint-disable-line
+  const [tenancyState, setTenancyState] = useState(null); // eslint-disable-line
 
   useEffect(() => {
-    // Simplify fetchUserData.
-    const fetchUserData = () =>
+    // ! TENANT: Simplify fetch tenant Data.
+    const fetchTenantData = () =>
       axios.get(
-        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`
       );
 
-    // Add body to post decision. So we can send data.
+    // ! TENANT: Add body to post decision. So we can send data. For tenant
     const postDecision = (body) =>
       axios.post(
         `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/card/approved`,
         body
       );
 
+    // ! TENANCY: Simplply fetch tenancy Data.
+    const fetchTenancyData = () =>
+      axios.get(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`);
+
+    // ! TENANCY: Add body to post decision. So we can send data. For tenancy
+    const postTenancyDecision = (body) =>
+      axios.post(
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}/allTenantsCardAccepted`,
+        body
+      );
+
     const processDecision = async () => {
-      const { data: tenancyData } = await fetchUserData();
-      // let's console.log userData here, so we know it is in the right format.
-      //   console.log(tenancyData);
+      // ! TENANT
+      const { data: tenantData } = await fetchTenantData();
 
       const postBody = {
-        // use some logic based on tenancyData here to make the postBody
         isCardAccepted: tenant.isCardAccepted,
-        randomID: tenancyData.tenant.randomID,
+        randomID: tenantData.randomID,
       };
 
-      // If the above use of {data} is correct it should be correct here too.
       const { data: decisionResult } = await postDecision(postBody);
-      // console.log(postBody);
 
-      const { tenantsName, tenantsEmail } = tenancyData.tenant;
+      setState(decisionResult);
 
-      const {
-        agencyContactPerson,
-        agencyEmailPerson,
-        agencyName,
-      } = tenancyData.agent;
+      // ! TENANCY (AFTER TENANT IS ALL ACCEPTED)
 
-      const emailData = {
-        tenantsName,
-        tenantsEmail,
-        agencyContactPerson,
-        agencyEmailPerson,
-        agencyName,
-        tenancyID,
-        randomID,
+      const { data: tenancyData } = await fetchTenancyData();
+      // console.log(tenancyData);
+
+      const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
+
+      const getTenancy = (randomID) => {
+        for (let tenancy of tenancyData) {
+          for (let key in tenancy) {
+            if (!tenants.includes(key)) continue;
+            if (tenancy[key].randomID === randomID) return tenancy;
+          }
+        }
       };
 
-      if (tenancyData.tenant.isCardAccepted === false) {
-        if (i18n.language === "en") {
-          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj15`, emailData);
-        } else {
-          await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj15`, emailData);
+      const desiredTenancy = getTenancy(randomID);
+      console.log(desiredTenancy);
+
+      const hasAccepted = Object.keys(desiredTenancy)
+        // eslint-disable-next-line
+        .map((key) => {
+          const isExist = tenants.includes(key);
+          if (isExist) {
+            const thisONE = desiredTenancy[key].isCardAccepted;
+            console.log(thisONE);
+            return thisONE;
+          }
+          // return isExist; // If i return isExist I see false on console
+        })
+        .filter((item) => item !== undefined)
+        .every((x) => x);
+
+      console.log(hasAccepted);
+
+      if (hasAccepted) {
+        if (!desiredTenancy.isAllCardsAccepted) {
+          const postTenancyBody = {
+            isAllCardsAccepted: tenant.isAllCardsAccepted,
+            tenancyID: desiredTenancy.tenancyID,
+          };
+
+          const { data: decisionTenancyResult } = await postTenancyDecision(
+            postTenancyBody
+          );
+          const { tenantsName, tenantsEmail, randomIDSend } = tenantData;
+
+          const {
+            agencyContactPerson,
+            agencyEmailPerson,
+            agencyName,
+          } = desiredTenancy.agent;
+
+          const emailData = {
+            tenantsName,
+            tenantsEmail,
+            agencyContactPerson,
+            agencyEmailPerson,
+            agencyName,
+            tenancyID: desiredTenancy.tenancyID,
+            randomID: randomIDSend,
+          };
+
+          if (i18n.language === "en") {
+            await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj15`, emailData);
+          } else {
+            await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj15`, emailData);
+          }
+
+          setTenancyState(decisionTenancyResult);
         }
       }
-      setState(decisionResult);
     };
 
     processDecision();
-  }, [randomID, tenancyID, tenant.isCardAccepted]);
+  }, [randomID, tenancyID, tenant, randomIDSend]);
 
   return (
     <>

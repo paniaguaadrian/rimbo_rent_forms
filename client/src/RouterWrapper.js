@@ -15,7 +15,7 @@ import RegisterTenantCard from "./screens/RegisterTenantCard_RJ3/StripeHandlerCo
 import RegisterTenantPM from "./screens/RegisterTenantPM_RJS/RegisterTenantPM";
 // Approved
 import ApprovedTenantRimbo from "./screens/approvedTenantRimbo/ApprovedTenantRimbo";
-import ApprovedTenantPM from "./screens/approvedTenantPM/ApprovedTenantPM";
+import ApprovedTenancyPM from "./screens/approvedTenancyPM/ApprovedTenancyPM";
 import ApprovedTenantCardRimbo from "./screens/approvedTenantCardRimbo/ApprovedTenantCardRimbo";
 import ApprovedTenancyRimbo from "./screens/approvedTenancyRimbo/ApprovedTenancyRimbo";
 // Rejected
@@ -53,8 +53,8 @@ const RouterWrapper = () => {
             component={RejectedTenantRimbo}
           />
           <Route
-            path="/register/tenant/:tenancyID/pm/approved"
-            component={ApprovedTenantPM}
+            path="/register/tenancy/:tenancyID/pm/approved"
+            component={ApprovedTenancyPM}
           />
           <Route
             path="/register/card/:tenancyID/card/approved"

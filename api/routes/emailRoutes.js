@@ -10,7 +10,8 @@ import {
   sendRJ15Emails,
   sendRJSFormEmail,
   sendRJ3FilesEmail,
-  sendRJ18Email,
+  sendRJ18EmailTT,
+  sendRJ18EmailPM,
   sendNotificationRimbo,
 } from "../controllers/emailsController.js";
 
@@ -25,6 +26,7 @@ router.route("/rjpm").post(sendPMEmails);
 router.route("/rj3").post(sendRJ3FormEmail);
 router.route("/rj15").post(sendRJ15Emails);
 router.route("/rjs").post(sendRJSFormEmail);
-router.route("/rj18").post(sendRJ18Email);
+router.route("/rj18tt").post(sendRJ18EmailTT);
+router.route("/rj18pm").post(sendRJ18EmailPM);
 
 export default router;

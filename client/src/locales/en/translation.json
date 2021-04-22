@@ -185,10 +185,10 @@
     "title": "The tenant has been accepted after the debit card request.",
     "subTitle": "The tenant and property manager have been receive an email confirmation."
   },
-  "approvedTenantPM": {
-    "helmet": "Tenant approved by PM - Rimbo - The new way of rent",
-    "title": "You have successfully accepted the tenant",
-    "subTitle": "Both you and the tenant will receive an email with the details of the process"
+  "approvedTenancyPM": {
+    "helmet": "Tenancy approved by PM - Rimbo - The new way of rent",
+    "title": "You have successfully accepted the tenancy",
+    "subTitle": "Both you and the tenant(s) will receive an email with the details of the process"
   },
   "approvedTenantRimbo": {
     "helmet": "Tenant approved by Rimbo - Rimbo - The new way of rent",

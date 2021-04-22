@@ -49,7 +49,7 @@ const ApprovedTenantRimbo = ({ t }) => {
         body
       );
 
-    // ! TENANCY: Simplofy fetch tenancy Data.
+    // ! TENANCY: Simplply fetch tenancy Data.
     const fetchTenancyData = () =>
       axios.get(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`);
 
@@ -92,18 +92,23 @@ const ApprovedTenantRimbo = ({ t }) => {
       const desiredTenancy = getTenancy(randomID);
       console.log(desiredTenancy);
 
-      const hasFilled = Object.keys(desiredTenancy)
+      const hasAccepted = Object.keys(desiredTenancy)
+        // eslint-disable-next-line
         .map((key) => {
           const isExist = tenants.includes(key);
-          if (isExist) return desiredTenancy[key].isRimboAccepted;
-          return isExist;
+          if (isExist) {
+            const thisONE = desiredTenancy[key].isRimboAccepted;
+            console.log(thisONE);
+            return thisONE;
+          }
+          // return isExist; // If i return isExist I see false on console
         })
         .filter((item) => item !== undefined)
-        .some((x) => x);
+        .every((x) => x);
 
-      console.log(hasFilled);
+      console.log(hasAccepted);
 
-      if (hasFilled) {
+      if (hasAccepted) {
         if (!desiredTenancy.isAllTenantsAccepted) {
           const postTenancyBody = {
             isAllTenantsAccepted: tenant.isAllTenantsAccepted,
