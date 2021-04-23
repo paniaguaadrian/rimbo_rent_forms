@@ -32,6 +32,12 @@ import classes from "./multi_step_form.module.scss";
 const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [errors, setErrors] = useState({});
 
+  // Scroll to top
+  const optionsTop = {
+    top: 0,
+    behavior: "smooth",
+  };
+
   // Handle on change
   const handleAgency = ({ target }) => {
     setTenancy({
@@ -54,6 +60,7 @@ const AgencyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     }
 
     setStep(step + 1);
+    window.scrollTo(optionsTop);
   };
 
   return (

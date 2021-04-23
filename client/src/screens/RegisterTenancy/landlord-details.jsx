@@ -47,6 +47,12 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [errors, setErrors] = useState({});
   const [isProcessing, setProcessingTo] = useState(false);
 
+  // Scroll to top
+  const optionsTop = {
+    top: 0,
+    behavior: "smooth",
+  };
+
   // Handle on change
   const handleLandlord = ({ target }) => {
     setTenancy({
@@ -136,7 +142,15 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
       await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj1`, tenancyData);
     }
 
+    window.scrollTo(optionsTop);
     setStep(step + 1);
+  };
+
+  // Handle on previous
+  const handlePrevious = (e) => {
+    e.preventDefault();
+    window.scrollTo(optionsTop);
+    setStep(step - 1);
   };
 
   return (
@@ -254,7 +268,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
         <div className={classes.ButtonContainerMaterial}>
           <ButtonMat
             type="button"
-            onClick={() => setStep(step - 1)}
+            onClick={handlePrevious}
             variant="contained"
             color="primary"
             size="large"

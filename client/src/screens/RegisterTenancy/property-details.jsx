@@ -49,6 +49,12 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [rentalCity, setRentalCity] = useState("");
   const [rentalPostalCode, setRentalPostalCode] = useState("");
 
+  // Scroll to top
+  const optionsTop = {
+    top: 0,
+    behavior: "smooth",
+  };
+
   // Google Maps Address and Zip Code
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
@@ -114,7 +120,15 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
       if (Object.keys(errors).length > 0) return;
     }
 
+    window.scrollTo(optionsTop);
     setStep(step + 1);
+  };
+
+  // Handle on previous
+  const handlePrevious = (e) => {
+    e.preventDefault();
+    window.scrollTo(optionsTop);
+    setStep(step - 1);
   };
 
   return (
@@ -320,7 +334,7 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
         <div className={classes.ButtonContainerMaterial}>
           <ButtonMat
             type="button"
-            onClick={() => setStep(step - 1)}
+            onClick={handlePrevious}
             variant="contained"
             color="primary"
             size="large"

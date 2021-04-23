@@ -52,12 +52,19 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   const [showTenantThreeForm, setShowTenantThreeForm] = useState(false);
   const [showTenantFourForm, setShowTenantFourForm] = useState(false);
 
+  // Scroll to top
+  const optionsTop = {
+    top: 0,
+    behavior: "smooth",
+  };
+
   // ! Add tenant Two
   // Toggle button to show Tenant 2 form
   const handleTenantTwo = (e) => {
     e.preventDefault();
     setShowTenantTwoForm(true);
     setShowButtonTwo(false);
+    window.scrollTo(0, document.body.scrollHeight);
   };
   // Button to delete Tenant 2 form / Data
   const deleteTenantTwo = (e) => {
@@ -66,6 +73,10 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     setShowButtonTwo(true);
     setTenancy({
       type: DELETE_TENANTTWO_INFO,
+    });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
     });
   };
 
@@ -76,6 +87,7 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     setShowTenantThreeForm(true);
     setShowButtonThree(false);
     setShowDeleteTwo(false);
+    window.scrollTo(0, document.body.scrollHeight);
   };
   // Button to delete Tenant 3 form / Data
   const deleteTenantThree = (e) => {
@@ -86,6 +98,10 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     setTenancy({
       type: DELETE_TENANTTHREE_INFO,
     });
+    window.scrollTo({
+      top: 150,
+      behavior: "smooth",
+    });
   };
 
   // ! Add tenant Four
@@ -95,6 +111,7 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     setShowTenantFourForm(true);
     setShowButtonFour(false);
     setShowDeleteThree(false);
+    window.scrollTo(0, document.body.scrollHeight);
   };
   // Button to delete Tenant 4 form / Data
   const deleteTenantFour = (e) => {
@@ -104,6 +121,10 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     setShowDeleteThree(true);
     setTenancy({
       type: DELETE_TENANTFOUR_INFO,
+    });
+    window.scrollTo({
+      top: 500,
+      behavior: "smooth",
     });
   };
 
@@ -127,8 +148,15 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
       setErrors(errors);
       if (Object.keys(errors).length > 0) return;
     }
-
+    window.scrollTo(optionsTop);
     setStep(step + 1);
+  };
+
+  // Handle on previous
+  const handlePrevious = (e) => {
+    e.preventDefault();
+    window.scrollTo(optionsTop);
+    setStep(step - 1);
   };
 
   // Button to show tenant 2 form
@@ -597,7 +625,7 @@ const TenantDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
         <div className={classes.ButtonContainerMaterial}>
           <ButtonMat
             type="button"
-            onClick={() => setStep(step - 1)}
+            onClick={handlePrevious}
             variant="contained"
             color="primary"
             size="large"
