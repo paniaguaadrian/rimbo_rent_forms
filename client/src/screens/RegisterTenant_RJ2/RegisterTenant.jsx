@@ -88,6 +88,12 @@ const RegisterTenant = ({ t }) => {
   const [tenantsAddress, setTenantsAddress] = useState("");
   const [tenantsZipCode, setTenantsZipCode] = useState("");
 
+  // Scroll to top
+  const optionsTop = {
+    top: 0,
+    behavior: "smooth",
+  };
+
   // Google Maps Address and Zip Code
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
@@ -263,6 +269,7 @@ const RegisterTenant = ({ t }) => {
 
     setIsSuccessfullySubmitted(true);
     isSent(true);
+    window.scrollTo(optionsTop);
   };
 
   const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];

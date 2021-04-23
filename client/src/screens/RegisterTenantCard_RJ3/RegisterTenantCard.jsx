@@ -83,6 +83,12 @@ const RegisterTenantCard = ({ t }) => {
 
   const [state, setState] = useState(null); // eslint-disable-line
 
+  // Scroll to top
+  const optionsTop = {
+    top: 0,
+    behavior: "smooth",
+  };
+
   // ! Fetch data from DB to autocomplete input form
   // ! tenantData
   useEffect(() => {
@@ -304,6 +310,7 @@ const RegisterTenantCard = ({ t }) => {
     } catch (err) {
       setCheckoutError(err.message);
     }
+    window.scrollTo(optionsTop);
   };
 
   return (

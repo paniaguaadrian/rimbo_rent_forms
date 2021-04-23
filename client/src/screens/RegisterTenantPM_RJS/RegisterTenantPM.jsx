@@ -51,6 +51,12 @@ const RegisterTenantPM = ({ t }) => {
     pmAnex: null,
   });
 
+  // Scroll to top
+  const optionsTop = {
+    top: 0,
+    behavior: "smooth",
+  };
+
   useEffect(() => {
     const getData = () => {
       fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCY}/${tenancyID}`)
@@ -107,6 +113,7 @@ const RegisterTenantPM = ({ t }) => {
 
     isSent(true);
     setIsSuccessfullySubmitted(true);
+    window.scrollTo(optionsTop);
   };
 
   useEffect(() => {
