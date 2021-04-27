@@ -6,6 +6,7 @@ export const DefaultTenant = {
   documentType: "",
   documentNumber: "",
   isAcceptedPrivacy: true,
+  stageOne: 5,
 };
 
 export const TenantReducer = (newTenant, { type, payload }) => {

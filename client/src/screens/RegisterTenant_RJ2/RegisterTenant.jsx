@@ -210,6 +210,7 @@ const RegisterTenant = ({ t }) => {
         tenantsAddress: tenantsAddress,
         tenantsZipCode: tenantsZipCode,
         isAcceptedPrivacy: tenant.isAcceptedPrivacy,
+        stageOne: tenant.stageOne,
         randomID: tenancyID,
       }
     );
