@@ -80,6 +80,8 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
     const randomIDThree = nanoid();
     const randomIDFour = nanoid();
 
+    const agencyLanguage = i18n.language;
+
     const tenancyData = {
       // tenant
       tenantsName: tenancy.tenantDetails.tenantName,
@@ -112,6 +114,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
       agencyContactPerson: tenancy.agencyContactPerson,
       agencyPhonePerson: tenancy.agencyPhonePerson,
       isAgentAccepted: tenancy.landlordDetails.isAgentAccepted,
+      agencyLanguage: agencyLanguage,
       // property
       rentalCity: tenancy.propertyDetails.rentalCity,
       rentalPostalCode: tenancy.propertyDetails.rentalPostalCode,
@@ -134,6 +137,8 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
       `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`,
       tenancyData
     );
+
+    // TODO: Email action for tenant, and for PM (different cause language)
 
     // Email action
     if (i18n.language === "en") {

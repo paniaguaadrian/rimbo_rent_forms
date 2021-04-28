@@ -88,6 +88,8 @@ const RegisterTenant = ({ t }) => {
   const [tenantsAddress, setTenantsAddress] = useState("");
   const [tenantsZipCode, setTenantsZipCode] = useState("");
 
+  const tenantsLanguage = i18n.language;
+
   // Scroll to top
   const optionsTop = {
     top: 0,
@@ -212,6 +214,7 @@ const RegisterTenant = ({ t }) => {
         isAcceptedPrivacy: tenant.isAcceptedPrivacy,
         stageOne: tenant.stageOne,
         randomID: tenancyID,
+        tenantsLanguage: tenantsLanguage,
       }
     );
 
@@ -287,6 +290,7 @@ const RegisterTenant = ({ t }) => {
   const desiredTenancy = getTenancy(randomID);
 
   // !Send an email with the specific data
+  // TODO: Email action for tenant (different cause language)
   useEffect(() => {
     const sendAttachments = async () => {
       if (sent) {

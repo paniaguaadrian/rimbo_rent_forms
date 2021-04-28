@@ -123,6 +123,7 @@ const ApprovedTenantRimbo = ({ t }) => {
           const {
             agencyContactPerson,
             agencyEmailPerson,
+            agencyLanguage,
           } = desiredTenancy.agent;
           const tenancyID = desiredTenancy.tenancyID;
           const emailData = {
@@ -133,7 +134,7 @@ const ApprovedTenantRimbo = ({ t }) => {
             randomID: randomIDSend,
           };
 
-          if (i18n.language === "en") {
+          if (agencyLanguage === "en") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
           } else {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);

@@ -53,8 +53,17 @@ const ApprovedTenancyRimbo = ({ t }) => {
 
       const { data: decisionResult } = await postDecision(postBody);
       if (!tenancyData.rentStart) {
-        const { tenantsName, tenantsEmail, randomID } = tenancyData.tenant;
-        const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
+        const {
+          tenantsName,
+          tenantsEmail,
+          randomID,
+          tenantsLanguage,
+        } = tenancyData.tenant;
+        const {
+          agencyContactPerson,
+          agencyEmailPerson,
+          agencyLanguage,
+        } = tenancyData.agent;
         const { rentalAddress } = tenancyData.property;
         const tenancyID = tenancyData.tenancyID;
         const emailData = {
@@ -66,12 +75,12 @@ const ApprovedTenancyRimbo = ({ t }) => {
           agencyEmailPerson,
           rentalAddress,
         };
-        if (i18n.language === "en") {
+        if (tenantsLanguage === "en") {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18tt`, emailData);
         } else {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj18tt`, emailData);
         }
-        if (i18n.language === "en") {
+        if (agencyLanguage === "en") {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18pm`, emailData);
         } else {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj18pm`, emailData);

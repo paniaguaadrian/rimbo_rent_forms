@@ -632,8 +632,8 @@ const sendRJ3FormEmail = async (req, res) => {
   res.status(200).json();
 };
 
-// ! RJ15 Email => RJXX5, RJ16 Emails
-const sendRJ15Emails = async (req, res) => {
+// ! RJ15 Email => RJXX5 Email TT
+const sendRJ15EmailsTT = async (req, res) => {
   const {
     tenantsName,
     tenantsEmail,
@@ -655,14 +655,6 @@ const sendRJ15Emails = async (req, res) => {
     })
   );
 
-  const transporterRJ16 = nodemailer.createTransport(
-    sgTransport({
-      auth: {
-        api_key: process.env.SENDGRID_API,
-      },
-    })
-  );
-
   let optionsRJXX5 = {
     viewEngine: {
       extname: ".handlebars",
@@ -672,17 +664,7 @@ const sendRJ15Emails = async (req, res) => {
     viewPath: "viewsEs/",
   };
 
-  let optionsRJ16 = {
-    viewEngine: {
-      extname: ".handlebars",
-      layoutsDir: "viewsEs/",
-      defaultLayout: "rj16Email",
-    },
-    viewPath: "viewsEs/",
-  };
-
   transporterRJXX5.use("compile", hbs(optionsRJXX5));
-  transporterRJ16.use("compile", hbs(optionsRJ16));
 
   // RJXX5 email @Tenant
   const TenantsEmail = {
@@ -702,6 +684,51 @@ const sendRJ15Emails = async (req, res) => {
       tenantsName,
     },
   };
+
+  transporterRJXX5.sendMail(TenantsEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+
+  res.status(200).json();
+};
+
+// ! RJ15 Email => RJ16 Email PM
+const sendRJ15EmailsPM = async (req, res) => {
+  const {
+    tenantsName,
+    tenantsEmail,
+    tenantsPhone,
+    timestamps,
+    agencyEmailPerson,
+    agencyContactPerson,
+    agencyName,
+    rentalAddress,
+    randomID,
+    tenancyID,
+  } = req.body;
+
+  const transporterRJ16 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  let optionsRJ16 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "viewsEs/",
+      defaultLayout: "rj16Email",
+    },
+    viewPath: "viewsEs/",
+  };
+
+  transporterRJ16.use("compile", hbs(optionsRJ16));
 
   // RJ16 email @PM
   const PMsEmail = {
@@ -730,14 +757,6 @@ const sendRJ15Emails = async (req, res) => {
       tenancyID,
     },
   };
-
-  transporterRJXX5.sendMail(TenantsEmail, (err, data) => {
-    if (err) {
-      console.log("There is an error here...!" + err);
-    } else {
-      console.log("Email sent!");
-    }
-  });
 
   transporterRJ16.sendMail(PMsEmail, (err, data) => {
     if (err) {
@@ -958,7 +977,8 @@ export {
   sendRJ11Emails,
   sendPMEmails,
   sendRJ3FormEmail,
-  sendRJ15Emails,
+  sendRJ15EmailsTT,
+  sendRJ15EmailsPM,
   sendRJSFormEmail,
   sendRJ3FilesEmail,
   sendRJ18EmailTT,

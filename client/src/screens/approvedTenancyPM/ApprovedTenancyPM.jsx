@@ -61,6 +61,7 @@ const ApprovedTenancyPM = ({ t }) => {
           jobType,
           documentNumber,
           randomID,
+          tenantsLanguage,
         } = tenancyData.tenant;
         const {
           agencyContactPerson,
@@ -102,7 +103,7 @@ const ApprovedTenancyPM = ({ t }) => {
           landlordEmail,
           landlordPhone,
         };
-        if (i18n.language === "en") {
+        if (tenantsLanguage === "en") {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/rjpm`, emailData);
         } else {
           axios.post(

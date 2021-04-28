@@ -9,7 +9,7 @@ import Success from "../../components/Success/Success";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
-import i18n from "../../i18n";
+// import i18n from "../../i18n";
 
 // Reducer
 import { TenantReducer, DefaultTenant } from "./approved_tenant_card-reducer";
@@ -118,12 +118,18 @@ const ApprovedTenantCardRimbo = ({ t }) => {
           const { data: decisionTenancyResult } = await postTenancyDecision(
             postTenancyBody
           );
-          const { tenantsName, tenantsEmail, randomIDSend } = tenantData;
+          const {
+            tenantsName,
+            tenantsEmail,
+            randomIDSend,
+            tenantsLanguage,
+          } = tenantData;
 
           const {
             agencyContactPerson,
             agencyEmailPerson,
             agencyName,
+            agencyLanguage,
           } = desiredTenancy.agent;
 
           const emailData = {
@@ -136,10 +142,22 @@ const ApprovedTenantCardRimbo = ({ t }) => {
             randomID: randomIDSend,
           };
 
-          if (i18n.language === "en") {
-            await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj15`, emailData);
+          if (tenantsLanguage === "en") {
+            await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj15/tt`, emailData);
           } else {
-            await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj15`, emailData);
+            await axios.post(
+              `${REACT_APP_BASE_URL_EMAIL}/es/rj15/tt`,
+              emailData
+            );
+          }
+
+          if (agencyLanguage === "en") {
+            await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj15/pm`, emailData);
+          } else {
+            await axios.post(
+              `${REACT_APP_BASE_URL_EMAIL}/es/rj15/pm`,
+              emailData
+            );
           }
 
           setTenancyState(decisionTenancyResult);
