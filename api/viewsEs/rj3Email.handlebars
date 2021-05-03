@@ -361,8 +361,13 @@ a{
             	<tr>
             		<td>
             			<div class="text" style="padding: 0 3em; text-align: center;">
-							<h3>Hola {{agencyContactPerson}},</h3>				
-            				<h3>Gracias por registrar a tu inquilino en Rimbo.rent. <br/>Hemos recibido correctamente todos los datos.</h3>
+							<h3>Hola {{agencyContactPerson}},</h3>
+							{{#if tenantsNameTwo}}
+							<h3>Gracias por registrar a tus inquilinos en Rimbo.rent. <br/>Hemos recibido correctamente todos los datos.</h3>
+							{{else}}	
+							<h3>Gracias por registrar a tu inquilino en Rimbo.rent. <br/>Hemos recibido correctamente todos los datos.</h3>			
+							{{/if}}
+            				
             			</div>
             		</td>
             	</tr>
@@ -386,9 +391,40 @@ a{
 							<div class="text" style="padding: 0em 3em; text-align: left; color: black;">
 								
 								<ul>
+									{{#if tenantsNameTwo}}
+									<h4>Primer inquilino/a:</h4>
+									{{else}}
+									<h4>Inquilino/a:</h4>
+									{{/if}}
                                     <li>Nombre completo del inquilino: {{tenantsName}}</li>
                                     <li>Número de teléfono del inquilino: {{tenantsPhone}}</li>
                                     <li>Correo electrónico del inquilino: {{tenantsEmail}}</li>
+									<br/>
+									
+									{{#if tenantsEmailTwo}}
+									<h4>Segundo inquilino/a:</h4>
+									<li>Nombre completo del inquilino: {{tenantsNameTwo}}</li>
+                                    <li>Número de teléfono del inquilino: {{tenantsPhoneTwo}}</li>
+                                    <li>Correo electrónico del inquilino: {{tenantsEmailTwo}}</li>
+									<br/>
+									{{/if}}
+
+									{{#if tenantsEmailThree}}
+									<h4>Tercer inquilino/a:</h4>
+									<li>Nombre completo del inquilino: {{tenantsNameThree}}</li>
+                                    <li>Número de teléfono del inquilino: {{tenantsPhoneThree}}</li>
+                                    <li>Correo electrónico del inquilino: {{tenantsEmailThree}}</li>
+									<br/>
+									{{/if}}
+
+									{{#if tenantsEmailFour}}
+									<h4>Cuarto inquilino/a:</h4>
+									<li>Nombre completo del inquilino: {{tenantsNameFour}}</li>
+                                    <li>Número de teléfono del inquilino: {{tenantsPhoneFour}}</li>
+                                    <li>Correo electrónico del inquilino: {{tenantsEmailFour}}</li>
+									<br/>
+									{{/if}}
+									
                                     <li>Alquiler mensual: {{rentAmount}}€</li>
                                     <li>Servicio escogido: {{product}}</li>
                                     <li>Duración del contrato: {{rentDuration}} years</li>

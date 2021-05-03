@@ -403,11 +403,43 @@ a{
                                     <li>Agency's Email: {{agencyEmailPerson}}</li>
                                     <li>Agency's Phone: {{agencyPhonePerson}}</li>
                                 </ul>
-                                <h3>Tenant:</h3>
+								<h3>Tenant/s:</h3>
                                 <ul>
-                                    <li>Tenant's Name: {{tenantsName}}</li>
-                                    <li>Tenant's Email: {{tenantsEmail}}</li>
-                                    <li>Tenant's Phone: {{tenantsPhone}}</li>
+                                    {{#if tenantsNameTwo}}
+									<h4>First Tenant:</h4>
+									{{else}}
+									<h4>Tenant:</h4>
+									{{/if}}
+                                    <li>Tenant's full name: {{tenantsName}}</li>
+                                    <li>Tenant's phone number: {{tenantsPhone}}</li>
+                                    <li>Tenant's email: {{tenantsEmail}}</li>
+									
+									{{#if tenantsEmailTwo}}
+									<br/>
+									<h4>Second Tenant:</h4>
+									<li>Tenant's full name: {{tenantsNameTwo}}</li>
+                                    <li>Tenant's phone number: {{tenantsPhoneTwo}}</li>
+                                    <li>Tenant's email: {{tenantsEmailTwo}}</li>
+									<br/>
+									{{/if}}
+
+									{{#if tenantsEmailThree}}
+									<br/>
+									<h4>Third Tenant:</h4>
+									<li>Tenant's full name: {{tenantsNameThree}}</li>
+                                    <li>Tenant's phone number: {{tenantsPhoneThree}}</li>
+                                    <li>Tenant's email: {{tenantsEmailThree}}</li>
+									<br/>
+									{{/if}}
+
+									{{#if tenantsEmailFour}}
+									<br/>
+									<h4>Fourth Tenant:</h4>
+									<li>Tenant's full name: {{tenantsNameFour}}</li>
+                                    <li>Tenant's phone number: {{tenantsPhoneFour}}</li>
+                                    <li>Tenant's email: {{tenantsEmailFour}}</li>
+									<br/>
+									{{/if}}
                                 </ul>
 								<h3>Property info:</h3>
                                 <ul>

@@ -3,7 +3,6 @@ import sgTransport from "nodemailer-sendgrid-transport";
 import hbs from "nodemailer-express-handlebars";
 
 // * Rimbo rent emails
-// Production / Development
 // const rimboEmail = "info@rimbo.rent";
 const testEmail = "paniaguasanchezadrian@gmail.com";
 
@@ -165,9 +164,22 @@ const sendRJ1FormEmails = async (req, res) => {
     template: "rj3Email",
     context: {
       agencyContactPerson,
+
       tenantsName,
-      tenantsPhone,
       tenantsEmail,
+      tenantsPhone,
+
+      tenantsNameTwo,
+      tenantsEmailTwo,
+      tenantsPhoneTwo,
+
+      tenantsNameThree,
+      tenantsEmailThree,
+      tenantsPhoneThree,
+
+      tenantsNameFour,
+      tenantsEmailFour,
+      tenantsPhoneFour,
       rentAmount,
       product,
       rentDuration,
@@ -398,9 +410,22 @@ const sendRJ1FormEmails = async (req, res) => {
       agencyContactPerson,
       agencyEmailPerson,
       agencyPhonePerson,
+
       tenantsName,
       tenantsEmail,
       tenantsPhone,
+
+      tenantsNameTwo,
+      tenantsEmailTwo,
+      tenantsPhoneTwo,
+
+      tenantsNameThree,
+      tenantsEmailThree,
+      tenantsPhoneThree,
+
+      tenantsNameFour,
+      tenantsEmailFour,
+      tenantsPhoneFour,
       rentAmount,
       product,
       rentDuration,
@@ -624,10 +649,11 @@ const sendRJ11Emails = async (req, res) => {
     ],
     template: "rj11Email",
     context: {
+      tenantsName,
       agencyContactPerson,
-      tenantsName,
-      tenantsName,
+      agencyEmailPerson,
       tenancyID,
+      randomID,
     },
   };
   transporterRJ11.sendMail(pmEmail, (err, data) => {
@@ -745,7 +771,7 @@ const sendPMEmails = async (req, res) => {
   // RJ14 Email @Tenant
   const TenantEmail = {
     from: "Rimbo info@rimbo.rent",
-    to: testEmail, // tenant Email
+    to: tenantsEmail, // tenant Email
     subject: "Ready to move in? Rimbo it!",
     text: "",
     attachments: [
@@ -791,8 +817,13 @@ const sendNotificationRimbo = async (req, res) => {
     tenantsName,
     tenantsEmail,
     tenantsPhone,
+    timestamps,
+    agencyEmailPerson,
+    agencyContactPerson,
     agencyName,
+    rentalAddress,
     randomID,
+    tenancyID,
   } = req.body;
 
   const transporterE2R = nodemailer.createTransport(
@@ -831,8 +862,13 @@ const sendNotificationRimbo = async (req, res) => {
       tenantsName,
       tenantsEmail,
       tenantsPhone,
+      timestamps,
+      agencyEmailPerson,
+      agencyContactPerson,
       agencyName,
+      rentalAddress,
       randomID,
+      tenancyID,
     },
   };
 
@@ -957,7 +993,7 @@ const sendRJ15EmailsTT = async (req, res) => {
   // RJXX5 email @Tenant
   const TenantsEmail = {
     from: "Rimbo info@rimbo.rent",
-    to: testEmail, // Tenant email
+    to: tenantsEmail, // Tenant email
     subject: `Card registered successfully!`,
     text: "",
     attachments: [
@@ -970,6 +1006,15 @@ const sendRJ15EmailsTT = async (req, res) => {
     template: "rjxx5Email",
     context: {
       tenantsName,
+      tenantsEmail,
+      tenantsPhone,
+      timestamps,
+      agencyEmailPerson,
+      agencyContactPerson,
+      agencyName,
+      rentalAddress,
+      randomID,
+      tenancyID,
     },
   };
 
@@ -1154,7 +1199,7 @@ const sendRJ18EmailTT = async (req, res) => {
   // RJ17 email @Tenant
   const TenantEmail = {
     from: "Rimbo info@rimbo.rent",
-    to: testEmail, // Tenant email
+    to: tenantsEmail, // Tenant email
     subject: `Rental Starting Prepare Aval`,
     text: "",
     attachments: [

@@ -391,11 +391,43 @@ a{
                                     <li>Correo electrónico: {{agencyEmailPerson}}</li>
                                     <li>Número de teléfono: {{agencyPhonePerson}}</li>
                                 </ul>
-                                <h3>Inquilino:</h3>
+								<h3>Inquilino/s</h3>
                                 <ul>
-                                    <li>Nombre completo: {{tenantsName}}</li>
-                                    <li>Email: {{tenantsEmail}}</li>
-                                    <li>Número de teléfono: {{tenantsPhone}}</li>
+                                    {{#if tenantsNameTwo}}
+									<h4>Primer inquilino/a:</h4>
+									{{else}}
+									<h4>Inquilino/a:</h4>
+									{{/if}}
+                                    <li>Nombre completo del inquilino: {{tenantsName}}</li>
+                                    <li>Número de teléfono del inquilino: {{tenantsPhone}}</li>
+                                    <li>Correo electrónico del inquilino: {{tenantsEmail}}</li>
+									
+									{{#if tenantsEmailTwo}}
+									<br/>
+									<h4>Segundo inquilino/a:</h4>
+									<li>Nombre completo del inquilino: {{tenantsNameTwo}}</li>
+                                    <li>Número de teléfono del inquilino: {{tenantsPhoneTwo}}</li>
+                                    <li>Correo electrónico del inquilino: {{tenantsEmailTwo}}</li>
+									<br/>
+									{{/if}}
+
+									{{#if tenantsEmailThree}}
+									<br/>
+									<h4>Tercer inquilino/a:</h4>
+									<li>Nombre completo del inquilino: {{tenantsNameThree}}</li>
+                                    <li>Número de teléfono del inquilino: {{tenantsPhoneThree}}</li>
+                                    <li>Correo electrónico del inquilino: {{tenantsEmailThree}}</li>
+									<br/>
+									{{/if}}
+
+									{{#if tenantsEmailFour}}
+									<br/>
+									<h4>Cuarto inquilino/a:</h4>
+									<li>Nombre completo del inquilino: {{tenantsNameFour}}</li>
+                                    <li>Número de teléfono del inquilino: {{tenantsPhoneFour}}</li>
+                                    <li>Correo electrónico del inquilino: {{tenantsEmailFour}}</li>
+									<br/>
+									{{/if}}
                                 </ul>
 								<h3>Información del apartamento:</h3>
                                 <ul>

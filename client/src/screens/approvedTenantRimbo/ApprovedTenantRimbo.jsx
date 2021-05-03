@@ -9,7 +9,6 @@ import Success from "../../components/Success/Success";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
-import i18n from "../../i18n";
 
 // Reducer
 import { TenantReducer, DefaultTenant } from "./approved_tenant_rimbo-reducer";

@@ -361,8 +361,13 @@ a{
             	<tr>
             		<td>
             			<div class="text" style="padding: 0 3em; text-align: center;">
-							<h3>Hi {{agencyContactPerson}}</h3>				
-            				<h3>Thank you for listing your tenant on Rimbo.rent. <br/>We have received all data correctly.</h3>
+							<h3>Hi {{agencyContactPerson}}</h3>
+							{{#if tenantsNameTwo}}
+							<h3>Thank you for listing your tenants on Rimbo.rent. <br/>We have received all data correctly.</h3>
+							{{else}}
+							<h3>Thank you for listing your tenant on Rimbo.rent. <br/>We have received all data correctly.</h3>
+							{{/if}}				
+            				
             			</div>
             		</td>
             	</tr>
@@ -386,9 +391,40 @@ a{
 							<div class="text" style="padding: 0em 3em; text-align: left; color: black;">
 								
 								<ul>
+									{{#if tenantsNameTwo}}
+									<h4>First Tenant:</h4>
+									{{else}}
+									<h4>Tenant:</h4>
+									{{/if}}
                                     <li>Tenant's full name: {{tenantsName}}</li>
                                     <li>Tenant's phone number: {{tenantsPhone}}</li>
                                     <li>Tenant's email: {{tenantsEmail}}</li>
+									<br/>
+									
+									{{#if tenantsEmailTwo}}
+									<h4>Second Tenant:</h4>
+									<li>Tenant's full name: {{tenantsNameTwo}}</li>
+                                    <li>Tenant's phone number: {{tenantsPhoneTwo}}</li>
+                                    <li>Tenant's email: {{tenantsEmailTwo}}</li>
+									<br/>
+									{{/if}}
+
+									{{#if tenantsEmailThree}}
+									<h4>Third Tenant:</h4>
+									<li>Tenant's full name: {{tenantsNameThree}}</li>
+                                    <li>Tenant's phone number: {{tenantsPhoneThree}}</li>
+                                    <li>Tenant's email: {{tenantsEmailThree}}</li>
+									<br/>
+									{{/if}}
+
+									{{#if tenantsEmailFour}}
+									<h4>Fourth Tenant:</h4>
+									<li>Tenant's full name: {{tenantsNameFour}}</li>
+                                    <li>Tenant's phone number: {{tenantsPhoneFour}}</li>
+                                    <li>Tenant's email: {{tenantsEmailFour}}</li>
+									<br/>
+									{{/if}}
+									
                                     <li>Monthly rent: {{rentAmount}}€</li>
                                     <li>Selected Product: {{product}}</li>
                                     <li>Contract duration: {{rentDuration}} years</li>
