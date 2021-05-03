@@ -638,7 +638,7 @@ const sendRJ11Emails = async (req, res) => {
   const pmEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // pm's email
-    subject: `Prospect Tenant ${tenantsName} Approved!`,
+    subject: `Prospect Tenancy with tenant ${tenantsName} approved!`,
     text: "",
     attachments: [
       {
@@ -733,7 +733,7 @@ const sendPMEmails = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo email
-    subject: "Tenant Approved",
+    subject: `Tenant Approved by ${agencyName}`,
     text: "",
     attachments: [
       {
