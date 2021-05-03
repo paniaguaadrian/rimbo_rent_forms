@@ -95,8 +95,8 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
       setRentalPostalCode(results[0].address_components[6].long_name);
       setRentalAddress(finalAddress);
       setRentalCity(results[0].address_components[2].long_name);
+      tenancy.propertyDetails.rentalAddress = finalAddress;
     }
-    tenancy.propertyDetails.rentalAddress = results[0].formatted_address;
   };
 
   // Handle on change

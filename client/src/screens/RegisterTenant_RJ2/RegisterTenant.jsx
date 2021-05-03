@@ -119,11 +119,16 @@ const RegisterTenant = ({ t }) => {
       addressComponents[2].types[0] === locality && // Barcelona
       addressComponents[6].types[0] === postalCode
     ) {
+      const street = results[0].address_components[1].long_name;
+      const streetNumber = results[0].address_components[0].long_name;
+      const city = results[0].address_components[2].long_name;
+      const finalAddress = `${street}, ${streetNumber}, ${city}`;
+
       setTenantsZipCode(results[0].address_components[6].long_name);
-      setTenantsAddress(results[0].formatted_address);
+      setTenantsAddress(finalAddress);
     }
 
-    setTenantsAddress(results[0].formatted_address);
+    // setTenantsAddress(results[0].formatted_address);
   };
 
   useEffect(
