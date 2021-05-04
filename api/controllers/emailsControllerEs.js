@@ -582,7 +582,7 @@ const sendRJ3FilesEmail = async (req, res) => {
   res.status(200).json();
 };
 
-// ! RJXX3 Email => RJ11 Email
+// ! RJXX3 Email => RJ11 Email After Rimbo accepts tenant
 const sendRJ11Emails = async (req, res) => {
   const {
     tenantsName,
@@ -641,6 +641,123 @@ const sendRJ11Emails = async (req, res) => {
       console.log("Email sent!");
     }
   });
+  res.status(200).json();
+};
+
+// ! RJXX3 Email => RJ12 Email After Rimbo rejects tenant
+const sendRJ12Emails = async (req, res) => {
+  const {
+    tenantsName,
+    agencyName,
+    agencyContactPerson,
+    agencyEmailPerson,
+    rentalAddress,
+    tenancyID,
+    randomID,
+  } = req.body;
+
+  const transporterRJ12 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  const transporterRJ12R = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  let optionsRJ12 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "viewsEs/",
+      defaultLayout: "rj12Email",
+    },
+    viewPath: "viewsEs/",
+  };
+
+  let optionsRJ12R = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "viewsEs/",
+      defaultLayout: "rj12REmail",
+    },
+    viewPath: "viewsEs/",
+  };
+
+  transporterRJ12.use("compile", hbs(optionsRJ12));
+  transporterRJ12R.use("compile", hbs(optionsRJ12R));
+
+  // RJ12 Email  @PM/Agency
+  const pmEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // pm's email
+    subject: `Prospect Tenancy with tenant ${tenantsName} rejected.`,
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./viewsEs/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj12Email",
+    context: {
+      tenantsName,
+      agencyName,
+      agencyContactPerson,
+      agencyEmailPerson,
+      rentalAddress,
+      tenancyID,
+      randomID,
+    },
+  };
+
+  // RJ12 Email  @Rimbo
+  const RimboEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // rimbo's email
+    subject: `Prospect Tenancy with tenant ${tenantsName} rejected.`,
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./viewsEs/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "rj12Email",
+    context: {
+      tenantsName,
+      agencyName,
+      agencyContactPerson,
+      agencyEmailPerson,
+      tenancyID,
+      randomID,
+    },
+  };
+
+  transporterRJ12.sendMail(pmEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+
+  transporterRJ12R.sendMail(RimboEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+
   res.status(200).json();
 };
 
@@ -779,6 +896,72 @@ const sendPMEmails = async (req, res) => {
   });
 
   transporterRJ14.sendMail(TenantEmail, (err, data) => {
+    if (err) {
+      console.log("There is an error here...!" + err);
+    } else {
+      console.log("Email sent!");
+    }
+  });
+
+  res.status(200).json();
+};
+
+// ! RJ11 Email => RJ13 Email to Rimbo informs that PM rejected tenant
+const sendRJ13Email = async (req, res) => {
+  const {
+    tenantsName,
+    agencyName,
+    agencyContactPerson,
+    agencyEmailPerson,
+    rentalAddress,
+    tenancyID,
+    randomID,
+  } = req.body;
+
+  const transporterRJ13 = nodemailer.createTransport(
+    sgTransport({
+      auth: {
+        api_key: process.env.SENDGRID_API,
+      },
+    })
+  );
+
+  let optionsRJ13 = {
+    viewEngine: {
+      extname: ".handlebars",
+      layoutsDir: "views/",
+      defaultLayout: "RJ13REmail",
+    },
+    viewPath: "views/",
+  };
+
+  transporterRJ13.use("compile", hbs(optionsRJ13));
+
+  const RimboEmail = {
+    from: "Rimbo info@rimbo.rent",
+    to: testEmail, // Rimbo Email
+    subject: `${agencyName} rejected ${tenantsName} after Rimbo Screening`,
+    text: "",
+    attachments: [
+      {
+        filename: "rimbo-logo.png",
+        path: "./views/images/rimbo-logo.png",
+        cid: "rimbologo",
+      },
+    ],
+    template: "RJ13REmail",
+    context: {
+      tenantsName,
+      agencyName,
+      agencyContactPerson,
+      agencyEmailPerson,
+      rentalAddress,
+      tenancyID,
+      randomID,
+    },
+  };
+
+  transporterRJ13.sendMail(RimboEmail, (err, data) => {
     if (err) {
       console.log("There is an error here...!" + err);
     } else {
@@ -1214,7 +1397,9 @@ export {
   sendRJ1FormEmails,
   sendRJ2FormEmails,
   sendRJ11Emails,
+  sendRJ12Emails,
   sendPMEmails,
+  sendRJ13Email,
   sendRJ3FormEmail,
   sendRJ15EmailsTT,
   sendRJ15EmailsPM,

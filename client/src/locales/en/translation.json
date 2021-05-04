@@ -190,10 +190,22 @@
     "title": "You have successfully accepted the tenancy",
     "subTitle": "Both you and the tenant(s) will receive an email with the details of the process"
   },
+
+  "rejectedTenancyPM": {
+    "helmet": "Tenancy rejected by PM - Rimbo - The new way of rent",
+    "title": "You have successfully rejected the tenancy",
+    "subTitle": "Rimbo will receive an email with the details of the process"
+  },
+
   "approvedTenantRimbo": {
     "helmet": "Tenant approved by Rimbo - Rimbo - The new way of rent",
     "title": "You have successfully accepted the tenant",
     "subTitle": "Both you and the tenant will receive an email with the details of the process"
+  },
+  "rejectedTenantRimbo": {
+    "helmet": "Tenant rejected by Rimbo - Rimbo - The new way of rent",
+    "title": "You have successfully rejected the tenant",
+    "subTitle": "Both you and the property manager will receive an email with the details of the process"
   },
   "approvedTenancyRimbo": {
     "helmet": "Tenancy approved by Rimbo - Rimbo - The new way of rent",

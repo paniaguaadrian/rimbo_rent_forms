@@ -5,7 +5,9 @@ import {
   sendRJ1FormEmails,
   sendRJ2FormEmails,
   sendRJ11Emails,
+  sendRJ12Emails,
   sendPMEmails,
+  sendRJ13Email,
   sendRJ3FormEmail,
   sendRJ15EmailsTT,
   sendRJ15EmailsPM,
@@ -23,7 +25,9 @@ router.route("/rj2/tt").post(sendRJ2FormEmails);
 router.route("/rj2/rimbo").post(sendRJ3FilesEmail);
 router.route("/e2r").post(sendNotificationRimbo);
 router.route("/rj11").post(sendRJ11Emails);
+router.route("/rj12").post(sendRJ12Emails);
 router.route("/rjpm").post(sendPMEmails);
+router.route("/rj13").post(sendRJ13Email);
 router.route("/rj3").post(sendRJ3FormEmail);
 router.route("/rj15/tt").post(sendRJ15EmailsTT);
 router.route("/rj15/pm").post(sendRJ15EmailsPM);

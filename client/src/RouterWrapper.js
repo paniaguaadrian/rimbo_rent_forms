@@ -20,6 +20,7 @@ import ApprovedTenantCardRimbo from "./screens/approvedTenantCardRimbo/ApprovedT
 import ApprovedTenancyRimbo from "./screens/approvedTenancyRimbo/ApprovedTenancyRimbo";
 // Rejected
 import RejectedTenantRimbo from "./screens/approvedTenantRimbo/RejectedTenantRimbo";
+import RejectedTenancyPM from "./screens/approvedTenancyPM/RejectedTenancyPM";
 // General
 import Page404 from "./screens/404/404";
 
@@ -55,6 +56,10 @@ const RouterWrapper = () => {
           <Route
             path="/register/tenancy/:tenancyID/pm/approved"
             component={ApprovedTenancyPM}
+          />
+          <Route
+            path="/register/tenancy/:tenancyID/pm/rejected"
+            component={RejectedTenancyPM}
           />
           <Route
             path="/register/card/:tenancyID/card/approved"

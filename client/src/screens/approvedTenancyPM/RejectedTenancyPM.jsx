@@ -21,7 +21,7 @@ const {
   REACT_APP_BASE_URL_EMAIL,
 } = process.env;
 
-const RejectedTenantRimbo = ({ t }) => {
+const RejectedTenancyPM = ({ t }) => {
   let { tenancyID } = useParams();
   const randomID = tenancyID;
   const randomIDSend = tenancyID;
@@ -74,19 +74,19 @@ const RejectedTenantRimbo = ({ t }) => {
       };
 
       if (agencyLanguage === "en") {
-        axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj12`, emailData);
+        axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj13`, emailData);
       } else {
-        axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj12`, emailData);
+        axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj13`, emailData);
       }
     };
     processDecision();
   }, [tenancyID, randomID, randomIDSend]);
   return (
     <>
-      <CustomHelmet header={t("rejectedTenantRimbo.helmet")} />
+      <CustomHelmet header={t("rejectedTenancyPM.helmet")} />
       <Success
-        title={t("rejectedTenantRimbo.title")}
-        subtitle={t("rejectedTenantRimbo.subTitle")}
+        title={t("rejectedTenancyPM.title")}
+        subtitle={t("rejectedTenancyPM.subTitle")}
         imageSRC={CancelImage}
         imageAlt="Rejected image"
       />
@@ -94,4 +94,4 @@ const RejectedTenantRimbo = ({ t }) => {
   );
 };
 
-export default withNamespaces()(RejectedTenantRimbo);
+export default withNamespaces()(RejectedTenancyPM);
