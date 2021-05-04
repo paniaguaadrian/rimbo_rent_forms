@@ -156,7 +156,7 @@ const sendRJ1FormEmails = async (req, res) => {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // PM/Agency email
     subject: "Inquilino registrado correctamente con Rimbo",
-    text: "",
+
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -167,9 +167,22 @@ const sendRJ1FormEmails = async (req, res) => {
     template: "rj3Email",
     context: {
       agencyContactPerson,
+
       tenantsName,
-      tenantsPhone,
       tenantsEmail,
+      tenantsPhone,
+
+      tenantsNameTwo,
+      tenantsEmailTwo,
+      tenantsPhoneTwo,
+
+      tenantsNameThree,
+      tenantsEmailThree,
+      tenantsPhoneThree,
+
+      tenantsNameFour,
+      tenantsEmailFour,
+      tenantsPhoneFour,
       rentAmount,
       product,
       rentDuration,
@@ -191,7 +204,6 @@ const sendRJ1FormEmails = async (req, res) => {
     from: "Rimbo info@rimbo.rent",
     to: tenantsEmail, // tenant's email
     subject: "¡Bienvenido a Rimbo!",
-    // text: "",
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -216,8 +228,7 @@ const sendRJ1FormEmails = async (req, res) => {
   const tenantEmailTwo = {
     from: "Rimbo info@rimbo.rent",
     to: tenantsEmailTwo, // tenant's email Two
-    subject: "Welcome to Rimbo!",
-    // text: "",
+    subject: "¡Bienvenido a Rimbo!",
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -241,8 +252,7 @@ const sendRJ1FormEmails = async (req, res) => {
   const tenantEmailThree = {
     from: "Rimbo info@rimbo.rent",
     to: tenantsEmailThree, // tenant's email Three
-    subject: "Welcome to Rimbo!",
-    // text: "",
+    subject: "¡Bienvenido a Rimbo!",
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -266,8 +276,7 @@ const sendRJ1FormEmails = async (req, res) => {
   const tenantEmailFour = {
     from: "Rimbo info@rimbo.rent",
     to: tenantsEmailFour, // tenant's email Three
-    subject: "Welcome to Rimbo!",
-    // text: "",
+    subject: "¡Bienvenido a Rimbo!",
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -386,8 +395,7 @@ const sendRJ1FormEmails = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo email
-    subject: `New Tenant Listing by ${agencyName}`,
-    text: "",
+    subject: `Nuevo inquilino registrado por ${agencyName}`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -453,8 +461,8 @@ const sendRJ2FormEmails = async (req, res) => {
   const tenantEmail = {
     from: "Rimbo info@rimbo.rent",
     to: tenantsEmail, // Tenant email
-    subject: `Info Received! Your Rimbo Journey Has Begun!`,
-    text: "",
+    subject: `Hemos recibido la información. ¡Acaba de comenzar tu viaje con Rimbo!`,
+
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -532,8 +540,7 @@ const sendRJ3FilesEmail = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo email
-    subject: `${tenantsName} ready for Screening`,
-    text: "",
+    subject: `${tenantsName} listo/a para evaluación`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -600,7 +607,6 @@ const sendRJ11Emails = async (req, res) => {
     })
   );
 
-  // ! Integration with hbs
   let optionsRJ11 = {
     viewEngine: {
       extname: ".handlebars",
@@ -616,8 +622,7 @@ const sendRJ11Emails = async (req, res) => {
   const pmEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // pm's email
-    subject: `Prospect Tenancy with tenant ${tenantsName} approved!`,
-    text: "",
+    subject: `Inquilino ${tenantsName} Aceptado!`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -697,8 +702,8 @@ const sendRJ12Emails = async (req, res) => {
   const pmEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // pm's email
-    subject: `Prospect Tenancy with tenant ${tenantsName} rejected.`,
-    text: "",
+    subject: `Inquilino ${tenantsName} rechazado.`,
+
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -722,8 +727,7 @@ const sendRJ12Emails = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // rimbo's email
-    subject: `Prospect Tenancy with tenant ${tenantsName} rejected.`,
-    text: "",
+    subject: `Inquilino ${tenantsName} rechazado.`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -828,8 +832,7 @@ const sendPMEmails = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo email
-    subject: `Tenant Approved by ${agencyName}`,
-    text: "",
+    subject: `Inquilino aceptado por ${agencyName}`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -867,8 +870,7 @@ const sendPMEmails = async (req, res) => {
   const TenantEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // tenant Email
-    subject: "Ready to move in? Rimbo it!",
-    text: "",
+    subject: "¿Todo listo para mudarte?",
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -941,7 +943,6 @@ const sendRJ13Email = async (req, res) => {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo Email
     subject: `${agencyName} rejected ${tenantsName} after Rimbo Screening`,
-    text: "",
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -1010,8 +1011,7 @@ const sendRJ3FormEmail = async (req, res) => {
   const RimbosEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo email
-    subject: `Card registered successfully`,
-    text: "",
+    subject: `${tenantsName} Tarjeta registrada correctamente`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -1083,8 +1083,7 @@ const sendRJ15EmailsTT = async (req, res) => {
   const TenantsEmail = {
     from: "Rimbo info@rimbo.rent",
     to: tenantsEmail, // Tenant email
-    subject: `Card registered successfully!`,
-    text: "",
+    subject: `¡Tarjeta registrada correctamente!`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -1156,8 +1155,7 @@ const sendRJ15EmailsPM = async (req, res) => {
   const PMsEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // PM email
-    subject: `Tenant registration successfully completed`,
-    text: "",
+    subject: `Registro de inquilino finalizado`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -1224,8 +1222,7 @@ const sendRJSFormEmail = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo email
-    subject: `Rental Starting Prepare Aval`,
-    text: "",
+    subject: `Inicio de alquiler preparar aval`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -1256,15 +1253,7 @@ const sendRJSFormEmail = async (req, res) => {
 
 // ! RJ18 Email => RJ17 email
 const sendRJ18EmailTT = async (req, res) => {
-  const {
-    tenancyID,
-    randomID,
-    tenantsName,
-    tenantsEmail,
-    agencyContactPerson,
-    agencyEmailPerson,
-    rentalAddress,
-  } = req.body;
+  const { tenancyID, randomID, tenantsName, tenantsEmail } = req.body;
 
   const transporterRJ17 = nodemailer.createTransport(
     sgTransport({
@@ -1289,8 +1278,7 @@ const sendRJ18EmailTT = async (req, res) => {
   const TenantEmail = {
     from: "Rimbo info@rimbo.rent",
     to: tenantsEmail, // Tenant email
-    subject: `Rental Starting Prepare Aval`,
-    text: "",
+    subject: `¡Te damos la bienvenida a la familia Rimbo! Registro finalizado`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -1328,8 +1316,6 @@ const sendRJ18EmailPM = async (req, res) => {
   const {
     tenancyID,
     randomID,
-    tenantsName,
-    tenantsEmail,
     agencyContactPerson,
     agencyEmailPerson,
     rentalAddress,
@@ -1358,8 +1344,8 @@ const sendRJ18EmailPM = async (req, res) => {
   const PMEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // PM email
-    subject: `Rental Starting Prepare Aval`,
-    text: "",
+    subject: `¡Enhorabuena! La propiedad ya está cubierta por Rimbo`,
+
     attachments: [
       {
         filename: "rimbo-logo.png",
