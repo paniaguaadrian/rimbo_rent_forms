@@ -153,7 +153,11 @@ const ApprovedTenantRimbo = ({ t }) => {
             }
           }
 
-          if (desiredTenancy.tenantTwo) {
+          if (
+            desiredTenancy.tenantTwo &&
+            !desiredTenancy.tenantThree &&
+            !desiredTenancy.tenantFour
+          ) {
             const { tenantsName } = desiredTenancy.tenant;
             const { tenantsName: tenantsNameTwo } = desiredTenancy.tenantTwo;
             const emailData = {
@@ -170,7 +174,7 @@ const ApprovedTenantRimbo = ({ t }) => {
             }
           }
 
-          if (desiredTenancy.tenantThree) {
+          if (desiredTenancy.tenantThree && desiredTenancy.tenantFour) {
             const { tenantsName } = desiredTenancy.tenant;
             const { tenantsName: tenantsNameTwo } = desiredTenancy.tenantTwo;
             const {
