@@ -61,13 +61,20 @@ const Header = () => {
   const navLinksEs = [
     { title: `Inquilinos`, path: `https://rimbo.rent/inquilinos-2/` },
     { title: `Propietarios`, path: `https://rimbo.rent/propietarios/` },
-    { title: `Inmobiliarias`, path: `https://rimbo.rent/inmobiliarias/` },
+    {
+      title: `Administradores Inmobiliarios`,
+      path: `https://rimbo.rent/inmobiliarias/`,
+    },
+    { title: `Co-living`, path: `https://rimbo.rent/co-living-2/` },
+    { title: `PMS/PMP`, path: `https://rimbo.rent/pms-pmp/` },
   ];
 
   const navLinksEn = [
     { title: `Tenants`, path: `https://rimbo.rent/en/tenants/` },
-    { title: `Landlords`, path: `https://rimbo.rent/en/landlords/` },
-    { title: `Agencies`, path: `https://rimbo.rent/en/agencies/` },
+    { title: `Owners`, path: `https://rimbo.rent/en/landlords/` },
+    { title: `Property Managers`, path: `https://rimbo.rent/en/agencies/` },
+    { title: `Co-living`, path: `https://rimbo.rent/en/co-living/` },
+    { title: `PMS/PMP`, path: `https://rimbo.rent/en/pms-pmp-2/` },
   ];
 
   return (

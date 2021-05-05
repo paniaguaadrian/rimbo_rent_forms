@@ -98,6 +98,12 @@ const Footer = ({ t }) => {
                   <a href="https://rimbo.rent/en/agencies/">
                     <li>{t("Footer.agencies")}</li>
                   </a>
+                  <a href="https://rimbo.rent/en/co-living/">
+                    <li>{t("Footer.coliving")}</li>
+                  </a>
+                  <a href="https://rimbo.rent/en/pms-pmp-2/">
+                    <li>{t("Footer.pmspmp")}</li>
+                  </a>
                   <a href="https://rimbo.rent/en/news/">
                     <li>{t("Footer.news")}</li>
                   </a>
@@ -153,6 +159,12 @@ const Footer = ({ t }) => {
                   </a>
                   <a href="https://rimbo.rent/inmobiliarias/">
                     <li>{t("Footer.agencies")}</li>
+                  </a>
+                  <a href="https://rimbo.rent/co-living-2/">
+                    <li>{t("Footer.coliving")}</li>
+                  </a>
+                  <a href="https://rimbo.rent/pms-pmp/">
+                    <li>{t("Footer.pmspmp")}</li>
                   </a>
                   <a href="https://rimbo.rent/noticias/">
                     <li>{t("Footer.news")}</li>
