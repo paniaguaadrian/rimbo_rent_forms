@@ -4,8 +4,8 @@ import hbs from "nodemailer-express-handlebars";
 
 // * Rimbo rent emails
 // const rimboEmail = "info@rimbo.rent";
-// const testEmail = "paniaguasanchezadrian@gmail.com";
-const testEmail = "victor@rimbo.rent";
+const testEmail = "paniaguasanchezadrian@gmail.com";
+// const testEmail = "victor@rimbo.rent";
 
 // ! RJ1 Form => RJ3, RJ4, RJD Emails
 const sendRJ1FormEmails = async (req, res) => {

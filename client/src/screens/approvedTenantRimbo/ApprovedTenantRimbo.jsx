@@ -174,7 +174,7 @@ const ApprovedTenantRimbo = ({ t }) => {
             }
           }
 
-          if (desiredTenancy.tenantThree && desiredTenancy.tenantFour) {
+          if (desiredTenancy.tenantThree && !desiredTenancy.tenantFour) {
             const { tenantsName } = desiredTenancy.tenant;
             const { tenantsName: tenantsNameTwo } = desiredTenancy.tenantTwo;
             const {

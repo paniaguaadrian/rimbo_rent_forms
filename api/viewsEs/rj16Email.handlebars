@@ -375,11 +375,14 @@ a{
 		            <td class="bg_white email-section">
 		            	<div class="heading-section" style="text-align: center; padding: 0 30px;">
 							{{#if tenantsNameTwo}}
-		              	<h3>¡Te confirmamos que <b>{{tenantsName}} y {{tenantsNameTwo}}</b> se ha registrado correctamente en Rimbo!</h3>
-						  {{else if tenantsNameThree}} 
-						  <h3>¡Te confirmamos que <b>{{tenantsName}}, {{tenantsNameTwo}} y {{tenantsNameThree}}</b> se ha registrregistrado correctamente en Rimbo!</h3>
-						  {{else if tenantsNameFour}}
-						  <h3>¡Te confirmamos que <b>{{tenantsName}}, {{tenantsNameTwo}}, {{tenantsNameThree}} y {{tenantsNameFour}}</b> se ha registrregistrado correctamente en Rimbo!</h3>
+		              	<h3>¡Te confirmamos que <b>{{tenantsName}} y {{tenantsNameTwo}}, 
+								{{#if tenantsNameThree}}
+								{{tenantsNameThree}}, 
+								{{/if}}
+								{{#if tenantsNameFour}}
+								{{tenantsNameFour}}
+								{{/if}}			
+						  </b> se han registrado correctamente en Rimbo!</h3>
 						  {{else}}
 						  <h3>¡Te confirmamos que <b>{{tenantsName}} se ha registrado correctamente en Rimbo!</b></h3>
 						  {{/if}}
