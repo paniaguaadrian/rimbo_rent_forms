@@ -427,7 +427,7 @@ const RegisterTenantCard = ({ t }) => {
                         color="#01d2cc"
                         height={50}
                         width={50}
-                        timeout={3000} //3 secs
+                        timeout={6000} //3 secs
                       />
                     ) : (
                       <ButtonMat
