@@ -605,11 +605,13 @@ const sendRJ3FilesEmail = async (req, res) => {
 // ! RJXX3 Email => RJ11 Email After Rimbo accepts tenant
 const sendRJ11Emails = async (req, res) => {
   const {
-    tenantsName,
     agencyContactPerson,
     agencyEmailPerson,
     tenancyID,
-    randomID,
+    tenantsName,
+    tenantsNameTwo,
+    tenantsNameThree,
+    tenantsNameFour,
   } = req.body;
 
   const transporterRJ11 = nodemailer.createTransport(
@@ -645,11 +647,13 @@ const sendRJ11Emails = async (req, res) => {
     ],
     template: "rj11Email",
     context: {
-      tenantsName,
       agencyContactPerson,
       agencyEmailPerson,
       tenancyID,
-      randomID,
+      tenantsName,
+      tenantsNameTwo,
+      tenantsNameThree,
+      tenantsNameFour,
     },
   };
   transporterRJ11.sendMail(pmEmail, (err, data) => {
@@ -1205,16 +1209,14 @@ const sendRJ15EmailsTT = async (req, res) => {
 // ! RJ15 Email => RJ16 Email PM
 const sendRJ15EmailsPM = async (req, res) => {
   const {
-    tenantsName,
-    tenantsEmail,
-    tenantsPhone,
-    timestamps,
-    agencyEmailPerson,
     agencyContactPerson,
+    agencyEmailPerson,
     agencyName,
-    rentalAddress,
-    randomID,
     tenancyID,
+    tenantsName,
+    tenantsNameTwo,
+    tenantsNameThree,
+    tenantsNameFour,
   } = req.body;
 
   const transporterRJ16 = nodemailer.createTransport(
@@ -1250,16 +1252,14 @@ const sendRJ15EmailsPM = async (req, res) => {
     ],
     template: "rj16Email",
     context: {
-      tenantsName,
-      tenantsEmail,
-      tenantsPhone,
-      timestamps,
-      agencyEmailPerson,
       agencyContactPerson,
+      agencyEmailPerson,
       agencyName,
-      rentalAddress,
-      randomID,
       tenancyID,
+      tenantsName,
+      tenantsNameTwo,
+      tenantsNameThree,
+      tenantsNameFour,
     },
   };
 

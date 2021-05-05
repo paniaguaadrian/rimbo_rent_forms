@@ -118,25 +118,100 @@ const ApprovedTenantRimbo = ({ t }) => {
             postTenancyBody
           );
 
-          const { tenantsName, randomIDSend } = tenantData;
           const {
             agencyContactPerson,
             agencyEmailPerson,
             agencyLanguage,
           } = desiredTenancy.agent;
-          const tenancyID = desiredTenancy.tenancyID;
-          const emailData = {
-            tenantsName,
-            agencyContactPerson,
-            agencyEmailPerson,
-            tenancyID,
-            randomID: randomIDSend,
-          };
 
-          if (agencyLanguage === "en") {
-            axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
-          } else {
-            axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
+          const tenancyID = desiredTenancy.tenancyID;
+
+          // const emailData = {
+          //   agencyContactPerson,
+          //   agencyEmailPerson,
+          //   tenancyID,
+          // };
+
+          // ! IF DOESN'T WORK THIS EMAIL, JUST PLAY WITH THE {}, EMAILDATA ETC... THE ISSUE  WILL BE HERE!
+
+          if (
+            !desiredTenancy.tenantTwo &&
+            !desiredTenancy.tenantThree &&
+            !desiredTenancy.tenantFour
+          ) {
+            const { tenantsName } = desiredTenancy.tenant;
+            const emailData = {
+              agencyContactPerson,
+              agencyEmailPerson,
+              tenancyID,
+              tenantsName,
+            };
+            if (agencyLanguage === "en") {
+              axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
+            } else {
+              axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
+            }
+          }
+
+          if (desiredTenancy.tenantTwo) {
+            const { tenantsName } = desiredTenancy.tenant;
+            const { tenantsName: tenantsNameTwo } = desiredTenancy.tenantTwo;
+            const emailData = {
+              agencyContactPerson,
+              agencyEmailPerson,
+              tenancyID,
+              tenantsName,
+              tenantsNameTwo,
+            };
+            if (agencyLanguage === "en") {
+              axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
+            } else {
+              axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
+            }
+          }
+
+          if (desiredTenancy.tenantThree) {
+            const { tenantsName } = desiredTenancy.tenant;
+            const { tenantsName: tenantsNameTwo } = desiredTenancy.tenantTwo;
+            const {
+              tenantsName: tenantsNameThree,
+            } = desiredTenancy.tenantThree;
+            const emailData = {
+              agencyContactPerson,
+              agencyEmailPerson,
+              tenancyID,
+              tenantsName,
+              tenantsNameTwo,
+              tenantsNameThree,
+            };
+            if (agencyLanguage === "en") {
+              axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
+            } else {
+              axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
+            }
+          }
+
+          if (desiredTenancy.tenantFour) {
+            const { tenantsName } = desiredTenancy.tenant;
+            const { tenantsName: tenantsNameTwo } = desiredTenancy.tenantTwo;
+            const {
+              tenantsName: tenantsNameThree,
+            } = desiredTenancy.tenantThree;
+            const { tenantsName: tenantsNameFour } = desiredTenancy.tenantFour;
+            const emailData = {
+              agencyContactPerson,
+              agencyEmailPerson,
+              tenancyID,
+              tenantsName,
+              tenantsNameTwo,
+              tenantsNameThree,
+              tenantsNameFour,
+            };
+            if (agencyLanguage === "en") {
+              axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
+            } else {
+              axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
+            }
           }
           setTenancyState(decisionTenancyResult);
         }
@@ -145,11 +220,11 @@ const ApprovedTenantRimbo = ({ t }) => {
 
     processDecision();
   }, [
-    tenant.isRimboAccepted,
     tenancyID,
     randomID,
     randomIDSend,
     tenant.isAllTenantsAccepted,
+    tenant.isRimboAccepted,
   ]);
 
   return (

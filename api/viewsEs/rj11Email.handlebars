@@ -373,9 +373,15 @@ a{
 		        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
 		          <tr>
 		            <td class="bg_white email-section">
-		            	<div class="heading-section" style="text-align: center; padding: 0 30px;">
-		              	<h3>Buenas noticias: Tu inquilino/s, ha superado con éxito la evaluación de Rimbo.</h3>
-						  <h4>¡Es hora de que tomes la decisión final!</h4>
+		            	<div class="heading-section" style="text-align: center; padding: 0 15px;">
+
+						{{#if tenantsNameTwo}}
+						<h3>Buenas noticias: Tus inquilinos, han superado con éxito la evaluación de Rimbo.</h3>
+						{{else}}
+						<h3>Buenas noticias: Tu inquilino, ha superado con éxito la evaluación de Rimbo.</h3>
+						{{/if}}
+
+						<h4>¡Es hora de que tomes la decisión final!</h4>
 
 		            	</div>
 		          </tr><!-- end: tr -->
@@ -385,9 +391,24 @@ a{
                         <tr>
                          <td class="bg_white email-section">
                             <div class="heading-section" style="text-align: center; padding: 0 30px; color: #6aa3a1;">
-                                <h2>¿Es esta la persona/s que va a alquilar la propiedad?</h2>
-                                <h4>Para continuar con el proceso de alquiler, <b>haz clic en el botón "Aprobar" a continuación y confirma que {{tenantsName}} está seleccionado.</b></h4>          
-                                </div>
+
+								{{#if tenantsNameTwo}}
+								<h2>¿Son estas las personas que van a alquilar la propiedad?</h2>
+								{{else}}
+								<h2>¿Es esta la persona que va a alquilar la propiedad?</h2>
+								{{/if}}
+
+                                {{#if tenantsNameTwo}}
+								<h4>Para continuar con el proceso de alquiler, haz clic en el botón "Aprobar" a continuación y confirma que <b>{{tenantsName}} y {{tenantsNameTwo}}</b> están seleccionados.</h4>  
+								{{else if tenantsNameThree}}
+								<h4>Para continuar con el proceso de alquiler, haz clic en el botón "Aprobar" a continuación y confirma que <b>{{tenantsName}}, {{tenantsNameTwo}} and {{tenantsNameThree}}</b> están seleccionados.</h4>  
+								{{else if tenantsNameFour}}
+								<h4>Para continuar con el proceso de alquiler, haz clic en el botón "Aprobar" a continuación y confirma que <b>{{tenantsName}}, {{tenantsNameTwo}}, {{tenantsNameThree}} and {{tenantsNameFour}}</b> están seleccionados.</h4>   
+								{{else}}
+								<h4>Para continuar con el proceso de alquiler, haz clic en el botón "Aprobar" a continuación y confirma que <b>{{tenantsName}}</b> está seleccionado.</h4>    
+								{{/if}}
+         
+                            </div>
                         </tr><!-- end: tr -->
                                         
                     </table>
@@ -396,8 +417,12 @@ a{
 					<tr>
 						<td>
 							<div class="text" style="padding: 1em 3em; text-align: left;">
-								
-								<h3>¡Nos pondremos en contacto con el inquilino/s para completar el registro!</h3>
+
+								{{#if tenantsNameTwo}}
+								<h3>¡Nos pondremos en contacto con los inquilinos para completar el registro!</h3>
+								{{else}}
+								<h3>¡Nos pondremos en contacto con el inquilino para completar el registro!</h3>
+								{{/if}}
 
                                 <h3>Te mantendremos informado de todo el proceso.</h3>
 								

@@ -392,9 +392,14 @@ text-decoration: none;
 		        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
 		          <tr>
 		            <td class="bg_white email-section">
-		            	<div class="heading-section" style="text-align: center; padding: 0 30px;">
-		              	<h3>Great news: Your tenant/s has successfully passed our screening.</h3>
-
+		            	<div class="heading-section" style="text-align: center; padding: 0 15px;">
+						
+						{{#if tenantsNameTwo}}
+						<h3>Great news: Your tenants has successfully passed our screening.</h3>
+						{{else}}
+						<h3>Great news: Your tenant has successfully passed our screening.</h3>
+						{{/if}}
+		              	
 		            	</div>
 		          </tr><!-- end: tr -->
 					<td valign="middle" class="hero hero-2 bg_white" style="padding: 2em 0;">
@@ -403,9 +408,24 @@ text-decoration: none;
                         <tr>
                          <td class="bg_white email-section">
                             <div class="heading-section" style="text-align: center; padding: 0 30px; color: #6aa3a1;">
-                                <h2>Is this the person/s who will rent the property?</h2>
-                                <h4>Click on the 'Approve' button below to confirm that {{tenantsName}} is selected.</h4>            
-                                </div>
+								
+								{{#if tenantsNameTwo}}
+								<h2>Are these the persons who will rent the property?</h2>
+								{{else}}
+								<h2>Is this the person who will rent the property?</h2>
+								{{/if}}
+
+                                {{#if tenantsNameTwo}}
+								<h4>Click on the 'Approve' button below to confirm that <b>{{tenantsName}} and {{tenantsNameTwo}}</b> are selected.</h4>  
+								{{else if tenantsNameThree}}
+								<h4>Click on the 'Approve' button below to confirm that <b>{{tenantsName}}, {{tenantsNameTwo}} and {{tenantsNameThree}}</b> are selected.</h4>  
+								{{else if tenantsNameFour}}
+								<h4>Click on the 'Approve' button below to confirm that <b>{{tenantsName}}, {{tenantsNameTwo}}, {{tenantsNameThree}} and {{tenantsNameFour}}</b> are selected.</h4>   
+								{{else}}
+								<h4>Click on the 'Approve' button below to confirm that <b>{{tenantsName}}</b> is selected.</h4>    
+								{{/if}}
+							</div>
+
                         </tr><!-- end: tr -->
                                         
                     </table>
@@ -415,8 +435,11 @@ text-decoration: none;
 						<td>
 							<div class="text" style="padding: 1em 3em; text-align: left;">
 								
-								<h3>We will contact the tenant/s to complete the registration now! </h3>
-
+								{{#if tenantsNameTwo}}
+								<h3>We will contact the tenants to complete the registration now! </h3>
+								{{else}}
+								<h3>We will contact the tenant to complete the registration now! </h3>
+								{{/if}}
                                 <h3>We will keep you posted.</h3>
 								
 							</div>

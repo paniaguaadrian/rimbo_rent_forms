@@ -393,7 +393,16 @@ text-decoration: none;
 		          <tr>
 		            <td class="bg_white email-section">
 		            	<div class="heading-section" style="text-align: center; padding: 0 30px;">
-		              	<h3>We confirm that <b>{{tenantsName}}</b> has successfully registered!</h3>
+
+							{{#if tenantsNameTwo}}	
+							<h3>We confirm that <b>{{tenantsName}} and {{tenantsNameTwo}}</b> has successfully registered!</h3>
+							{{else if tenantsNameThree}} 
+							<h3>We confirm that <b>{{tenantsName}}, {{tenantsNameTwo}}  and {{tenantsNameThree}}</b> has successfully registered!</h3> 
+							{{else if tenantsNameFour}}
+							<h3>We confirm that <b>{{tenantsName}}, {{tenantsNameTwo}}, {{tenantsNameThree}} and {{tenantsNameFour}}</b> has successfully registered!</h3>
+							{{else}}
+							<h3>We confirm that <b>{{tenantsName}}</b> has successfully registered!</h3>
+							{{/if}}
 
 		            	</div>
 		          </tr><!-- end: tr -->
