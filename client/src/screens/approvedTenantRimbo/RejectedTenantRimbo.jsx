@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 // Custom Components
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 import Success from "../../components/Success/Success";
+import PageContainer from "../../components/PageContainer/PageContainer";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
@@ -84,12 +85,14 @@ const RejectedTenantRimbo = ({ t }) => {
   return (
     <>
       <CustomHelmet header={t("rejectedTenantRimbo.helmet")} />
-      <Success
-        title={t("rejectedTenantRimbo.title")}
-        subtitle={t("rejectedTenantRimbo.subTitle")}
-        imageSRC={CancelImage}
-        imageAlt="Rejected image"
-      />
+      <PageContainer>
+        <Success
+          title={t("rejectedTenantRimbo.title")}
+          subtitle={t("rejectedTenantRimbo.subTitle")}
+          imageSRC={CancelImage}
+          imageAlt="Rejected image"
+        />
+      </PageContainer>
     </>
   );
 };

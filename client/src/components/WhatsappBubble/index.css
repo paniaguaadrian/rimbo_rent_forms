@@ -42,9 +42,9 @@
 /* for mobile */
 @media screen and (max-width: 1200px) {
   .whatsapp-icon {
-    height: 4rem !important;
-    width: 4rem !important;
-    margin-top: 7px;
+    height: 3.7rem !important;
+    width: 3.7rem !important;
+    margin-top: 8px;
     margin-left: 2px;
     animation: all easy-in-out 5s;
     animation-timing-function: linear;

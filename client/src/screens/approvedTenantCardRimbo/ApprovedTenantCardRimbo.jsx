@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 // Custom Components
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 import Success from "../../components/Success/Success";
+import PageContainer from "../../components/PageContainer/PageContainer";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
@@ -97,7 +98,6 @@ const ApprovedTenantCardRimbo = ({ t }) => {
       // ! TENANCY (AFTER TENANT IS ALL ACCEPTED)
 
       const { data: tenancyData } = await fetchTenancyData();
-      // console.log(tenancyData);
 
       const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
 
@@ -111,7 +111,6 @@ const ApprovedTenantCardRimbo = ({ t }) => {
       };
 
       const desiredTenancy = getTenancy(randomID);
-      console.log(desiredTenancy);
 
       const hasAccepted = Object.keys(desiredTenancy)
         // eslint-disable-next-line
@@ -119,15 +118,12 @@ const ApprovedTenantCardRimbo = ({ t }) => {
           const isExist = tenants.includes(key);
           if (isExist) {
             const thisONE = desiredTenancy[key].isCardAccepted;
-            console.log(thisONE);
             return thisONE;
           }
           // return isExist; // If i return isExist I see false on console
         })
         .filter((item) => item !== undefined)
         .every((x) => x);
-
-      console.log(hasAccepted);
 
       if (hasAccepted) {
         if (!desiredTenancy.isAllCardsAccepted) {
@@ -148,7 +144,6 @@ const ApprovedTenantCardRimbo = ({ t }) => {
           } = desiredTenancy.agent;
 
           const tenancyID = desiredTenancy.tenancyID;
-          console.log(tenancyID);
 
           // ! 1 tenant
           if (
@@ -194,8 +189,6 @@ const ApprovedTenantCardRimbo = ({ t }) => {
               tenantsName,
               tenantsNameTwo,
             };
-            console.log("Helo?");
-            console.log(tenantsNameTwo);
 
             if (agencyLanguage === "en") {
               await axios.post(
@@ -283,12 +276,14 @@ const ApprovedTenantCardRimbo = ({ t }) => {
   return (
     <>
       <CustomHelmet header={t("approvedCardRimbo.helmet")} />
-      <Success
-        title={t("approvedCardRimbo.title")}
-        subtitle={t("approvedCardRimbo.subTitle")}
-        imageSRC={SuccessImage}
-        imageAlt="Success image"
-      />
+      <PageContainer>
+        <Success
+          title={t("approvedCardRimbo.title")}
+          subtitle={t("approvedCardRimbo.subTitle")}
+          imageSRC={SuccessImage}
+          imageAlt="Success image"
+        />
+      </PageContainer>
     </>
   );
 };

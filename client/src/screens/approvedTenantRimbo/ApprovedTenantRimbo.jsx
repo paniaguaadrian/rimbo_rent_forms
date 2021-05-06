@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 // Custom Components
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 import Success from "../../components/Success/Success";
+import PageContainer from "../../components/PageContainer/PageContainer";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
@@ -75,7 +76,6 @@ const ApprovedTenantRimbo = ({ t }) => {
       // ! TENANCY (AFTER TENANT IS ALL ACCEPTED)
 
       const { data: tenancyData } = await fetchTenancyData();
-      // console.log(tenancyData);
 
       const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
 
@@ -89,7 +89,6 @@ const ApprovedTenantRimbo = ({ t }) => {
       };
 
       const desiredTenancy = getTenancy(randomID);
-      console.log(desiredTenancy);
 
       const hasAccepted = Object.keys(desiredTenancy)
         // eslint-disable-next-line
@@ -97,15 +96,12 @@ const ApprovedTenantRimbo = ({ t }) => {
           const isExist = tenants.includes(key);
           if (isExist) {
             const thisONE = desiredTenancy[key].isRimboAccepted;
-            console.log(thisONE);
             return thisONE;
           }
           // return isExist; // If i return isExist I see false on console
         })
         .filter((item) => item !== undefined)
         .every((x) => x);
-
-      console.log(hasAccepted);
 
       if (hasAccepted) {
         if (!desiredTenancy.isAllTenantsAccepted) {
@@ -234,12 +230,14 @@ const ApprovedTenantRimbo = ({ t }) => {
   return (
     <>
       <CustomHelmet header={t("approvedTenantRimbo.helmet")} />
-      <Success
-        title={t("approvedTenantRimbo.title")}
-        subtitle={t("approvedTenantRimbo.subTitle")}
-        imageSRC={SuccessImage}
-        imageAlt="Success image"
-      />
+      <PageContainer>
+        <Success
+          title={t("approvedTenantRimbo.title")}
+          subtitle={t("approvedTenantRimbo.subTitle")}
+          imageSRC={SuccessImage}
+          imageAlt="Success image"
+        />
+      </PageContainer>
     </>
   );
 };

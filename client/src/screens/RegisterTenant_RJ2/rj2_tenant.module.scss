@@ -84,6 +84,7 @@
     font-weight: 400;
     color: $danger;
     text-align: center;
+    margin-top: 1.5rem;
 
     @include xl {
       font-size: 1rem;
@@ -91,6 +92,7 @@
       color: $danger;
       text-align: center;
       padding: 0 15rem;
+      margin-top: 1rem;
     }
   }
 

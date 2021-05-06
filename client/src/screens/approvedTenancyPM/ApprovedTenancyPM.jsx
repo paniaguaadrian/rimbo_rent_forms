@@ -9,6 +9,7 @@ import { TenancyReducer, DefaultTenancy } from "./approved_tenancy_pm-reducer";
 // Custom Components
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
 import Success from "../../components/Success/Success";
+import PageContainer from "../../components/PageContainer/PageContainer";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
@@ -117,7 +118,6 @@ const ApprovedTenancyPM = ({ t }) => {
         }
         // ! Tenant Two !
         if (tenancyData.tenantTwo) {
-          console.log(tenancyData.tenantTwo);
           const {
             tenantsName,
             tenantsEmail,
@@ -155,7 +155,6 @@ const ApprovedTenancyPM = ({ t }) => {
         }
         // ! Tenant Three !
         if (tenancyData.tenantThree) {
-          console.log(tenancyData.tenantThree);
           const {
             tenantsName,
             tenantsEmail,
@@ -193,7 +192,6 @@ const ApprovedTenancyPM = ({ t }) => {
         }
         // ! Tenant Four !
         if (tenancyData.tenantFour) {
-          console.log(tenancyData.tenantFour);
           const {
             tenantsName,
             tenantsEmail,
@@ -239,12 +237,14 @@ const ApprovedTenancyPM = ({ t }) => {
   return (
     <>
       <CustomHelmet header={t("approvedTenancyPM.helmet")} />
-      <Success
-        title={t("approvedTenancyPM.title")}
-        subtitle={t("approvedTenancyPM.subTitle")}
-        imageSRC={SuccessImage}
-        imageAlt="Success image"
-      />
+      <PageContainer>
+        <Success
+          title={t("approvedTenancyPM.title")}
+          subtitle={t("approvedTenancyPM.subTitle")}
+          imageSRC={SuccessImage}
+          imageAlt="Success image"
+        />
+      </PageContainer>
     </>
   );
 };

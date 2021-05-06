@@ -58,7 +58,6 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
   // Google Maps Address and Zip Code
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
-    console.log(results);
 
     const addressComponents = results[0].address_components;
 

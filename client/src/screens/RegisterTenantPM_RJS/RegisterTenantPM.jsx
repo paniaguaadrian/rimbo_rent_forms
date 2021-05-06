@@ -232,12 +232,14 @@ const RegisterTenantPM = ({ t }) => {
           </div>
         </div>
       ) : (
-        <Success
-          title={t("RJS.success.title")}
-          subtitle={t("RJS.success.subtitle")}
-          imageSRC={SuccessImage}
-          imageAlt="Success image"
-        />
+        <div className={classes.PageContainer}>
+          <Success
+            title={t("RJS.success.title")}
+            subtitle={t("RJS.success.subtitle")}
+            imageSRC={SuccessImage}
+            imageAlt="Success image"
+          />
+        </div>
       )}
     </>
   );

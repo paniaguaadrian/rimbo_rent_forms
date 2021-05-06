@@ -89,68 +89,6 @@ const RegisterTenantCard = ({ t }) => {
     behavior: "smooth",
   };
 
-  // ! eliminar?
-  // ! Fetch data from DB to autocomplete input form
-  // ! tenantData
-  // useEffect(() => {
-  //   const getData = () => {
-  //     fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
-  //       .then((res) => {
-  //         if (res.status >= 400) {
-  //           throw new Error("Server responds with error!" + res.status);
-  //         }
-  //         return res.json();
-  //       })
-  //       .then(
-  //         (tenantData) => {
-  //           setTenantData(tenantData);
-  //           setLoading(false);
-  //         },
-  //         (err) => {
-  //           setErr(err);
-  //           setLoading(false);
-  //         }
-  //       );
-  //   };
-  //   getData();
-  // }, [randomID]);
-  // ! Fetch data from DB to autocomplete input form
-  // ! tenancyData
-  // useEffect(() => {
-  //   const getTenancyData = () => {
-  //     fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`)
-  //       .then((res) => {
-  //         if (res.status >= 400) {
-  //           throw new Error("Server responds with error!" + res.status);
-  //         }
-  //         return res.json();
-  //       })
-  //       .then(
-  //         (tenancyData) => {
-  //           setTenancyData(tenancyData);
-  //           setLoading(false);
-  //         },
-  //         (err) => {
-  //           setErr(err);
-  //           setLoading(false);
-  //         }
-  //       );
-  //   };
-  //   getTenancyData();
-  // }, []);
-  // const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
-  // const getTenancy = (randomID) => {
-  //   for (let tenancy of tenancyData) {
-  //     for (let key in tenancy) {
-  //       if (!tenants.includes(key)) continue;
-  //       if (tenancy[key].randomID === randomID) return tenancy;
-  //     }
-  //   }
-  // };
-  // const desiredTenancy = getTenancy(randomID);
-
-  ///////////////////////////////////////////
-
   useEffect(() => {
     // ! TENANT: Simplify fetch tenant Data.
     const fetchTenantData = () =>
@@ -174,9 +112,6 @@ const RegisterTenantCard = ({ t }) => {
     processDecision();
     setLoading(false);
   }, [randomID]);
-  console.log(tenantData);
-
-  //////////////////////////////////////////////////////
 
   // ! Fetch data to send email notification to Gloria when tenant enters to that page (one time)
   useEffect(() => {
@@ -472,12 +407,14 @@ const RegisterTenantCard = ({ t }) => {
           )}
         </div>
       ) : (
-        <Success
-          title={t("RJ3.success.title")}
-          subtitle={t("RJ3.success.subtitle")}
-          imageSRC={SuccessImage}
-          imageAlt="Success image"
-        />
+        <div className={classes.PageContainer}>
+          <Success
+            title={t("RJ3.success.title")}
+            subtitle={t("RJ3.success.subtitle")}
+            imageSRC={SuccessImage}
+            imageAlt="Success image"
+          />
+        </div>
       )}
     </>
   );

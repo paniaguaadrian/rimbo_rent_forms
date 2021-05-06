@@ -139,7 +139,7 @@
 
   @include xl {
     text-align: center;
-    width: 45%;
+    width: 50%;
     float: left;
     padding: 2rem;
     // margin-top: 3rem; // ! Hmmmmmmmmm //
@@ -149,12 +149,16 @@
 .CardLeftInput {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 1rem;
+  align-items: left;
+  text-align: left !important;
   h4 {
     color: $primary-color;
     font-size: 1.5rem;
     font-weight: 300;
+    width: 30%;
+    float: left;
   }
   input {
     color: rgb(80, 80, 80);
@@ -168,29 +172,38 @@
     border: none;
     border-bottom: 1px solid #01d2cb61;
     background: none !important;
+    width: 70%;
+    float: left;
   }
   @include xl {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: left;
+    text-align: left !important;
     margin-bottom: 1rem;
     h4 {
       color: $primary-color;
       font-size: 1rem;
       font-weight: 300;
+      text-align: left !important;
+      width: 30%;
+      float: left;
     }
     input {
       color: rgb(80, 80, 80);
-      font-size: 0.9rem;
+      font-size: 1rem;
       width: 17rem;
       padding: 0.3rem;
       margin-top: 0rem;
       margin-bottom: 0rem;
-      text-align: right;
+      text-align: right !important;
       font-weight: 100;
       border: none;
       border-bottom: 1px solid #01d2cb61;
       background: none !important;
+      width: 70%;
+      float: left;
     }
   }
 }

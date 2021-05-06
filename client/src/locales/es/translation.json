@@ -3,7 +3,7 @@
   "prevStepButton": "Atrás",
   "submitButton": "Enviar",
   "authorize": "Enviar datos",
-  "authorizeTwo": "Autorizar pago",
+  "authorizeTwo": "Registrar",
   "addTenant": "Añadir inquilino",
   "deleteTenant": "Eliminar inquilino",
   "NavBar": {
@@ -147,10 +147,10 @@
     "helmet": "Nuevo inquilino - Rimbo - The new way of rent",
     "header": {
       "title": "¡Genial! ¡Estás a solo un paso de formar parte de Rimbo!",
-      "subtitle": "Solo falta que revises nuestros Términos y condiciones y que proporciones la autorización de cargo"
+      "subtitle": "Solo falta que revises nuestros Términos y condiciones y que registres tu tarjeta"
     },
     "form": {
-      "tenantTitle": "Detalles inquilino",
+      "tenantTitle": "Tus datos",
       "name": "Nombre: ",
       "email": "Correo: ",
       "phone": "Teléfono: ",

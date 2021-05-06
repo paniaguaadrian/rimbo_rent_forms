@@ -376,7 +376,7 @@ const RegisterTenant = ({ t }) => {
             <h1>{t("RJ2.header.title")}</h1>
             <h1>{t("RJ2.header.titleTwo")}</h1>
             <div className={classes.HeaderInfo}>
-              <h2>{t("RJ2.header.subtitle")}</h2>
+              {/* <h2>{t("RJ2.header.subtitle")}</h2> */}
               <p>{t("RJ2.header.extraInfo")}</p>
             </div>
           </div>
@@ -743,12 +743,14 @@ const RegisterTenant = ({ t }) => {
           </div>
         </div>
       ) : (
-        <Success
-          title={t("RJ2.success.title")}
-          subtitle={t("RJ2.success.subtitle")}
-          imageSRC={SuccessImage}
-          imageAlt="Success image"
-        />
+        <div className={classes.PageContainer}>
+          <Success
+            title={t("RJ2.success.title")}
+            subtitle={t("RJ2.success.subtitle")}
+            imageSRC={SuccessImage}
+            imageAlt="Success image"
+          />
+        </div>
       )}
     </>
   );

@@ -3,7 +3,7 @@
   "prevStepButton": "Previous Step",
   "submitButton": "Send",
   "authorize": "Send data",
-  "authorizeTwo": "Authorize",
+  "authorizeTwo": "Register",
   "addTenant": "Add tenant",
   "deleteTenant": "Delete tenant",
   "NavBar": {
@@ -131,7 +131,7 @@
       "tenantsZipCodePL": "XXXXX",
       "DNIFront": "DNI/NIE (Front)",
       "DNIBack": "DNI/NIE (Back)",
-      "DCA": "Document confirming your current address (eg receipt of supplies)",
+      "DCA": "Document confirming your current address (e.g. receipt of supplies)",
       "checkbox": "By submitting this form, you understand and agree that we use your information in accordance with our ",
       "privacy": "privacy policy",
       "checkboxTwo": " and ",
@@ -147,10 +147,10 @@
     "helmet": "New tenant - Rimbo - The new way of rent",
     "header": {
       "title": "Great! You are just one step away from renting without a deposit!",
-      "subtitle": "You just need to review our Terms and Conditions and provide the charge authorization"
+      "subtitle": "You just need to review our Terms and Conditions and register your card"
     },
     "form": {
-      "tenantTitle": "Tenant details",
+      "tenantTitle": "Your details",
       "name": "Full name: ",
       "email": "Email: ",
       "phone": "Phone: ",
