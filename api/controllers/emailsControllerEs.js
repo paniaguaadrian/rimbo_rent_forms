@@ -410,9 +410,22 @@ const sendRJ1FormEmails = async (req, res) => {
       agencyContactPerson,
       agencyEmailPerson,
       agencyPhonePerson,
+
       tenantsName,
       tenantsEmail,
       tenantsPhone,
+
+      tenantsNameTwo,
+      tenantsEmailTwo,
+      tenantsPhoneTwo,
+
+      tenantsNameThree,
+      tenantsEmailThree,
+      tenantsPhoneThree,
+
+      tenantsNameFour,
+      tenantsEmailFour,
+      tenantsPhoneFour,
       rentAmount,
       product,
       rentDuration,
@@ -595,6 +608,7 @@ const sendRJ11Emails = async (req, res) => {
   const {
     agencyContactPerson,
     agencyEmailPerson,
+    rentalAddress,
     tenancyID,
     tenantsName,
     tenantsNameTwo,
@@ -625,7 +639,7 @@ const sendRJ11Emails = async (req, res) => {
   const pmEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // pm's email
-    subject: `Inquilino ${tenantsName} Aceptado!`,
+    subject: `Alquiler en ${rentalAddress} Aceptado!`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -707,7 +721,7 @@ const sendRJ12Emails = async (req, res) => {
   const pmEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // pm's email
-    subject: `Inquilino ${tenantsName} rechazado.`,
+    subject: `Alquiler en ${rentalAddress} Rechazado.`,
 
     attachments: [
       {
@@ -732,7 +746,7 @@ const sendRJ12Emails = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // rimbo's email
-    subject: `Inquilino ${tenantsName} rechazado.`,
+    subject: `Alquiler en ${rentalAddress} Rechazado`,
     attachments: [
       {
         filename: "rimbo-logo.png",

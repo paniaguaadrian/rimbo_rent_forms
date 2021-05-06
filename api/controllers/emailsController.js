@@ -608,6 +608,7 @@ const sendRJ11Emails = async (req, res) => {
   const {
     agencyContactPerson,
     agencyEmailPerson,
+    rentalAddress,
     tenancyID,
     tenantsName,
     tenantsNameTwo,
@@ -638,7 +639,7 @@ const sendRJ11Emails = async (req, res) => {
   const pmEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // pm's email
-    subject: `Prospect Tenancy with tenant ${tenantsName} approved!`,
+    subject: `Prospect Tenancy in ${rentalAddress} approved!`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -720,7 +721,7 @@ const sendRJ12Emails = async (req, res) => {
   const pmEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // pm's email
-    subject: `Prospect Tenancy with tenant ${tenantsName} rejected.`,
+    subject: `Prospect Tenancy in ${rentalAddress} rejected.`,
 
     attachments: [
       {
@@ -745,7 +746,7 @@ const sendRJ12Emails = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // rimbo email
-    subject: `Prospect Tenancy with tenant ${tenantsName} rejected.`,
+    subject: `Prospect Tenancy in ${rentalAddress} rejected.`,
     attachments: [
       {
         filename: "rimbo-logo.png",
