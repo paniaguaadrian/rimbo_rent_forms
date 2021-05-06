@@ -127,14 +127,11 @@ const RegisterTenant = ({ t }) => {
       setTenantsZipCode(results[0].address_components[6].long_name);
       setTenantsAddress(finalAddress);
     }
-
-    // setTenantsAddress(results[0].formatted_address);
   };
 
   useEffect(
     () => {
       const getData = () => {
-        // Hemos cambiado este endpoint de REACT_APP_API_RIMBO_TENANCY al actual para hacer fetch del tenant, no necesitamos hacer fetch de toda la tenancy.
         fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`)
           .then((res) => {
             if (res.status >= 400) {
@@ -198,7 +195,6 @@ const RegisterTenant = ({ t }) => {
     }
 
     // Post to Rimbo API (files/images)
-    // ! This seems working
     await axios.post(
       `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/upload`,
       formData,
@@ -206,7 +202,6 @@ const RegisterTenant = ({ t }) => {
     );
 
     // Post to Rimbo API Data
-    // ! This seems working
     await axios.post(
       `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`,
       {
@@ -224,14 +219,18 @@ const RegisterTenant = ({ t }) => {
     );
 
     // Tenant Email action
-    // ! This seems working
-    await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj2/tt`, {
-      tenantsName: tenantData.tenantsName,
-      tenantsEmail: tenantData.tenantsEmail,
-    });
-
+    if (i18n.language === "en") {
+      await axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj2/tt`, {
+        tenantsName: tenantData.tenantsName,
+        tenantsEmail: tenantData.tenantsEmail,
+      });
+    } else if (i18n.language === "es") {
+      await axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj2/tt`, {
+        tenantsName: tenantData.tenantsName,
+        tenantsEmail: tenantData.tenantsEmail,
+      });
+    }
     const getTenancyData = async () => {
-      // Change that ${REACT_APP_API_RIMBO_TENANCY}/${tenancyID} to find all tenancies
       await fetch(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`)
         .then((res) => {
           if (res.status >= 400) {
@@ -253,7 +252,6 @@ const RegisterTenant = ({ t }) => {
     getTenancyData();
 
     const getTenantData = async () => {
-      // Hemos cambiado este endpoint de REACT_APP_API_RIMBO_TENANCY al actual para hacer fetch del tenant, no necesitamos hacer fetch de toda la tenancy.
       await fetch(
         `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}`
       )
@@ -295,7 +293,6 @@ const RegisterTenant = ({ t }) => {
   const desiredTenancy = getTenancy(randomID);
 
   // !Send an email with the specific data
-  // TODO: Email action for tenant (different cause language)
   useEffect(() => {
     const sendAttachments = async () => {
       if (sent) {
@@ -376,7 +373,6 @@ const RegisterTenant = ({ t }) => {
             <h1>{t("RJ2.header.title")}</h1>
             <h1>{t("RJ2.header.titleTwo")}</h1>
             <div className={classes.HeaderInfo}>
-              {/* <h2>{t("RJ2.header.subtitle")}</h2> */}
               <p>{t("RJ2.header.extraInfo")}</p>
             </div>
           </div>

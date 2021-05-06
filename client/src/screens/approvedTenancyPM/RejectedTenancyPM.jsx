@@ -76,7 +76,7 @@ const RejectedTenancyPM = ({ t }) => {
 
       if (agencyLanguage === "en") {
         axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj13`, emailData);
-      } else {
+      } else if (agencyLanguage === "es") {
         axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj13`, emailData);
       }
     };

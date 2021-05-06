@@ -87,7 +87,7 @@ const ApprovedTenantCardRimbo = ({ t }) => {
             `${REACT_APP_BASE_URL_EMAIL}/rj15/tt`,
             tenantEmailData
           );
-        } else {
+        } else if (tenantsLanguage === "es") {
           await axios.post(
             `${REACT_APP_BASE_URL_EMAIL}/es/rj15/tt`,
             tenantEmailData
@@ -165,7 +165,7 @@ const ApprovedTenantCardRimbo = ({ t }) => {
                 `${REACT_APP_BASE_URL_EMAIL}/rj15/pm`,
                 emailData
               );
-            } else {
+            } else if (agencyLanguage === "es") {
               await axios.post(
                 `${REACT_APP_BASE_URL_EMAIL}/es/rj15/pm`,
                 emailData
@@ -195,7 +195,7 @@ const ApprovedTenantCardRimbo = ({ t }) => {
                 `${REACT_APP_BASE_URL_EMAIL}/rj15/pm`,
                 emailData
               );
-            } else {
+            } else if (agencyLanguage === "es") {
               await axios.post(
                 `${REACT_APP_BASE_URL_EMAIL}/es/rj15/pm`,
                 emailData
@@ -225,7 +225,7 @@ const ApprovedTenantCardRimbo = ({ t }) => {
                 `${REACT_APP_BASE_URL_EMAIL}/rj15/pm`,
                 emailData
               );
-            } else {
+            } else if (agencyLanguage === "es") {
               await axios.post(
                 `${REACT_APP_BASE_URL_EMAIL}/es/rj15/pm`,
                 emailData
@@ -257,7 +257,7 @@ const ApprovedTenantCardRimbo = ({ t }) => {
                 `${REACT_APP_BASE_URL_EMAIL}/rj15/pm`,
                 emailData
               );
-            } else {
+            } else if (agencyLanguage === "es") {
               await axios.post(
                 `${REACT_APP_BASE_URL_EMAIL}/es/rj15/pm`,
                 emailData

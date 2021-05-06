@@ -41,8 +41,8 @@
     "helmet": "Nuevo alquiler - Rimbo - The new way of rent",
     "header": {
       "title": "Registra a tu inquilino para su evaluación",
-      "subtitleOne": "Completa los campos",
-      "subtitleTwo": "Rimbo lo evalúa en los próximos 24 horas.",
+      "subtitleOne": "Completa los campos.",
+      "subtitleTwo": "Rimbo evalúa al inquilino en las próximas 24 horas.",
       "subtitleThree": "Recibirás una respuesta por correo electrónico."
     },
     "stepZero": {
@@ -82,12 +82,12 @@
     },
     "stepThree": {
       "landlordName": "Nombre del propietario",
-      "landlordNamePL": "Nombre del propietario",
+      "landlordNamePL": "Escribe el nombre completo",
       "landlordEmail": "Email",
-      "landlordEmailPL": "Ingresa el email",
+      "landlordEmailPL": "Escribe el email",
       "landlordPhone": "Teléfono",
-      "landlordPhonePL": "Ingresa el teléfono",
-      "checkbox": "Al enviar este formulario, comprendes y aceptas que utilizamos tu información de acuerdo con nuestra ",
+      "landlordPhonePL": "Escribe el teléfono",
+      "checkbox": "Al enviar este formulario, entiendes y aceptas que utilizamos tu información de acuerdo con nuestra ",
       "privacy": "política de privacidad ",
       "checkboxTwo": " y nuestra ",
       "cookies": " política de cookies"

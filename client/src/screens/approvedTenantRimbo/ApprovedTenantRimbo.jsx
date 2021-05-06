@@ -120,15 +120,9 @@ const ApprovedTenantRimbo = ({ t }) => {
             agencyLanguage,
           } = desiredTenancy.agent;
 
+          const { rentalAddress } = desiredTenancy.property;
+
           const tenancyID = desiredTenancy.tenancyID;
-
-          // const emailData = {
-          //   agencyContactPerson,
-          //   agencyEmailPerson,
-          //   tenancyID,
-          // };
-
-          // ! IF DOESN'T WORK THIS EMAIL, JUST PLAY WITH THE {}, EMAILDATA ETC... THE ISSUE  WILL BE HERE!
 
           if (
             !desiredTenancy.tenantTwo &&
@@ -139,12 +133,13 @@ const ApprovedTenantRimbo = ({ t }) => {
             const emailData = {
               agencyContactPerson,
               agencyEmailPerson,
+              rentalAddress,
               tenancyID,
               tenantsName,
             };
             if (agencyLanguage === "en") {
               axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
-            } else {
+            } else if (agencyLanguage === "es") {
               axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
             }
           }
@@ -159,13 +154,14 @@ const ApprovedTenantRimbo = ({ t }) => {
             const emailData = {
               agencyContactPerson,
               agencyEmailPerson,
+              rentalAddress,
               tenancyID,
               tenantsName,
               tenantsNameTwo,
             };
             if (agencyLanguage === "en") {
               axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
-            } else {
+            } else if (agencyLanguage === "es") {
               axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
             }
           }
@@ -179,6 +175,7 @@ const ApprovedTenantRimbo = ({ t }) => {
             const emailData = {
               agencyContactPerson,
               agencyEmailPerson,
+              rentalAddress,
               tenancyID,
               tenantsName,
               tenantsNameTwo,
@@ -186,7 +183,7 @@ const ApprovedTenantRimbo = ({ t }) => {
             };
             if (agencyLanguage === "en") {
               axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
-            } else {
+            } else if (agencyLanguage === "es") {
               axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
             }
           }
@@ -201,6 +198,7 @@ const ApprovedTenantRimbo = ({ t }) => {
             const emailData = {
               agencyContactPerson,
               agencyEmailPerson,
+              rentalAddress,
               tenancyID,
               tenantsName,
               tenantsNameTwo,
@@ -209,7 +207,7 @@ const ApprovedTenantRimbo = ({ t }) => {
             };
             if (agencyLanguage === "en") {
               axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj11`, emailData);
-            } else {
+            } else if (agencyLanguage === "es") {
               axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj11`, emailData);
             }
           }

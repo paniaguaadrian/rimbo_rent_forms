@@ -76,7 +76,7 @@ const RejectedTenantRimbo = ({ t }) => {
 
       if (agencyLanguage === "en") {
         axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj12`, emailData);
-      } else {
+      } else if (agencyLanguage === "es") {
         axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj12`, emailData);
       }
     };

@@ -78,17 +78,22 @@ const ApprovedTenancyRimbo = ({ t }) => {
         };
         if (tenantsLanguage === "en") {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18tt`, emailData);
-        } else {
+        } else if (tenantsLanguage === "es") {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj18tt`, emailData);
         }
         if (agencyLanguage === "en") {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18pm`, emailData);
-        } else {
+        } else if (agencyLanguage === "es") {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj18pm`, emailData);
         }
         // ! Tenant Two
         if (tenancyData.tenantTwo) {
-          const { tenantsName, tenantsEmail, randomID } = tenancyData.tenantTwo;
+          const {
+            tenantsName,
+            tenantsEmail,
+            randomID,
+            tenantsLanguage,
+          } = tenancyData.tenantTwo;
           const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
           const { rentalAddress } = tenancyData.property;
           const tenancyID = tenancyData.tenancyID;
@@ -101,9 +106,9 @@ const ApprovedTenancyRimbo = ({ t }) => {
             agencyEmailPerson,
             rentalAddress,
           };
-          if (i18n.language === "en") {
+          if (tenantsLanguage === "en") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18tt`, emailData);
-          } else {
+          } else if (tenantsLanguage === "es") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj18tt`, emailData);
           }
         }
@@ -112,6 +117,7 @@ const ApprovedTenancyRimbo = ({ t }) => {
           const {
             tenantsName,
             tenantsEmail,
+            tenantsLanguage,
             randomID,
           } = tenancyData.tenantThree;
           const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
@@ -126,9 +132,9 @@ const ApprovedTenancyRimbo = ({ t }) => {
             agencyEmailPerson,
             rentalAddress,
           };
-          if (i18n.language === "en") {
+          if (tenantsLanguage === "en") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18tt`, emailData);
-          } else {
+          } else if (tenantsLanguage === "es") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj18tt`, emailData);
           }
         }
@@ -137,6 +143,7 @@ const ApprovedTenancyRimbo = ({ t }) => {
           const {
             tenantsName,
             tenantsEmail,
+            tenantsLanguage,
             randomID,
           } = tenancyData.tenantFour;
           const { agencyContactPerson, agencyEmailPerson } = tenancyData.agent;
@@ -151,9 +158,9 @@ const ApprovedTenancyRimbo = ({ t }) => {
             agencyEmailPerson,
             rentalAddress,
           };
-          if (i18n.language === "en") {
+          if (tenantsLanguage === "en") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj18tt`, emailData);
-          } else {
+          } else if (tenantsLanguage === "es") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj18tt`, emailData);
           }
         }

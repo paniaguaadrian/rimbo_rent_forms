@@ -106,15 +106,8 @@ const ApprovedTenancyPM = ({ t }) => {
         };
         if (tenantsLanguage === "en") {
           axios.post(`${REACT_APP_BASE_URL_EMAIL}/rjpm`, emailData);
-        } else {
-          axios.post(
-            `${REACT_APP_BASE_URL_EMAIL}/es/rjpm`,
-            emailData,
-            tenantsName,
-            tenantsEmail,
-            tenantsPhone,
-            randomID
-          );
+        } else if (tenantsLanguage === "es") {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rjpm`, emailData);
         }
         // ! Tenant Two !
         if (tenancyData.tenantTwo) {
@@ -122,6 +115,7 @@ const ApprovedTenancyPM = ({ t }) => {
             tenantsName,
             tenantsEmail,
             tenantsPhone,
+            tenantsLanguage,
             randomID,
           } = tenancyData.tenantTwo;
           const emailDataTwo = {
@@ -147,9 +141,9 @@ const ApprovedTenancyPM = ({ t }) => {
             tenantsPhone,
             randomID,
           };
-          if (i18n.language === "en") {
+          if (tenantsLanguage === "en") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/rjpm`, emailDataTwo);
-          } else {
+          } else if (tenantsLanguage === "es") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rjpm`, emailDataTwo);
           }
         }
@@ -159,6 +153,7 @@ const ApprovedTenancyPM = ({ t }) => {
             tenantsName,
             tenantsEmail,
             tenantsPhone,
+            tenantsLanguage,
             randomID,
           } = tenancyData.tenantThree;
           const emailDataThree = {
@@ -184,9 +179,9 @@ const ApprovedTenancyPM = ({ t }) => {
             tenantsPhone,
             randomID,
           };
-          if (i18n.language === "en") {
+          if (tenantsLanguage === "en") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/rjpm`, emailDataThree);
-          } else {
+          } else if (tenantsLanguage === "es") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rjpm`, emailDataThree);
           }
         }
@@ -196,6 +191,7 @@ const ApprovedTenancyPM = ({ t }) => {
             tenantsName,
             tenantsEmail,
             tenantsPhone,
+            tenantsLanguage,
             randomID,
           } = tenancyData.tenantFour;
           const emailDataFour = {
@@ -221,9 +217,9 @@ const ApprovedTenancyPM = ({ t }) => {
             tenantsPhone,
             randomID,
           };
-          if (i18n.language === "en") {
+          if (tenantsLanguage === "en") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/rjpm`, emailDataFour);
-          } else {
+          } else if (tenantsLanguage === "es") {
             axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rjpm`, emailDataFour);
           }
         }
