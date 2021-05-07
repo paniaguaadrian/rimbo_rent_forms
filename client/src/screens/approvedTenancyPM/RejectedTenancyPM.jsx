@@ -1,7 +1,10 @@
 // React components
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+
+// Reducer
+import { TenancyReducer, DefaultTenancy } from "./approved_tenancy_pm-reducer";
 
 // Custom Components
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
@@ -27,6 +30,9 @@ const RejectedTenancyPM = ({ t }) => {
   const randomID = tenancyID;
   const randomIDSend = tenancyID;
 
+  const [tenancy] = useReducer(TenancyReducer, DefaultTenancy);
+  const [state, setState] = useState(null); // eslint-disable-line
+
   useEffect(() => {
     // ! TENANT: Simplify fetch tenant Data.
     const fetchTenantData = () =>
@@ -38,9 +44,23 @@ const RejectedTenancyPM = ({ t }) => {
     const fetchTenancyData = () =>
       axios.get(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`);
 
+    // ! Post to tenant the new state of the isPMRejected
+    const postDecision = (body) =>
+      axios.post(
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/pm/rejected`,
+        body
+      );
+
     const processDecision = async () => {
       const { data: tenantData } = await fetchTenantData();
       const { data: tenancyData } = await fetchTenancyData();
+
+      const postBody = {
+        isPMRejected: tenancy.isPMRejected,
+        randomID: tenantData.randomID,
+      };
+
+      const { data: decisionResult } = await postDecision(postBody);
 
       const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
 
@@ -55,13 +75,15 @@ const RejectedTenancyPM = ({ t }) => {
       const desiredTenancy = getTenancy(randomID);
 
       const { tenantsName, randomIDSend } = tenantData;
+
       const {
         agencyName,
         agencyContactPerson,
         agencyEmailPerson,
-        agencyLanguage,
       } = desiredTenancy.agent;
+
       const { rentalAddress } = desiredTenancy.property;
+
       const tenancyID = desiredTenancy.tenancyID;
 
       const emailData = {
@@ -74,14 +96,15 @@ const RejectedTenancyPM = ({ t }) => {
         randomID: randomIDSend,
       };
 
-      if (agencyLanguage === "en") {
+      if (!tenantData.isPMRejected) {
         axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj13`, emailData);
-      } else if (agencyLanguage === "es") {
-        axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj13`, emailData);
       }
+
+      setState(decisionResult);
     };
+
     processDecision();
-  }, [tenancyID, randomID, randomIDSend]);
+  }, [tenancyID, randomID, randomIDSend, tenancy.isPMRejected]);
   return (
     <>
       <CustomHelmet header={t("rejectedTenancyPM.helmet")} />

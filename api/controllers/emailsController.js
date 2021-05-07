@@ -672,6 +672,8 @@ const sendRJ11Emails = async (req, res) => {
 const sendRJ12Emails = async (req, res) => {
   const {
     tenantsName,
+    tenantsEmail,
+    tenantsPhone,
     agencyName,
     agencyContactPerson,
     agencyEmailPerson,
@@ -733,6 +735,8 @@ const sendRJ12Emails = async (req, res) => {
     template: "rj12Email",
     context: {
       tenantsName,
+      tenantsEmail,
+      tenantsPhone,
       agencyName,
       agencyContactPerson,
       agencyEmailPerson,
@@ -757,6 +761,8 @@ const sendRJ12Emails = async (req, res) => {
     template: "rj12REmail",
     context: {
       tenantsName,
+      tenantsEmail,
+      tenantsPhone,
       agencyName,
       agencyContactPerson,
       agencyEmailPerson,
@@ -961,7 +967,7 @@ const sendRJ13Email = async (req, res) => {
   const RimboEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // Rimbo Email
-    subject: `${agencyName} rejected ${tenantsName} after Rimbo Screening`,
+    subject: `${agencyName} rejected tenancy after Rimbo Screening`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -1244,7 +1250,7 @@ const sendRJ15EmailsPM = async (req, res) => {
   const PMsEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // PM email
-    subject: `Tenant registration successfully completed`,
+    subject: `Tenancy registration successfully completed`,
     attachments: [
       {
         filename: "rimbo-logo.png",

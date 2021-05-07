@@ -3,7 +3,7 @@
   "prevStepButton": "Atrás",
   "submitButton": "Enviar",
   "authorize": "Enviar datos",
-  "authorizeTwo": "Registrar",
+  "authorizeTwo": "Regístrate",
   "addTenant": "Añadir inquilino",
   "deleteTenant": "Eliminar inquilino",
   "NavBar": {
@@ -132,7 +132,7 @@
       "DNIFront": "DNI/NIE (Frontal)",
       "DNIBack": "DNI/NIE (Atrás)",
       "DCA": "Documento que confirme tu dirección actual (ej. Recibo de suministros)",
-      "checkbox": "Al enviar este formulario, comprendes y aceptas que utilizamos tu información de acuerdo con nuestra ",
+      "checkbox": "Al enviar este formulario, entiendes y aceptas que utilizamos tu información de acuerdo con nuestra ",
       "privacy": "política de privacidad",
       "checkboxTwo": " y nuestra ",
       "cookies": " política de cookies",

@@ -54,7 +54,12 @@ const RejectedTenantRimbo = ({ t }) => {
       };
       const desiredTenancy = getTenancy(randomID);
 
-      const { tenantsName, randomIDSend } = tenantData;
+      const {
+        tenantsName,
+        tenantsEmail,
+        tenantsPhone,
+        randomIDSend,
+      } = tenantData;
       const {
         agencyName,
         agencyContactPerson,
@@ -66,6 +71,8 @@ const RejectedTenantRimbo = ({ t }) => {
 
       const emailData = {
         tenantsName,
+        tenantsEmail,
+        tenantsPhone,
         agencyName,
         agencyContactPerson,
         agencyEmailPerson,

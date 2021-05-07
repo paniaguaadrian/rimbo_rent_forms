@@ -927,71 +927,6 @@ const sendPMEmails = async (req, res) => {
   res.status(200).json();
 };
 
-// ! RJ11 Email => RJ13 Email to Rimbo informs that PM rejected tenant
-const sendRJ13Email = async (req, res) => {
-  const {
-    tenantsName,
-    agencyName,
-    agencyContactPerson,
-    agencyEmailPerson,
-    rentalAddress,
-    tenancyID,
-    randomID,
-  } = req.body;
-
-  const transporterRJ13 = nodemailer.createTransport(
-    sgTransport({
-      auth: {
-        api_key: process.env.SENDGRID_API,
-      },
-    })
-  );
-
-  let optionsRJ13 = {
-    viewEngine: {
-      extname: ".handlebars",
-      layoutsDir: "views/",
-      defaultLayout: "RJ13REmail",
-    },
-    viewPath: "views/",
-  };
-
-  transporterRJ13.use("compile", hbs(optionsRJ13));
-
-  const RimboEmail = {
-    from: "Rimbo info@rimbo.rent",
-    to: testEmail, // Rimbo Email
-    subject: `${agencyName} rejected ${tenantsName} after Rimbo Screening`,
-    attachments: [
-      {
-        filename: "rimbo-logo.png",
-        path: "./views/images/rimbo-logo.png",
-        cid: "rimbologo",
-      },
-    ],
-    template: "RJ13REmail",
-    context: {
-      tenantsName,
-      agencyName,
-      agencyContactPerson,
-      agencyEmailPerson,
-      rentalAddress,
-      tenancyID,
-      randomID,
-    },
-  };
-
-  transporterRJ13.sendMail(RimboEmail, (err, data) => {
-    if (err) {
-      console.log("There is an error here...!" + err);
-    } else {
-      console.log("Email sent!");
-    }
-  });
-
-  res.status(200).json();
-};
-
 // ! RJ3 Form =>  RJ15 Email
 const sendRJ3FormEmail = async (req, res) => {
   const {
@@ -1172,7 +1107,7 @@ const sendRJ15EmailsPM = async (req, res) => {
   const PMsEmail = {
     from: "Rimbo info@rimbo.rent",
     to: testEmail, // PM email
-    subject: `Registro de inquilino finalizado`,
+    subject: `Registro de alquiler finalizado`,
     attachments: [
       {
         filename: "rimbo-logo.png",
@@ -1301,9 +1236,8 @@ const sendRJ18EmailTT = async (req, res) => {
         cid: "rimbologo",
       },
       {
-        filename: "Reglas_Generales_y_Guía_Inquilino_Rimbo_ESPAÑOL.pdf",
-        path:
-          "./viewsEs/images/Reglas_Generales_y_Guía_Inquilino_Rimbo_ESPAÑOL.pdf",
+        filename: "Reglas_Generales_y_Guia_Inquilino_Rimbo.pdf",
+        path: "./viewsEs/images/Reglas_Generales_y_Guia_Inquilino_Rimbo.pdf",
       },
     ],
     template: "rj17Email",
@@ -1368,9 +1302,8 @@ const sendRJ18EmailPM = async (req, res) => {
         cid: "rimbologo",
       },
       {
-        filename: "Reglas_Generales_y_Guía_Propietario_RIMBO_ESPAÑOL.pdf",
-        path:
-          "./viewsEs/images/Reglas_Generales_y_Guía_Propietario_RIMBO_ESPAÑOL.pdf",
+        filename: "Reglas_Generales_y_Guia_Propietario_RIMBO.pdf",
+        path: "./viewsEs/images/Reglas_Generales_y_Guia_Propietario_RIMBO.pdf",
       },
     ],
     template: "rj20Email",
@@ -1400,7 +1333,6 @@ export {
   sendRJ11Emails,
   sendRJ12Emails,
   sendPMEmails,
-  sendRJ13Email,
   sendRJ3FormEmail,
   sendRJ15EmailsTT,
   sendRJ15EmailsPM,

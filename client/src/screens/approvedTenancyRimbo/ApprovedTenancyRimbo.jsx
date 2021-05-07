@@ -10,7 +10,6 @@ import PageContainer from "../../components/PageContainer/PageContainer";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
-import i18n from "../../i18n";
 
 // Reducer
 import { TenantReducer, DefaultTenant } from "./approved_tenancy_rimbo-reducer";

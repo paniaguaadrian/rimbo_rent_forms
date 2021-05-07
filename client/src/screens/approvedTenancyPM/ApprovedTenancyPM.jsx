@@ -13,7 +13,6 @@ import PageContainer from "../../components/PageContainer/PageContainer";
 
 // Multi language
 import { withNamespaces } from "react-i18next";
-import i18n from "../../i18n";
 
 // Images
 import SuccessImage from "../../images/success-image.svg";
