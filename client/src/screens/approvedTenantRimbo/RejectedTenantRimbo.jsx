@@ -1,7 +1,10 @@
 // React components
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+
+// Reducer
+import { TenantReducer, DefaultTenant } from "./approved_tenant_rimbo-reducer";
 
 // Custom Components
 import CustomHelmet from "../../components/Helmet/CustomHelmet";
@@ -27,6 +30,9 @@ const RejectedTenantRimbo = ({ t }) => {
   const randomID = tenancyID;
   const randomIDSend = tenancyID;
 
+  const [tenant] = useReducer(TenantReducer, DefaultTenant);
+  const [state, setState] = useState(null); // eslint-disable-line
+
   useEffect(() => {
     // ! TENANT: Simplify fetch tenant Data.
     const fetchTenantData = () =>
@@ -38,9 +44,23 @@ const RejectedTenantRimbo = ({ t }) => {
     const fetchTenancyData = () =>
       axios.get(`${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANCIES}`);
 
+    // ! Post to tenant the new state of the isPMRejected
+    const postDecision = (body) =>
+      axios.post(
+        `${REACT_APP_BASE_URL}${REACT_APP_API_RIMBO_TENANT}/${randomID}/rejected`,
+        body
+      );
+
     const processDecision = async () => {
       const { data: tenantData } = await fetchTenantData();
       const { data: tenancyData } = await fetchTenancyData();
+
+      const postBody = {
+        isRimboRejected: tenant.isRimboRejected,
+        randomID: tenantData.randomID,
+      };
+
+      const { data: decisionResult } = await postDecision(postBody);
 
       const tenants = ["tenant", "tenantTwo", "tenantThree", "tenantFour"];
 
@@ -81,14 +101,18 @@ const RejectedTenantRimbo = ({ t }) => {
         randomID: randomIDSend,
       };
 
-      if (agencyLanguage === "en") {
-        axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj12`, emailData);
-      } else if (agencyLanguage === "es") {
-        axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj12`, emailData);
+      if (!tenantData.isRimboRejected) {
+        if (agencyLanguage === "en") {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/rj12`, emailData);
+        } else if (agencyLanguage === "es") {
+          axios.post(`${REACT_APP_BASE_URL_EMAIL}/es/rj12`, emailData);
+        }
       }
+
+      setState(decisionResult);
     };
     processDecision();
-  }, [tenancyID, randomID, randomIDSend]);
+  }, [tenancyID, randomID, randomIDSend, tenant.isRimboRejected]);
   return (
     <>
       <CustomHelmet header={t("rejectedTenantRimbo.helmet")} />
