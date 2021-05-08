@@ -81,7 +81,10 @@ const ApprovedTenantCardRimbo = ({ t }) => {
         tenantsEmail,
       };
 
-      if (!tenant.isCardAccepted) {
+      if (!tenantData.isCardAccepted) {
+        console.log(
+          "This works? Sending email to tenant after acccepting credit cardd...!!!"
+        );
         if (tenantsLanguage === "en") {
           await axios.post(
             `${REACT_APP_BASE_URL_EMAIL}/rj15/tt`,

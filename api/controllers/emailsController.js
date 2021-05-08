@@ -5,6 +5,7 @@ import hbs from "nodemailer-express-handlebars";
 // * Rimbo rent emails
 // const rimboEmail = "info@rimbo.rent";
 const testEmail = "paniaguasanchezadrian@gmail.com";
+// const testEmail = "gloriya@rimbo.rent";
 // const testEmail = "victor@rimbo.rent";
 
 // ! RJ1 Form => RJ3, RJ4, RJD Emails
