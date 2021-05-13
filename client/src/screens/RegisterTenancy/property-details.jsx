@@ -246,6 +246,7 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
                       ),
                     }}
                   />
+
                   <Card raised className={classes.GoogleSuggestionContainer}>
                     {/* display sugestions */}
                     {loading ? <div>...loading</div> : null}
@@ -273,6 +274,9 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
                 </div>
               )}
             </PlacesAutocomplete>
+            <FormHelperText className={classes.ErrorTextMaterial}>
+              {errors.rentalAddress}
+            </FormHelperText>
           </div>
         </div>
         <div className={classes.GroupInput}>

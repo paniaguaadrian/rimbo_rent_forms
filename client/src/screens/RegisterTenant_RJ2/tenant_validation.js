@@ -1,6 +1,11 @@
 export const newTenant = (values) => {
   let errors = {};
 
+  if (!values.tenantsAddress) {
+    errors.tenantsAddress =
+      "You must select the address suggested by Google Maps";
+  }
+
   if (!values.monthlyNetIncome) {
     errors.monthlyNetIncome = "You must specify a monthly net";
   }
@@ -26,6 +31,11 @@ export const newTenant = (values) => {
 
 export const newTenantEs = (values) => {
   let errors = {};
+
+  if (!values.tenantsAddress) {
+    errors.tenantsAddress =
+      "You must select the address suggested by Google Maps";
+  }
 
   if (!values.monthlyNetIncome) {
     errors.monthlyNetIncome = "You must specify a monthly net";

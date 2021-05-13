@@ -616,6 +616,9 @@ const RegisterTenant = ({ t }) => {
                               );
                             })}
                           </Card>
+                          <FormHelperText className={classes.ErrorTextMaterial}>
+                            {errors.tenantsAddress}
+                          </FormHelperText>
                         </div>
                       )}
                     </PlacesAutocomplete>

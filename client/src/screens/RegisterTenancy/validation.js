@@ -83,6 +83,10 @@ export const isTenantEs = (values) => {
 export const isProperty = (values) => {
   let errors = {};
 
+  if (!values.rentalAddress) {
+    errors.rentalAddress =
+      "You must select the address suggested by Google Maps";
+  }
   if (!values.rentDuration) {
     errors.rentDuration = "Enter a rental duration (in years).";
   }
@@ -97,9 +101,6 @@ export const isProperty = (values) => {
   }
   if (!values.rentAmount) {
     errors.rentAmount = "Monthly Rent is required.";
-  }
-  if (!values.rentalAddress) {
-    errors.rentalAddress = "Rental Address is required.";
   }
   return errors;
 };
@@ -107,6 +108,11 @@ export const isProperty = (values) => {
 export const isPropertyEs = (values) => {
   let errors = {};
 
+  if (!values.rentalAddress) {
+    errors.rentalAddress =
+      "You must select the address suggested by Google Maps";
+  }
+
   if (!values.rentDuration) {
     errors.rentDuration = "Enter a rental duration (in years).";
   }
@@ -122,9 +128,7 @@ export const isPropertyEs = (values) => {
   if (!values.rentAmount) {
     errors.rentAmount = "Monthly Rent is required.";
   }
-  if (!values.rentalAddress) {
-    errors.rentalAddress = "Rental Address is required.";
-  }
+
   return errors;
 };
 
