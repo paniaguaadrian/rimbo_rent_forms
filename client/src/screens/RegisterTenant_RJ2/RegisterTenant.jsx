@@ -102,31 +102,34 @@ const RegisterTenant = ({ t }) => {
 
     const addressComponents = results[0].address_components;
 
-    const route = "route";
-    const locality = "locality";
-    const streetNumber = "street_number";
-    const postalCode = "postal_code";
+    addressComponents.forEach((component) => {
+      if (component.types[0].includes("locality")) {
+        tenant.city = component.long_name;
+      }
 
-    if (
-      addressComponents[0].types[0] === route &&
-      addressComponents[1].types[0] === locality
-    ) {
-      setTenantsZipCode("");
-      setTenantsAddress(results[0].formatted_address);
-    } else if (
-      addressComponents[0].types[0] === streetNumber && // number
-      addressComponents[1].types[0] === route && // Street
-      addressComponents[2].types[0] === locality && // Barcelona
-      addressComponents[6].types[0] === postalCode
-    ) {
-      const street = results[0].address_components[1].long_name;
-      const streetNumber = results[0].address_components[0].long_name;
-      const city = results[0].address_components[2].long_name;
-      const finalAddress = `${street}, ${streetNumber}, ${city}`;
+      if (component.types[0].includes("street_number")) {
+        tenant.streetNumber = component.long_name;
+      }
 
-      setTenantsZipCode(results[0].address_components[6].long_name);
-      setTenantsAddress(finalAddress);
-    }
+      if (component.types[0].includes("route")) {
+        tenant.route = component.long_name;
+      }
+
+      if (component.types[0].includes("postal_code")) {
+        setTenantsZipCode(component.long_name);
+        tenant.postalCode = component.long_name;
+      }
+
+      const finalAddress = `${tenant.route}, ${tenant.streetNumber}, ${tenant.city}`;
+
+      if (!component.types[0].includes("postal_code")) {
+        setTenantsAddress(results[0].formatted_address);
+        tenant.tenantsAddress = results[0].formatted_address;
+      } else {
+        setTenantsAddress(finalAddress);
+        tenant.tenantsAddress = finalAddress;
+      }
+    });
   };
 
   useEffect(
@@ -210,7 +213,7 @@ const RegisterTenant = ({ t }) => {
         documentType: tenant.documentType,
         documentNumber: tenant.documentNumber,
         tenantsAddress: tenantsAddress,
-        tenantsZipCode: tenantsZipCode,
+        tenantsZipCode: tenant.postalCode,
         isAcceptedPrivacy: tenant.isAcceptedPrivacy,
         stageOne: tenant.stageOne,
         randomID: tenancyID,
@@ -306,7 +309,7 @@ const RegisterTenant = ({ t }) => {
             jobType: tenant.jobType,
             documentNumber: tenant.documentNumber,
             tenantsAddress: tenantsAddress,
-            tenantsZipCode: tenantsZipCode,
+            tenantsZipCode: tenant.postalCode,
             documentImageFront: tenantDataAfter.documentImageFront,
             documentImageBack: tenantDataAfter.documentImageBack,
             documentConfirmAddress: tenantDataAfter.documentConfirmAddress,
@@ -337,7 +340,7 @@ const RegisterTenant = ({ t }) => {
             jobType: tenant.jobType,
             documentNumber: tenant.documentNumber,
             tenantsAddress: tenantsAddress,
-            tenantsZipCode: tenantsZipCode,
+            tenantsZipCode: tenant.postalCode,
             documentImageFront: tenantDataAfter.documentImageFront,
             documentImageBack: tenantDataAfter.documentImageBack,
             documentConfirmAddress: tenantDataAfter.documentConfirmAddress,

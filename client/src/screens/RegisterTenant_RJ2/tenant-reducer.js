@@ -7,6 +7,10 @@ export const DefaultTenant = {
   documentNumber: "",
   isAcceptedPrivacy: true,
   stageOne: 5,
+  city: "",
+  route: "",
+  postalCode: "",
+  streetNumber: "",
 };
 
 export const TenantReducer = (newTenant, { type, payload }) => {
