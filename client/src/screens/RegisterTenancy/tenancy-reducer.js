@@ -36,6 +36,8 @@ export const DefaultTenancy = {
     rentalCity: "",
     rentalPostalCode: "",
     rentalAddress: "",
+    route: "",
+    streetNumber: "",
     rentAmount: "",
     rentDuration: "",
     product: "",

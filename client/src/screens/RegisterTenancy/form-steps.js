@@ -21,6 +21,7 @@ const FormSteps = (step, setStep, tenancy, setTenancy) => [
       />
     ),
   },
+
   {
     title: "Tenant Information",
     titleEs: "Datos del inquilino",

@@ -4,8 +4,8 @@ import hbs from "nodemailer-express-handlebars";
 
 // * Rimbo rent emails
 // const rimboEmail = "info@rimbo.rent";
-// const testEmail = "paniaguasanchezadrian@gmail.com";
-const testEmail = "gloriya@rimbo.rent";
+const testEmail = "paniaguasanchezadrian@gmail.com";
+// const testEmail = "gloriya@rimbo.rent";
 // const testEmail = "victor@rimbo.rent";
 
 // ! RJ1 Form => RJ3, RJ4, RJD Emails
@@ -1285,13 +1285,8 @@ const sendRJ15EmailsPM = async (req, res) => {
 
 // ! RJS Form => RJ18 Email
 const sendRJSFormEmail = async (req, res) => {
-  const {
-    agencyName,
-    rentalAddress,
-    tenantsName,
-    pmAnex,
-    tenancyID,
-  } = req.body;
+  const { agencyName, rentalAddress, tenantsName, pmAnex, tenancyID } =
+    req.body;
 
   const transporterRJS = nodemailer.createTransport(
     sgTransport({
@@ -1381,8 +1376,7 @@ const sendRJ18EmailTT = async (req, res) => {
       },
       {
         filename: "General_Rules_and_Guidelines_Tenant_Rimbo_ENGLISH.pdf",
-        path:
-          "./views/images/General_Rules_and_Guidelines_Tenant_Rimbo_ENGLISH.pdf",
+        path: "./views/images/General_Rules_and_Guidelines_Tenant_Rimbo_ENGLISH.pdf",
       },
     ],
     template: "rj17Email",
@@ -1448,8 +1442,7 @@ const sendRJ18EmailPM = async (req, res) => {
       },
       {
         filename: "General_Rules_&_Guidelines_Landlord_RIMBO_ENGLISH.pdf",
-        path:
-          "./views/images/General_Rules_&_Guidelines_Landlord_RIMBO_ENGLISH.pdf",
+        path: "./views/images/General_Rules_&_Guidelines_Landlord_RIMBO_ENGLISH.pdf",
       },
     ],
     template: "rj20Email",
