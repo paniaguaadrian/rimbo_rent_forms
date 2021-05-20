@@ -314,7 +314,7 @@ const RegisterTenant = ({ t }) => {
             tenantsZipCode: tenant.postalCode,
             documentImageFront: tenantDataAfter.documentImageFront,
             documentImageBack: tenantDataAfter.documentImageBack,
-            documentConfirmAddress: tenantDataAfter.documentConfirmAddress,
+
             // Agent/Agency
             agencyName: desiredTenancy.agent.agencyName,
             agencyContactPerson: desiredTenancy.agent.agencyContactPerson,
@@ -345,7 +345,7 @@ const RegisterTenant = ({ t }) => {
             tenantsZipCode: tenant.postalCode,
             documentImageFront: tenantDataAfter.documentImageFront,
             documentImageBack: tenantDataAfter.documentImageBack,
-            documentConfirmAddress: tenantDataAfter.documentConfirmAddress,
+
             // Agent/Agency
             agencyName: desiredTenancy.agent.agencyName,
             agencyContactPerson: desiredTenancy.agent.agencyContactPerson,
@@ -684,17 +684,6 @@ const RegisterTenant = ({ t }) => {
                       type="file"
                       name="DB"
                       label={t("RJ2.form.DNIBack")}
-                      onChange={changeHandler}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className={classes.GroupInputAloneFile}>
-                  <div className={classes.InputElementMaterial}>
-                    <InputFile
-                      type="file"
-                      name="DCA"
-                      label={t("RJ2.form.DCA")}
                       onChange={changeHandler}
                       required
                     />
