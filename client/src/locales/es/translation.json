@@ -202,7 +202,7 @@
   "approvedTenantRimbo": {
     "helmet": "Inquilino aprobado por Rimbo - Rimbo - The new way of rent",
     "title": "Has aceptado al inquilino correctamente",
-    "subTitle": "Tanto tu como el inquilino recibiréis un email con los detalles del proceso"
+    "subTitle": "El propietario recibirá un email con los detalles del proceso"
   },
   "rejectedTenantRimbo": {
     "helmet": "Inquilino rechazado por Rimbo - Rimbo - The new way of rent",

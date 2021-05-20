@@ -202,7 +202,7 @@
   "approvedTenantRimbo": {
     "helmet": "Tenant approved by Rimbo - Rimbo - The new way of rent",
     "title": "You have successfully accepted the tenant",
-    "subTitle": "Both you and the tenant will receive an email with the details of the process"
+    "subTitle": "The Property Manager will receive an email with the details of the process"
   },
   "rejectedTenantRimbo": {
     "helmet": "Tenant rejected by Rimbo - Rimbo - The new way of rent",

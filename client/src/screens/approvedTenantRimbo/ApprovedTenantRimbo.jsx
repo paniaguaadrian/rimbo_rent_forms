@@ -114,11 +114,8 @@ const ApprovedTenantRimbo = ({ t }) => {
             postTenancyBody
           );
 
-          const {
-            agencyContactPerson,
-            agencyEmailPerson,
-            agencyLanguage,
-          } = desiredTenancy.agent;
+          const { agencyContactPerson, agencyEmailPerson, agencyLanguage } =
+            desiredTenancy.agent;
 
           const { rentalAddress } = desiredTenancy.property;
 
@@ -169,9 +166,8 @@ const ApprovedTenantRimbo = ({ t }) => {
           if (desiredTenancy.tenantThree && !desiredTenancy.tenantFour) {
             const { tenantsName } = desiredTenancy.tenant;
             const { tenantsName: tenantsNameTwo } = desiredTenancy.tenantTwo;
-            const {
-              tenantsName: tenantsNameThree,
-            } = desiredTenancy.tenantThree;
+            const { tenantsName: tenantsNameThree } =
+              desiredTenancy.tenantThree;
             const emailData = {
               agencyContactPerson,
               agencyEmailPerson,
@@ -191,9 +187,8 @@ const ApprovedTenantRimbo = ({ t }) => {
           if (desiredTenancy.tenantFour) {
             const { tenantsName } = desiredTenancy.tenant;
             const { tenantsName: tenantsNameTwo } = desiredTenancy.tenantTwo;
-            const {
-              tenantsName: tenantsNameThree,
-            } = desiredTenancy.tenantThree;
+            const { tenantsName: tenantsNameThree } =
+              desiredTenancy.tenantThree;
             const { tenantsName: tenantsNameFour } = desiredTenancy.tenantFour;
             const emailData = {
               agencyContactPerson,
