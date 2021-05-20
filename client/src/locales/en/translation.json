@@ -42,8 +42,8 @@
     "header": {
       "title": "List your tenant for screening",
       "subtitleOne": "Fill out the fields.",
-      "subtitleTwo": "Rimbo screens in 24 hours.",
-      "subtitleThree": "Receive a response via email."
+      "subtitleTwo": "Rimbo screens the tenant/s within 24 hours",
+      "subtitleThree": "Check your email to see the results."
     },
     "stepZero": {
       "agencyName": "Agency Name",
