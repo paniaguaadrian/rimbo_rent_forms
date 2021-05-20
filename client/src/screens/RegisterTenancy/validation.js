@@ -90,15 +90,7 @@ export const isProperty = (values) => {
   if (!values.rentDuration) {
     errors.rentDuration = "Enter a rental duration (in years).";
   }
-  if (!values.rentalCity) {
-    errors.rentalCity = "City Name is required.";
-  }
-  if (!values.rentalPostalCode) {
-    errors.rentalPostalCode = "Postal Code is required.";
-  }
-  if (values.rentalPostalCode && values.rentalPostalCode.length < 5) {
-    errors.rentalPostalCode = "Enter valid Postal Code.";
-  }
+
   if (!values.rentAmount) {
     errors.rentAmount = "Monthly Rent is required.";
   }
@@ -116,15 +108,7 @@ export const isPropertyEs = (values) => {
   if (!values.rentDuration) {
     errors.rentDuration = "Enter a rental duration (in years).";
   }
-  if (!values.rentalCity) {
-    errors.rentalCity = "City Name is required.";
-  }
-  if (!values.rentalPostalCode) {
-    errors.rentalPostalCode = "Postal Code is required.";
-  }
-  if (values.rentalPostalCode && values.rentalPostalCode.length < 5) {
-    errors.rentalPostalCode = "Enter valid Postal Code.";
-  }
+
   if (!values.rentAmount) {
     errors.rentAmount = "Monthly Rent is required.";
   }
