@@ -214,9 +214,6 @@ const PropertyDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
                   <TextField
                     id="googleInput"
                     {...getInputProps()}
-                    name="rentalAddress"
-                    value={tenancy.propertyDetails.rentalAddress}
-                    // onChange={(e) => handleAgency(e)}
                     type="text"
                     label={t("RJ1.stepTwo.rentalAddress")}
                     placeholder={t("RJ1.stepTwo.rentalAddressPL")}

@@ -446,3 +446,45 @@
     }
   }
 }
+
+.WarningInformation {
+  margin: 0 auto;
+  margin-top: 2.5rem;
+  padding: 1rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 97%;
+  height: 50%;
+  @include xl {
+    margin: 0 auto;
+    margin-top: 2.5rem;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 97%;
+    height: 50%;
+  }
+
+  .WarningInformationMaterial {
+    display: flex;
+    flex-direction: row;
+    color: black;
+    font-weight: 400;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 1.5;
+    text-justify: justify;
+    @include xl {
+      color: black;
+      font-weight: 500;
+      font-size: 0.7rem;
+      text-align: center;
+      line-height: 1.5;
+      text-justify: justify;
+    }
+  }
+}

@@ -101,9 +101,9 @@
     "helmet": "New tenant - Rimbo - The new way of rent",
     "header": {
       "title": "Tell us a little more about yourself ",
-      "titleTwo": "to save the deposit of your next apartment",
+      "titleTwo": "and we will save you the deposit for your next apartment",
       "subtitle": "All we need from you is the following information. Quick and easy!",
-      "extraInfo": "We will need a scanned copy of your DNI / NIE (front and back) or passport and a document that confirms your current address. If you are an EU citizen, please provide your NIE number in the “Document number” field and send us a scanned copy of the identity document of your country of origin."
+      "extraInfo": "If you are an EU citizen, please provide your NIE number in the “Document number” field and send us a scanned copy of an identity document with picture."
     },
     "form": {
       "monthlyNetIncome": "Monthly net income",

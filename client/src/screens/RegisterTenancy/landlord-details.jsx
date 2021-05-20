@@ -187,7 +187,7 @@ const LandlorDetails = ({ step, setStep, tenancy, setTenancy, t }) => {
           </div>
           <div className={classes.InputElementMaterial}>
             <TextField
-              type="text"
+              type="email"
               name="landlordEmail"
               value={tenancy.landlordDetails.landlordEmail}
               label={t("RJ1.stepThree.landlordEmail")}

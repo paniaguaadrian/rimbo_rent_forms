@@ -33,6 +33,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 
+import Alert from "@material-ui/lab/Alert";
+
 // Material-ui Icons
 import EuroSharpIcon from "@material-ui/icons/EuroSharp";
 import AssignmentIndSharpIcon from "@material-ui/icons/AssignmentIndSharp";
@@ -375,9 +377,9 @@ const RegisterTenant = ({ t }) => {
           <div className={classes.HeaderContainer}>
             <h1>{t("RJ2.header.title")}</h1>
             <h1>{t("RJ2.header.titleTwo")}</h1>
-            <div className={classes.HeaderInfo}>
+            {/* <div className={classes.HeaderInfo}>
               <p>{t("RJ2.header.extraInfo")}</p>
-            </div>
+            </div> */}
           </div>
           <div className={classes.FormContent}>
             <form
@@ -481,82 +483,6 @@ const RegisterTenant = ({ t }) => {
                 </div>
                 <div className={classes.GroupInput}>
                   <div className={classes.InputElementMaterial}>
-                    <FormControl
-                      variant="outlined"
-                      className={classes.InputMaterial}
-                    >
-                      <InputLabel id="select_label">
-                        {t("RJ2.form.documentType")}
-                      </InputLabel>
-
-                      <Select
-                        labelId="select_label"
-                        id="select_label"
-                        required
-                        value={tenant.documentType}
-                        name="documentType"
-                        onChange={(e) => handleNewTenant(e)}
-                        displayEmpty
-                        label={t("RJ2.form.documentType")}
-                      >
-                        <MenuItem
-                          name="documentType"
-                          value={t("RJ2.form.documentTypeOne")}
-                        >
-                          {t("RJ2.form.documentTypeOne")}
-                        </MenuItem>
-                        <MenuItem
-                          name="documentType"
-                          value={t("RJ2.form.documentTypeTwo")}
-                        >
-                          {t("RJ2.form.documentTypeTwo")}
-                        </MenuItem>
-                        <MenuItem
-                          name="documentType"
-                          value={t("RJ2.form.documentTypeThree")}
-                        >
-                          {t("RJ2.form.documentTypeThree")}
-                        </MenuItem>
-                        <MenuItem
-                          name="documentType"
-                          value={t("RJ2.form.documentTypeFour")}
-                        >
-                          {t("RJ2.form.documentTypeFour")}
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className={classes.InputElementMaterial}>
-                    <TextField
-                      type="text"
-                      name="documentNumber"
-                      value={tenant.documentNumber}
-                      label={t("RJ2.form.documentNumber")}
-                      placeholder={t("RJ2.form.documentNumberPL")}
-                      onChange={(e) => handleNewTenant(e)}
-                      className={classes.InputMaterial}
-                      fullWidth
-                      variant="outlined"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment
-                            position="start"
-                            disablePointerEvents={true}
-                          >
-                            <AssignmentIndSharpIcon
-                              className={classes.IconStyleMaterial}
-                            />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                    <FormHelperText className={classes.ErrorTextMaterial}>
-                      {errors.documentNumber}
-                    </FormHelperText>
-                  </div>
-                </div>
-                <div className={classes.GroupInput}>
-                  <div className={classes.InputElementMaterial}>
                     <PlacesAutocomplete
                       value={tenantsAddress}
                       onChange={setTenantsAddress}
@@ -651,6 +577,95 @@ const RegisterTenant = ({ t }) => {
                         ),
                       }}
                     />
+                  </div>
+                </div>
+                {/* <div className={classes.WarningInformation}>
+                  <p>{t("RJ2.header.extraInfo")}</p>
+                </div> */}
+                <div className={classes.WarningInformation}>
+                  <Alert
+                    severity="info"
+                    color="error"
+                    // variant="outlined"
+                    className={classes.WarningInformationMaterial}
+                  >
+                    {t("RJ2.header.extraInfo")}
+                  </Alert>
+                </div>
+                <div className={classes.GroupInput}>
+                  <div className={classes.InputElementMaterial}>
+                    <FormControl
+                      variant="outlined"
+                      className={classes.InputMaterial}
+                    >
+                      <InputLabel id="select_label">
+                        {t("RJ2.form.documentType")}
+                      </InputLabel>
+
+                      <Select
+                        labelId="select_label"
+                        id="select_label"
+                        required
+                        value={tenant.documentType}
+                        name="documentType"
+                        onChange={(e) => handleNewTenant(e)}
+                        displayEmpty
+                        label={t("RJ2.form.documentType")}
+                      >
+                        <MenuItem
+                          name="documentType"
+                          value={t("RJ2.form.documentTypeOne")}
+                        >
+                          {t("RJ2.form.documentTypeOne")}
+                        </MenuItem>
+                        <MenuItem
+                          name="documentType"
+                          value={t("RJ2.form.documentTypeTwo")}
+                        >
+                          {t("RJ2.form.documentTypeTwo")}
+                        </MenuItem>
+                        <MenuItem
+                          name="documentType"
+                          value={t("RJ2.form.documentTypeThree")}
+                        >
+                          {t("RJ2.form.documentTypeThree")}
+                        </MenuItem>
+                        <MenuItem
+                          name="documentType"
+                          value={t("RJ2.form.documentTypeFour")}
+                        >
+                          {t("RJ2.form.documentTypeFour")}
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
+                  <div className={classes.InputElementMaterial}>
+                    <TextField
+                      type="text"
+                      name="documentNumber"
+                      value={tenant.documentNumber}
+                      label={t("RJ2.form.documentNumber")}
+                      placeholder={t("RJ2.form.documentNumberPL")}
+                      onChange={(e) => handleNewTenant(e)}
+                      className={classes.InputMaterial}
+                      fullWidth
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment
+                            position="start"
+                            disablePointerEvents={true}
+                          >
+                            <AssignmentIndSharpIcon
+                              className={classes.IconStyleMaterial}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <FormHelperText className={classes.ErrorTextMaterial}>
+                      {errors.documentNumber}
+                    </FormHelperText>
                   </div>
                 </div>
 
