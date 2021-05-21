@@ -69,16 +69,10 @@ const ApprovedTenancyPM = ({ t }) => {
           agencyName,
           agencyPhonePerson,
         } = tenancyData.agent;
-        const {
-          rentalAddress,
-          rentalCity,
-          rentalPostalCode,
-        } = tenancyData.property;
-        const {
-          landlordName,
-          landlordEmail,
-          landlordPhone,
-        } = tenancyData.landlord;
+        const { rentalAddress, rentalCity, rentalPostalCode } =
+          tenancyData.property;
+        const { landlordName, landlordEmail, landlordPhone } =
+          tenancyData.landlord;
         const { rentAmount, product, rentDuration, tenancyID } = tenancyData;
         const emailData = {
           tenancyID,

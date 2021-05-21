@@ -147,7 +147,7 @@
     "helmet": "New tenant - Rimbo - The new way of rent",
     "header": {
       "title": "Great! You are just one step away from renting without a deposit!",
-      "subtitle": "You just need to review our Terms and Conditions and register your card"
+      "subtitle": "You just need to review our Terms and Conditions and register your debit card"
     },
     "form": {
       "tenantTitle": "Your details",
@@ -155,11 +155,11 @@
       "email": "Email: ",
       "phone": "Phone: ",
       "cardTitle": "Debit card details",
-      "cardSubtitle": "Remember, you must list the account where you receive your income",
+      "cardSubtitle": "Remember, you must list the debit card linked to the account where you receive your income. Credit cards are not accepted.",
       "extraInfo": "*The card will NOT be blocked. The card will NOT be charged now. Only in case of legal claims presented by the landlord the card will be charged, import limited to ",
       "extraInfoTwo": " of rent.",
-      "checkbox": "By hiring Rimbo's Services, you accept the",
-      "generalConditions": " Rimbo general conditions"
+      "checkbox": "I hereby confirm that I have read and accept Rimbo's",
+      "generalConditions": " Terms and Conditions"
     },
     "success": {
       "title": "Awesome, we have received your details! ",

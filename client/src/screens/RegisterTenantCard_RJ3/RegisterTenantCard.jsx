@@ -9,6 +9,7 @@ import Success from "../../components/Success/Success";
 
 // Material-ui Components
 import ButtonMat from "@material-ui/core/Button";
+import Alert from "@material-ui/lab/Alert";
 
 // Material-ui Icons
 import SendIcon from "@material-ui/icons/Send";
@@ -163,6 +164,7 @@ const RegisterTenantCard = ({ t }) => {
           tenantsName,
           tenantsEmail,
           tenantsPhone,
+          tenancyID,
           randomID,
           agencyName,
         });
@@ -326,8 +328,15 @@ const RegisterTenantCard = ({ t }) => {
                         disabled
                       />
                     </div>
-                    <div className={classes.CardLeftInfo}>
-                      <p>{t("RJ3.form.cardSubtitle")}</p>
+                    <div className={classes.WarningInformation}>
+                      <Alert
+                        severity="info"
+                        color="error"
+                        // variant="outlined"
+                        className={classes.WarningInformationMaterial}
+                      >
+                        {t("RJ3.form.cardSubtitle")}
+                      </Alert>
                     </div>
                   </div>
                   <div className={classes.CardRight}>
