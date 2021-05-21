@@ -148,6 +148,7 @@ const RegisterTenantPM = ({ t }) => {
             rentalAddress: responseDataAfter.property.rentalAddress,
             tenantsName: responseDataAfter.tenant.tenantsName,
             pmAnex: responseDataAfter.pmAnex,
+            rentStartDate: responseDataAfter.rentStartDate.slice(0, 10),
             tenancyID: tenancyID,
           });
         } else {
@@ -156,6 +157,7 @@ const RegisterTenantPM = ({ t }) => {
             rentalAddress: responseDataAfter.property.rentalAddress,
             tenantsName: responseDataAfter.tenant.tenantsName,
             pmAnex: responseDataAfter.pmAnex,
+            rentStartDate: responseDataAfter.rentStartDate.slice(0, 10),
             tenancyID: tenancyID,
           });
         }

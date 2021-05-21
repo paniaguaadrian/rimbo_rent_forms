@@ -1286,8 +1286,14 @@ const sendRJ15EmailsPM = async (req, res) => {
 
 // ! RJS Form => RJ18 Email
 const sendRJSFormEmail = async (req, res) => {
-  const { agencyName, rentalAddress, tenantsName, pmAnex, tenancyID } =
-    req.body;
+  const {
+    agencyName,
+    rentalAddress,
+    tenantsName,
+    pmAnex,
+    rentStartDate,
+    tenancyID,
+  } = req.body;
 
   const transporterRJS = nodemailer.createTransport(
     sgTransport({
@@ -1325,6 +1331,7 @@ const sendRJSFormEmail = async (req, res) => {
       agencyName,
       rentalAddress,
       tenantsName,
+      rentStartDate,
       pmAnex,
       tenancyID,
     },
